@@ -1,5 +1,7 @@
 # Oberoende Digital / Independent Digital
 
+Oberoende Digital is building the world’s first Safe Autonomous Party Lab.
+
 Safe Autonomous Party Lab for AI-assisted democratic deliberation, policy formation, transparency, and research.
 
 This repository is the technical and governance workspace for the Oberoende Digital web platform.
