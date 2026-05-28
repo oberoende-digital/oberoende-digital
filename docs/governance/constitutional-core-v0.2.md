@@ -73,3 +73,34 @@ The AI Constitution regulates the relationship between OD's AI systems, human me
 - Research use requires informed consent, clear publication rules, retention limits and withdrawal rights.
 - An accountability matrix must specify who is responsible for AI publications, incorrect responses, incidents, technical changes, legal assessments and external communication.
 
+## 7. Financing and economic transparency
+
+OD accepts only financing that can be disclosed openly and audited. The principle is stricter than minimum legal compliance: publish what trust requires.
+
+| Form | Status | Principle |
+| --- | --- | --- |
+| Fiat: Swish, card, bank transfer | Open | Identification and reporting in accordance with law and OD's higher transparency requirements. |
+| Bitcoin / crypto | Restricted | Requires full donor identification, source verification and manual compliance review. |
+| Computing power / GPU time | Restricted | In-kind donation valued at market price and tied to an identified donor. |
+| API tokens | Restricted | In-kind donation that is valued, documented and reviewed. |
+
+## 8. Risk controls and countermeasures
+
+| Risk | Countermeasure |
+| --- | --- |
+| EU AI Act uncertainty | Compliance roadmap, legal review and compliance by design. |
+| GDPR risk | Data protection analysis, minimization and opt-in for AI training. |
+| Manipulation attacks | Identity protection, operator registration, red-teaming and incident plan. |
+| Model hallucination | Source requirements, retrieval, human review and public correction log. |
+| Foreign or anonymous financing | No anonymous contributions, KYC and manual review of crypto and in-kind donations. |
+| Unclear division of responsibility | Accountability matrix, authorized signatories, escalation rules and publication policy. |
+
+## 9. Reference frameworks
+
+- EU AI Act Art. 8–15 — risk management, documentation, transparency, human oversight, robustness and cybersecurity.
+- NIST AI RMF — framework for AI risk management and governance.
+- OECD AI Principles — international principles for responsible AI.
+- New Zealand Living Standards Framework — well-being as a national governance metric.
+- Bhutan Gross National Happiness — alternative societal metric to GDP.
+- Center for AI Safety — AI safety philosophy and governance principles.
+- Valmyndigheten — formal democratic and party-process reference.

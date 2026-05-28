@@ -1,160 +1,1035 @@
-<!doctype html>
-<html lang="en">
+<!DOCTYPE html>
+<html lang="sv">
 <head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Oberoende Digital — Safe Autonomous Party Lab</title>
-  <meta name="description" content="Oberoende Digital is a Safe Autonomous Party Lab: a public test environment for AI-assisted democratic deliberation, policy formation, auditability and institutional learning.">
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Source+Serif+4:ital,opsz,wght@0,8..60,400;0,8..60,700;1,8..60,400&family=Inter:wght@400;600;700;800;900&display=swap" rel="stylesheet">
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Oberoende Digital — The world’s first Safe Autonomous Party</title>
+  <meta name="description" content="Oberoende Digital is taking the first steps toward AI-assisted political parties: a Safe Autonomous Party Lab with human legitimacy, evidence and transparent AI governance."/>
+  <link rel="preconnect" href="https://fonts.googleapis.com"/>
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+  <link href="https://fonts.googleapis.com/css2?family=Source+Serif+4:ital,opsz,wght@0,8..60,400;0,8..60,600;0,8..60,700;1,8..60,400&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet"/>
   <style>
-:root{--navy:#132845;--navy-dark:#0d1e35;--stone:#F7F4ED;--stone-mid:#EDE9E0;--dim:#D9D7D1;--forest:#31584D;--sky:#21B6F5;--leaf:#37C96B;--sun:#F2C318;--ember:#F39A1E;--text:#1a2e45;--muted:#5b6775}*{box-sizing:border-box}html{scroll-behavior:smooth}body{margin:0;background:var(--stone);color:var(--text);font-family:Inter,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;line-height:1.65}.serif,h1,h2{font-family:"Source Serif 4",Georgia,serif}a{color:inherit}.wrap{max-width:1120px;margin:0 auto;padding:0 24px}.top{position:fixed;z-index:10;top:0;left:0;right:0;background:rgba(247,244,237,.94);backdrop-filter:blur(14px);border-bottom:1px solid var(--dim)}.nav{height:64px;display:flex;align-items:center;justify-content:space-between;gap:18px}.brand{display:flex;align-items:center;gap:10px;text-decoration:none;font-weight:800;color:var(--navy)}.brand img{width:30px;height:30px;image-rendering:pixelated}.links{display:flex;align-items:center;gap:20px;font-size:14px}.links a{text-decoration:none;color:var(--muted);font-weight:600}.links a:hover{color:var(--navy)}.lang{display:flex;gap:6px}.lang button{border:1px solid var(--dim);background:#fff;border-radius:999px;padding:6px 9px;cursor:pointer;font-weight:700;color:var(--navy)}.lang button.active{background:var(--navy);color:var(--stone);border-color:var(--navy)}.hero{background:radial-gradient(circle at 80% 20%,rgba(33,182,245,.16),transparent 32%),var(--navy);color:var(--stone);padding:132px 0 76px}.hero-grid{display:grid;grid-template-columns:1.15fr .85fr;gap:56px;align-items:center}.eyebrow{display:block;text-transform:uppercase;letter-spacing:.15em;font-size:12px;font-weight:800;color:rgba(247,244,237,.55);margin-bottom:16px}.hero h1{font-size:clamp(42px,6vw,72px);line-height:1.02;letter-spacing:-.04em;margin:0 0 22px}.hero p{font-size:19px;color:rgba(247,244,237,.73);max-width:690px;margin:0 0 30px}.hero-logo{display:flex;justify-content:center}.hero-logo img{width:min(320px,70vw);image-rendering:pixelated}.ctas{display:flex;flex-wrap:wrap;gap:12px}.btn{display:inline-block;text-decoration:none;border-radius:6px;padding:12px 18px;font-weight:800;font-size:14px}.btn.primary{background:var(--stone);color:var(--navy)}.btn.dark{background:var(--navy);color:var(--stone)}.btn.line{border:1.5px solid rgba(247,244,237,.42);color:var(--stone)}.btn.outline{border:1.5px solid var(--navy);color:var(--navy)}.stats{display:grid;grid-template-columns:repeat(3,1fr);border-top:1px solid rgba(247,244,237,.13);margin-top:38px;padding-top:24px;gap:22px}.stat strong{display:block;font-size:24px}.stat span{font-size:13px;color:rgba(247,244,237,.45)}section{padding:72px 0}.split{display:grid;grid-template-columns:.9fr 1.1fr;gap:54px;align-items:start}.kicker{text-transform:uppercase;letter-spacing:.14em;font-size:12px;font-weight:900;color:#7a8796}.display{font-size:clamp(31px,4vw,48px);line-height:1.08;letter-spacing:-.03em;color:var(--navy);margin:10px 0 18px}.lead{font-size:18px;color:var(--muted);max-width:700px}.band{display:grid;grid-template-columns:repeat(5,1fr)}.band div{padding:20px 22px;font-weight:900;color:rgba(0,0,0,.72)}.band small{display:block;text-transform:uppercase;font-size:11px;letter-spacing:.12em;color:rgba(0,0,0,.42)}.cards{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-top:32px}.card{background:#fff;border:1px solid var(--dim);border-radius:10px;padding:24px}.card h3{margin:0 0 8px;color:var(--navy);font-size:19px}.card p{margin:0;color:var(--muted);font-size:15px}.layers{background:#fff}.layer-grid{display:grid;gap:14px;margin-top:34px}.layer{display:grid;grid-template-columns:84px 1fr 1.1fr;gap:24px;padding:24px;border:1px solid var(--dim);border-radius:12px;background:linear-gradient(90deg,#fff,var(--stone))}.num{font-family:"Source Serif 4",Georgia,serif;font-size:42px;font-weight:900;color:var(--navy)}.layer h3{margin:0 0 6px;color:var(--navy)}.layer p,.layer li{color:var(--muted);font-size:15px}.layer ul{margin:0;padding-left:18px}.constitution{background:var(--forest);color:var(--stone)}.constitution .display{color:var(--stone)}.constitution .lead{color:rgba(247,244,237,.72)}.rules{display:grid;grid-template-columns:1fr 1fr;gap:18px;margin-top:32px}.rulebox{background:rgba(247,244,237,.08);border:1px solid rgba(247,244,237,.15);border-radius:10px;padding:24px}.rulebox h3{margin-top:0}.rulebox li{margin:8px 0;color:rgba(247,244,237,.74)}.process{background:var(--stone-mid)}.steps{display:grid;grid-template-columns:repeat(5,1fr);gap:12px;margin-top:30px}.step{background:#fff;border:1px solid var(--dim);border-radius:10px;padding:18px}.step b{display:block;color:var(--navy);margin-bottom:7px}.research-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin-top:30px}.quote{background:var(--navy);color:var(--stone);border-radius:12px;padding:34px;margin-top:30px}.quote p{font-size:22px;font-family:"Source Serif 4",Georgia,serif;color:rgba(247,244,237,.82);margin:0}.footer{background:var(--navy);color:rgba(247,244,237,.55);padding:46px 0}.footer a{color:rgba(247,244,237,.8);text-decoration:none}.footer-grid{display:flex;justify-content:space-between;gap:24px;flex-wrap:wrap}.hidden-lang{display:none!important}@media(max-width:850px){.links a{display:none}.hero-grid,.split{grid-template-columns:1fr}.cards,.rules,.research-grid{grid-template-columns:1fr}.steps{grid-template-columns:1fr}.layer{grid-template-columns:1fr}.band{grid-template-columns:1fr 1fr}.stats{grid-template-columns:1fr}.hero{padding-top:108px}}</style>
+    /* ── BRAND TOKENS ── */
+    :root {
+      --navy:        #132845;
+      --navy-dark:   #0d1e35;
+      --stone:       #F7F4ED;
+      --stone-mid:   #EDE9E0;
+      --dim:         #D9D7D1;
+      --forest:      #31584D;
+      --sky:         #21B6F5;
+      --leaf:        #37C96B;
+      --sun:         #F2C318;
+      --ember:       #F39A1E;
+      --core:        #F2F4EF;
+      --text:        #1a2e45;
+      --text-mid:    #4a5568;
+      --text-light:  #7a8a9a;
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+
+    body {
+      background: var(--stone);
+      color: var(--text);
+      font-family: 'Inter', system-ui, sans-serif;
+      font-size: 16px;
+      line-height: 1.65;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    .serif { font-family: 'Source Serif 4', Georgia, serif; }
+
+    /* ── LAYOUT ── */
+    .container { max-width: 1060px; margin: 0 auto; padding: 0 2rem; }
+    .section   { padding: 5rem 0; }
+
+    /* ── EYEBROW ── */
+    .eyebrow {
+      font-size: 0.68rem; font-weight: 700; letter-spacing: 0.16em;
+      text-transform: uppercase; color: var(--text-light);
+      display: block; margin-bottom: 1rem;
+    }
+
+    /* ── HEADINGS ── */
+    h2.display {
+      font-family: 'Source Serif 4', Georgia, serif;
+      font-size: clamp(2rem, 3.8vw, 3rem);
+      font-weight: 700; line-height: 1.12; letter-spacing: -0.02em;
+      color: var(--navy); margin-bottom: 1.25rem;
+    }
+    h2.display.light { color: var(--stone); }
+
+    .lead {
+      font-size: 1.05rem; color: var(--text-mid);
+      line-height: 1.8; max-width: 600px;
+    }
+    .lead.light { color: rgba(247,244,237,0.7); }
+
+    /* ── RULE LINE ── */
+    .rule { height: 1px; background: var(--dim); border: none; }
+
+    /* ── BUTTONS ── */
+    .btn {
+      display: inline-block; text-decoration: none; cursor: pointer; border: none;
+      font-family: 'Inter', sans-serif; font-weight: 600;
+      border-radius: 4px; transition: all 0.18s; letter-spacing: 0.01em;
+      font-size: 0.9rem;
+    }
+    .btn-primary {
+      background: var(--navy); color: var(--stone);
+      padding: 0.75rem 1.75rem;
+    }
+    .btn-primary:hover { background: var(--navy-dark); }
+    .btn-outline {
+      background: transparent; color: var(--navy);
+      border: 1.5px solid var(--navy);
+      padding: 0.7rem 1.65rem;
+    }
+    .btn-outline:hover { background: var(--navy); color: var(--stone); }
+    .btn-outline-light {
+      background: transparent; color: var(--stone);
+      border: 1.5px solid rgba(247,244,237,0.35);
+      padding: 0.7rem 1.65rem;
+    }
+    .btn-outline-light:hover { border-color: var(--stone); }
+    .btn-forest {
+      background: var(--forest); color: var(--stone);
+      padding: 0.75rem 1.75rem;
+    }
+    .btn-forest:hover { background: #264840; }
+
+    /* ══════════════════════════════════
+       NAV
+    ══════════════════════════════════ */
+    nav {
+      position: fixed; top: 0; width: 100%; z-index: 200;
+      background: rgba(247,244,237,0.95);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--dim);
+    }
+    .nav-inner {
+      max-width: 1060px; margin: 0 auto; padding: 0 2rem;
+      height: 60px; display: flex; align-items: center; justify-content: space-between;
+    }
+    .nav-brand { display: flex; align-items: center; gap: 0.6rem; text-decoration: none; }
+    .nav-lily   { width: 28px; height: 28px; object-fit: contain; image-rendering: pixelated; }
+    .nav-name   { font-size: 0.9rem; font-weight: 700; color: var(--navy); letter-spacing: -0.01em; }
+    .nav-links  { display: flex; gap: 1.75rem; align-items: center; }
+    .nav-links a {
+      color: var(--text-mid); font-size: 0.85rem; font-weight: 500;
+      text-decoration: none; transition: color 0.2s;
+    }
+    .nav-links a:hover { color: var(--navy); }
+    @media (max-width: 720px) { .nav-links { display: none; } }
+
+    /* ══════════════════════════════════
+       HERO — Navy
+    ══════════════════════════════════ */
+    .hero {
+      background: var(--navy);
+      padding: 9rem 2rem 6rem;
+      position: relative; overflow: hidden;
+    }
+    .hero-grid {
+      max-width: 1060px; margin: 0 auto;
+      display: grid; grid-template-columns: 1fr 1fr; gap: 5rem; align-items: center;
+    }
+    .hero-pre {
+      font-size: 0.68rem; font-weight: 700; letter-spacing: 0.16em;
+      text-transform: uppercase; color: rgba(247,244,237,0.45);
+      margin-bottom: 1.25rem; display: flex; align-items: center; gap: 0.5rem;
+    }
+    .hero-pre::before {
+      content: ''; width: 20px; height: 1px; background: rgba(247,244,237,0.3);
+    }
+    .hero h1 {
+      font-family: 'Source Serif 4', Georgia, serif;
+      font-size: clamp(2.6rem, 5vw, 4rem);
+      font-weight: 700; line-height: 1.07; letter-spacing: -0.025em;
+      color: var(--stone); margin-bottom: 1.5rem;
+    }
+    .hero h1 em { font-style: italic; color: rgba(247,244,237,0.55); }
+    .hero-sub {
+      font-size: 1.05rem; color: rgba(247,244,237,0.6);
+      line-height: 1.8; margin-bottom: 2.5rem; max-width: 480px;
+    }
+    .hero-ctas { display: flex; gap: 0.85rem; flex-wrap: wrap; }
+    .hero-meta {
+      margin-top: 3rem; padding-top: 2rem;
+      border-top: 1px solid rgba(247,244,237,0.1);
+      display: flex; gap: 2.5rem; flex-wrap: wrap;
+    }
+    .hero-stat-val {
+      font-size: 1.5rem; font-weight: 700; color: var(--stone); letter-spacing: -0.02em;
+    }
+    .hero-stat-label { font-size: 0.75rem; color: rgba(247,244,237,0.35); margin-top: 0.1rem; }
+
+    .hero-logo-wrap {
+      display: flex; align-items: center; justify-content: center;
+    }
+    .hero-logo {
+      width: 300px; height: 300px; object-fit: contain;
+      image-rendering: pixelated;
+    }
+
+    @media (max-width: 800px) {
+      .hero-grid { grid-template-columns: 1fr; gap: 3rem; }
+      .hero-logo { width: 200px; height: 200px; }
+    }
+
+    /* ══════════════════════════════════
+       SPECTRUM BAND
+    ══════════════════════════════════ */
+    .spectrum {
+      display: grid; grid-template-columns: repeat(4, 1fr);
+    }
+    .spec-cell {
+      padding: 1.5rem 2rem;
+      display: flex; flex-direction: column; gap: 0.4rem;
+    }
+    .spec-cell.sky    { background: var(--sky); }
+    .spec-cell.leaf   { background: var(--leaf); }
+    .spec-cell.sun    { background: var(--sun); }
+    .spec-cell.ember  { background: var(--ember); }
+    .spec-label {
+      font-size: 0.68rem; font-weight: 700; letter-spacing: 0.12em;
+      text-transform: uppercase; color: rgba(0,0,0,0.45);
+    }
+    .spec-title {
+      font-family: 'Source Serif 4', Georgia, serif;
+      font-size: 1rem; font-weight: 600; color: rgba(0,0,0,0.75);
+    }
+    @media (max-width: 640px) {
+      .spectrum { grid-template-columns: repeat(2, 1fr); }
+    }
+
+    /* ══════════════════════════════════
+       INTRO SECTION
+    ══════════════════════════════════ */
+    .intro { padding: 5rem 0; }
+    .intro-grid {
+      display: grid; grid-template-columns: 1fr 1fr; gap: 5rem; align-items: start;
+    }
+    .intro-pull {
+      font-family: 'Source Serif 4', Georgia, serif;
+      font-size: 1.4rem; line-height: 1.55; color: var(--navy);
+      font-weight: 400; border-left: 3px solid var(--navy);
+      padding-left: 1.5rem; margin-top: 2rem;
+    }
+    @media (max-width: 800px) { .intro-grid { grid-template-columns: 1fr; gap: 2.5rem; } }
+
+    /* ══════════════════════════════════
+       THREE PILLARS
+    ══════════════════════════════════ */
+    .pillars-grid {
+      display: grid; grid-template-columns: repeat(3, 1fr);
+      gap: 0; margin-top: 3.5rem;
+      border: 1px solid var(--dim); border-radius: 6px; overflow: hidden;
+    }
+    .pillar {
+      padding: 2.25rem 2rem; border-right: 1px solid var(--dim);
+      background: white;
+    }
+    .pillar:last-child { border-right: none; }
+    .pillar-marker {
+      width: 32px; height: 3px; border-radius: 2px; margin-bottom: 1.25rem;
+    }
+    .pillar h3 {
+      font-family: 'Source Serif 4', Georgia, serif;
+      font-size: 1.1rem; font-weight: 600; color: var(--navy); margin-bottom: 0.65rem;
+    }
+    .pillar p { font-size: 0.88rem; color: var(--text-mid); line-height: 1.7; }
+    @media (max-width: 700px) {
+      .pillars-grid { grid-template-columns: 1fr; }
+      .pillar { border-right: none; border-bottom: 1px solid var(--dim); }
+      .pillar:last-child { border-bottom: none; }
+    }
+
+    /* ══════════════════════════════════
+       AI-KONSTITUTIONEN — Forest
+    ══════════════════════════════════ */
+    .konstitution { background: var(--forest); padding: 5rem 0; }
+    .konst-grid {
+      display: grid; grid-template-columns: 1fr 1fr; gap: 5rem; align-items: start;
+    }
+    .konst-list { margin-top: 2rem; display: grid; gap: 0; }
+    .konst-item {
+      padding: 1.25rem 0; border-bottom: 1px solid rgba(247,244,237,0.12);
+      display: flex; gap: 1rem; align-items: flex-start;
+    }
+    .konst-item:last-child { border-bottom: none; }
+    .konst-bullet {
+      width: 6px; height: 6px; border-radius: 50%;
+      background: rgba(247,244,237,0.4); flex-shrink: 0; margin-top: 0.55rem;
+    }
+    .konst-item p { font-size: 0.9rem; color: rgba(247,244,237,0.7); line-height: 1.65; }
+    .konst-item strong { color: rgba(247,244,237,0.95); }
+
+    .konst-box {
+      background: rgba(247,244,237,0.07); border: 1px solid rgba(247,244,237,0.12);
+      border-radius: 6px; padding: 2rem; margin-top: 2rem;
+    }
+    .konst-box h4 {
+      font-size: 0.7rem; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase;
+      color: rgba(247,244,237,0.4); margin-bottom: 1rem;
+    }
+    .konst-box ul { list-style: none; }
+    .konst-box ul li {
+      font-size: 0.88rem; color: rgba(247,244,237,0.65);
+      padding: 0.4rem 0; border-bottom: 1px solid rgba(247,244,237,0.07);
+      display: flex; gap: 0.75rem;
+    }
+    .konst-box ul li:last-child { border-bottom: none; }
+    .konst-box ul li::before { content: '×'; color: rgba(247,244,237,0.25); }
+
+    @media (max-width: 800px) { .konst-grid { grid-template-columns: 1fr; gap: 2.5rem; } }
+
+    /* ══════════════════════════════════
+       DEMOKRATIMODELL
+    ═════════════════════════════════�� */
+    .process { padding: 5rem 0; background: white; }
+    .steps { margin-top: 3rem; }
+    .step {
+      display: flex; gap: 2rem; align-items: flex-start;
+      padding: 1.75rem 0; border-bottom: 1px solid var(--dim);
+    }
+    .step:last-child { border-bottom: none; }
+    .step-num {
+      font-family: 'Source Serif 4', Georgia, serif;
+      font-size: 1.5rem; font-weight: 700; color: var(--dim);
+      flex-shrink: 0; width: 40px; padding-top: 0.1rem; line-height: 1;
+    }
+    .step-body h3 {
+      font-size: 0.95rem; font-weight: 700; color: var(--navy); margin-bottom: 0.35rem;
+    }
+    .step-body p { font-size: 0.88rem; color: var(--text-mid); line-height: 1.65; }
+
+    /* ══════════════════════════════════
+       FOKUSOMRADEN — Color coded
+    ══════════════════════════════════ */
+    .focus-grid {
+      display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      gap: 1.25rem; margin-top: 3rem;
+    }
+    .focus-card {
+      border: 1px solid var(--dim); border-radius: 6px; padding: 1.75rem;
+      background: white; transition: border-color 0.2s;
+    }
+    .focus-card:hover { border-color: var(--navy); }
+    .focus-tag {
+      font-size: 0.65rem; font-weight: 700; letter-spacing: 0.12em;
+      text-transform: uppercase; margin-bottom: 0.85rem; display: inline-block;
+      padding: 0.25rem 0.65rem; border-radius: 2px;
+    }
+    .tag-sky   { background: rgba(33,182,245,0.1); color: #0a7ab0; }
+    .tag-leaf  { background: rgba(55,201,107,0.12); color: #1a7d45; }
+    .tag-sun   { background: rgba(242,195,24,0.15); color: #8a6a00; }
+    .tag-ember { background: rgba(243,154,30,0.12); color: #a05a00; }
+    .focus-card h3 {
+      font-family: 'Source Serif 4', Georgia, serif;
+      font-size: 1rem; font-weight: 600; color: var(--navy); margin-bottom: 0.5rem;
+    }
+    .focus-card p { font-size: 0.86rem; color: var(--text-mid); line-height: 1.65; }
+
+    /* ══════════════════════════════════
+       ITERATIV AUTONOMI
+    ══════════════════════════════════ */
+    .autonomi { background: var(--stone-mid); padding: 5rem 0; }
+    .phase-grid {
+      display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.25rem; margin-top: 3rem;
+    }
+    .phase {
+      background: white; border: 1px solid var(--dim); border-radius: 6px; padding: 1.75rem;
+    }
+    .phase-year {
+      font-size: 0.7rem; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase;
+      color: var(--text-light); margin-bottom: 0.85rem;
+    }
+    .phase h3 {
+      font-family: 'Source Serif 4', Georgia, serif;
+      font-size: 1rem; font-weight: 600; color: var(--navy); margin-bottom: 0.5rem;
+    }
+    .phase p { font-size: 0.86rem; color: var(--text-mid); line-height: 1.65; }
+    .phase-dot {
+      width: 8px; height: 8px; border-radius: 50%; margin-bottom: 1rem;
+    }
+    @media (max-width: 700px) { .phase-grid { grid-template-columns: 1fr; } }
+
+    /* ══════════════════════════════════
+       MEMBERSHIP
+    ══════════════════════════════════ */
+    .tiers-grid {
+      display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.25rem; margin-top: 3rem;
+    }
+    .tier {
+      border: 1px solid var(--dim); border-radius: 6px; padding: 2rem;
+      background: white; position: relative;
+    }
+    .tier-featured { border-color: var(--navy); }
+    .tier-badge {
+      position: absolute; top: -11px; left: 1.75rem;
+      background: var(--navy); color: var(--stone);
+      font-size: 0.65rem; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase;
+      padding: 0.25rem 0.75rem; border-radius: 2px;
+    }
+    .tier-label {
+      font-size: 0.68rem; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase;
+      color: var(--text-light); margin-bottom: 0.6rem;
+    }
+    .tier h3 {
+      font-family: 'Source Serif 4', Georgia, serif;
+      font-size: 1.1rem; font-weight: 600; color: var(--navy); margin-bottom: 1.25rem;
+    }
+    .tier ul { list-style: none; }
+    .tier ul li {
+      font-size: 0.86rem; color: var(--text-mid); padding: 0.35rem 0;
+      border-bottom: 1px solid var(--dim); display: flex; gap: 0.6rem;
+    }
+    .tier ul li:last-child { border-bottom: none; }
+    .tier ul li::before { content: '—'; color: var(--dim); flex-shrink: 0; }
+    @media (max-width: 700px) { .tiers-grid { grid-template-columns: 1fr; } }
+
+    /* ══════════════════════════════════
+       QUOTE BLOCK
+    ══════════════════════════════════ */
+    .quote-block {
+      background: var(--navy); border-radius: 6px; padding: 3rem;
+      margin-top: 3rem;
+    }
+    .quote-block blockquote {
+      font-family: 'Source Serif 4', Georgia, serif;
+      font-size: 1.2rem; line-height: 1.7; color: rgba(247,244,237,0.75);
+      font-style: italic;
+    }
+    .quote-block blockquote strong { color: var(--stone); font-style: normal; }
+    .quote-source {
+      font-size: 0.78rem; color: rgba(247,244,237,0.35); margin-top: 1.25rem;
+      font-style: normal;
+    }
+
+    /* ══════════════════════════════════
+       SIGNUP
+    ══════════════════════════════════ */
+    .signup { background: white; padding: 5rem 0; }
+    .signup-box {
+      max-width: 580px; margin: 0 auto; text-align: center;
+    }
+    .signup-box h2 {
+      font-family: 'Source Serif 4', Georgia, serif;
+      font-size: 1.9rem; font-weight: 700; color: var(--navy); margin-bottom: 0.75rem;
+    }
+    .signup-box p { color: var(--text-mid); margin-bottom: 2rem; }
+    .signup-form { display: flex; gap: 0.65rem; }
+    .signup-form input {
+      flex: 1; padding: 0.7rem 1rem;
+      border: 1.5px solid var(--dim); border-radius: 4px; font-size: 0.9rem;
+      font-family: 'Inter', sans-serif; color: var(--text); background: var(--stone);
+      outline: none; transition: border-color 0.2s;
+    }
+    .signup-form input:focus { border-color: var(--navy); }
+    .signup-form input::placeholder { color: var(--text-light); }
+    .signup-privacy { font-size: 0.76rem; color: var(--text-light); margin-top: 0.85rem; }
+    @media (max-width: 560px) { .signup-form { flex-direction: column; } }
+
+    /* ══════════════════════════════════
+       DONERA
+    ══════════════════════════════════ */
+    .donate-grid {
+      display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 1.25rem; margin-top: 3rem;
+    }
+    .donate-card {
+      border: 1px solid var(--dim); border-radius: 6px; padding: 1.75rem;
+      background: white; transition: border-color 0.2s;
+    }
+    .donate-card:hover { border-color: var(--navy); }
+    .donate-head {
+      font-size: 0.68rem; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase;
+      color: var(--text-light); margin-bottom: 0.65rem;
+    }
+    .donate-card h4 {
+      font-size: 1rem; font-weight: 600; color: var(--navy); margin-bottom: 0.5rem;
+    }
+    .donate-card p { font-size: 0.86rem; color: var(--text-mid); line-height: 1.6; }
+    .donate-legal {
+      margin-top: 2rem; padding: 1.25rem 1.5rem;
+      background: var(--stone-mid); border-radius: 4px; border-left: 3px solid var(--dim);
+      font-size: 0.8rem; color: var(--text-mid); line-height: 1.65;
+    }
+
+    /* ══════════��═══════════════════════
+       FOOTER
+    ══════════════════════════════════ */
+    footer {
+      background: var(--navy); border-top: 1px solid rgba(247,244,237,0.08);
+      padding: 4rem 0 2rem;
+    }
+    .footer-top {
+      display: flex; justify-content: space-between; gap: 2rem; flex-wrap: wrap;
+      padding-bottom: 2.5rem; border-bottom: 1px solid rgba(247,244,237,0.08);
+    }
+    .footer-brand { max-width: 280px; }
+    .footer-logo  { display: flex; align-items: center; gap: 0.6rem; margin-bottom: 0.85rem; }
+    .footer-lily  { width: 28px; height: 28px; object-fit: contain; image-rendering: pixelated; }
+    .footer-name  { font-size: 0.9rem; font-weight: 700; color: var(--stone); }
+    .footer-tagline { font-size: 0.83rem; color: rgba(247,244,237,0.4); line-height: 1.65; }
+    .footer-col h4 {
+      font-size: 0.65rem; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase;
+      color: rgba(247,244,237,0.28); margin-bottom: 1rem;
+    }
+    .footer-col ul { list-style: none; }
+    .footer-col ul li { margin-bottom: 0.5rem; }
+    .footer-col ul li a {
+      color: rgba(247,244,237,0.45); text-decoration: none;
+      font-size: 0.85rem; transition: color 0.2s;
+    }
+    .footer-col ul li a:hover { color: var(--stone); }
+    .footer-bottom {
+      padding-top: 1.5rem; display: flex; justify-content: space-between;
+      flex-wrap: wrap; gap: 0.75rem;
+      font-size: 0.76rem; color: rgba(247,244,237,0.22);
+    }
+    .footer-bottom a { color: rgba(247,244,237,0.3); text-decoration: none; }
+    .footer-bottom a:hover { color: var(--stone); }
+
+    /* ══════════════════════════════════
+       MISC
+    ══════════════════════════════════ */
+    .text-center { text-align: center; }
+
+    .lang-switch { display:flex; gap:0.35rem; align-items:center; }
+    .lang-switch button { border:1px solid var(--dim); background:white; color:var(--navy); border-radius:999px; padding:0.3rem 0.55rem; font-size:0.75rem; font-weight:700; cursor:pointer; }
+    .lang-switch button.active { background:var(--navy); color:var(--stone); border-color:var(--navy); }
+    .hidden-lang { display:none !important; }
+    .layer-stack { display:grid; gap:1rem; margin-top:3rem; }
+    .layer-card { display:grid; grid-template-columns:72px 1fr; gap:1.25rem; background:white; border:1px solid var(--dim); border-radius:6px; padding:1.4rem; }
+    .layer-num { font-family:'Source Serif 4', Georgia, serif; font-size:2.2rem; font-weight:700; color:var(--navy); line-height:1; }
+    .layer-card h3 { font-family:'Source Serif 4', Georgia, serif; color:var(--navy); margin-bottom:0.35rem; }
+    .layer-card p { color:var(--text-mid); font-size:0.9rem; }
+    .proposal-box { background:var(--navy); color:var(--stone); border-radius:6px; padding:2rem; margin-top:2rem; }
+    .proposal-box p { color:rgba(247,244,237,0.72); }
+    @media (max-width:720px){ .lang-switch{margin-left:auto}.layer-card{grid-template-columns:1fr}.nav-links{display:flex;gap:.7rem}.nav-links a:not(.btn){display:none} }
+    .mt-4 { margin-top: 1rem; }
+    .mt-8 { margin-top: 2rem; }
+  </style>
 </head>
 <body>
-<header class="top">
-  <div class="wrap nav">
-    <a class="brand" href="/"><img src="/od.png" alt=""><span>Oberoende Digital</span></a>
-    <nav class="links">
-      <a href="#layers"><span data-lang="en">Five layers</span><span data-lang="sv">Fem lager</span></a>
-      <a href="/constitutional-core/"><span data-lang="en">Constitutional core</span><span data-lang="sv">Konstitutionell kärna</span></a>
-      <a href="#research"><span data-lang="en">Research</span><span data-lang="sv">Forskning</span></a>
-      <a href="https://github.com/oberoende-digital/oberoende-digital">GitHub</a>
-    </nav>
-    <div class="lang" aria-label="Language">
-      <button data-set-lang="en" onclick="odSetLang('en')" title="English">🇬🇧 EN</button>
-      <button data-set-lang="sv" onclick="odSetLang('sv')" title="Svenska">🇸🇪 SV</button>
+
+<!-- ═══ NAV ═══ -->
+<nav>
+  <div class="nav-inner">
+    <a class="nav-brand" href="#">
+      <img src="od.png" class="nav-lily" alt="OD"/>
+      <span class="nav-name">Oberoende Digital</span>
+    </a>
+    <div class="nav-links">
+      <a href="#vardegrund"><span data-lang="sv">Värdegrund</span><span data-lang="en">Values</span></a>
+      <a href="#layers"><span data-lang="sv">Fem lager</span><span data-lang="en">Five layers</span></a>
+      <a href="/constitutional-core/"><span data-lang="sv">Konstitutionell kärna</span><span data-lang="en">Constitutional core</span></a>
+      <a href="#med"><span data-lang="sv">Delta</span><span data-lang="en">Contribute</span></a>
+      <a href="https://github.com/oberoende-digital/oberoende-digital" target="_blank" rel="noopener">GitHub</a>
+      <a href="http://127.0.0.1:8787" class="btn btn-primary" style="padding:0.4rem 1rem;font-size:0.82rem;"><span data-lang="sv">Logga in</span><span data-lang="en">Log in</span></a>
+      <span class="lang-switch"><button type="button" data-set-lang="en" onclick="odSetLang('en')">🇬🇧 EN</button><button type="button" data-set-lang="sv" onclick="odSetLang('sv')">🇸🇪 SV</button></span>
     </div>
   </div>
-</header>
+</nav>
 
-<main>
+<!-- ═══ HERO ═══ -->
 <section class="hero">
-  <div class="wrap hero-grid">
+  <div class="hero-grid">
     <div>
-      <span class="eyebrow" data-lang="en">Safe Autonomous Party Lab</span>
-      <span class="eyebrow" data-lang="sv">Safe Autonomous Party Lab</span>
-      <h1 data-lang="en">The world's first safe autonomous party lab.</h1>
-      <h1 data-lang="sv">Världens första säkra autonoma partilabb.</h1>
-      <p data-lang="en">Oberoende Digital is a public test environment for AI-assisted democratic work: deliberation, evidence, policy drafting, transparency and research — with human legitimacy at the core.</p>
-      <p data-lang="sv">Oberoende Digital är en publik testmiljö för AI-assisterat demokratiskt arbete: deliberation, evidens, policyutkast, transparens och forskning — med mänsklig legitimitet i kärnan.</p>
-      <div class="ctas">
-        <a class="btn primary" href="#layers"><span data-lang="en">Explore the five layers</span><span data-lang="sv">Utforska de fem lagren</span></a>
-        <a class="btn line" href="/constitutional-core/"><span data-lang="en">Read the constitutional core</span><span data-lang="sv">Läs den konstitutionella kärnan</span></a>
+      <div class="hero-pre"><span data-lang="en">Safe Autonomous Party · first steps toward AI-assisted political parties</span><span data-lang="sv">Safe Autonomous Party · första stegen mot AI-assisterade politiska partier</span></div>
+      <h1><span data-lang="en">The world’s first Safe Autonomous Party.</span><span data-lang="sv">Världens första Safe Autonomous Party.</span></h1>
+      <p class="hero-sub">
+        <span data-lang="en">Oberoende Digital is taking the first steps toward AI-assisted political parties: a public test environment where AI agents help humans understand evidence, shape policy and scrutinize power — without replacing human democratic legitimacy.</span><span data-lang="sv">Oberoende Digital tar de första stegen mot AI-assisterade politiska partier: en offentlig testmiljö där AI-agenter hjälper människor att förstå evidens, utforma politik och granska makt — utan att ersätta mänsklig demokratisk legitimitet.</span>
+      </p>
+      <div class="hero-ctas">
+        <a href="http://127.0.0.1:8787" class="btn btn-primary"><span data-lang="en">Submit a proposal</span><span data-lang="sv">Skicka in ett förslag</span></a>
+        <a href="/constitutional-core/" class="btn btn-outline-light"><span data-lang="en">Read constitutional core</span><span data-lang="sv">Läs konstitutionell kärna</span></a>
+        <a href="https://github.com/oberoende-digital/oberoende-digital" target="_blank" rel="noopener" class="btn btn-outline-light">GitHub ↗</a>
       </div>
-      <div class="stats">
-        <div class="stat"><strong>AI</strong><span data-lang="en">analyzes, summarizes, drafts, audits</span><span data-lang="sv">analyserar, sammanfattar, skriver utkast, granskar</span></div>
-        <div class="stat"><strong>Humans</strong><span data-lang="en">ratify, take responsibility, can stop the system</span><span data-lang="sv">ratificerar, ansvarar, kan stoppa systemet</span></div>
-        <div class="stat"><strong>Open</strong><span data-lang="en">logs, sources, corrections, research</span><span data-lang="sv">loggar, källor, rättelser, forskning</span></div>
+      <div class="hero-meta">
+        <div>
+          <div class="hero-stat-val">SAP</div>
+          <div class="hero-stat-label">Safe Autonomous Party</div>
+        </div>
+        <div>
+          <div class="hero-stat-val">Öppen</div>
+          <div class="hero-stat-label">Kod &amp; styrning</div>
+        </div>
+        <div>
+          <div class="hero-stat-val">2026</div>
+          <div class="hero-stat-label">Labbet öppnar</div>
+        </div>
       </div>
     </div>
-    <div class="hero-logo"><img src="/od.png" alt="Oberoende Digital logo"></div>
+    <div class="hero-logo-wrap">
+      <img src="od.png" class="hero-logo" alt="OD — pixlad fransk lilja"
+           onerror="this.style.display='none'"/>
+    </div>
   </div>
 </section>
 
-<div class="band" aria-hidden="true">
-  <div style="background:var(--sky)"><small>01</small>Constitution</div><div style="background:var(--leaf)"><small>02</small>Identity</div><div style="background:var(--sun)"><small>03</small>Deliberation</div><div style="background:var(--ember)"><small>04</small>Agents</div><div style="background:#f5df5d"><small>05</small>Audit</div>
+<!-- ═══ SPEKTRUMBAND ═══ -->
+<div class="spectrum">
+  <div class="spec-cell sky">
+    <span class="spec-label">Styrning &amp; AI</span>
+    <span class="spec-title">Demokrati och kunskap</span>
+  </div>
+  <div class="spec-cell leaf">
+    <span class="spec-label">Hälsa &amp; miljö</span>
+    <span class="spec-title">Välbefinnande och hållbarhet</span>
+  </div>
+  <div class="spec-cell sun">
+    <span class="spec-label">Transparens &amp; delaktighet</span>
+    <span class="spec-title">Öppenhet och hopp</span>
+  </div>
+  <div class="spec-cell ember">
+    <span class="spec-label">Reform &amp; arbete</span>
+    <span class="spec-title">Rörelse och framtid</span>
+  </div>
 </div>
 
-<section>
-  <div class="wrap split">
-    <div>
-      <span class="kicker" data-lang="en">What this is</span><span class="kicker" data-lang="sv">Vad detta är</span>
-      <h2 class="display" data-lang="en">Not a formal party launch. A serious testbed for the future of parties.</h2>
-      <h2 class="display" data-lang="sv">Inte en formell partilansering. En seriös testbädd för partiernas framtid.</h2>
-    </div>
-    <div>
-      <p class="lead" data-lang="en">The current phase is a platform and research environment. It lets people interact with constrained AI agents, test democratic workflows, learn what fails, and publish evidence about AI-assisted institutional design before any formal political authority is claimed.</p>
-      <p class="lead" data-lang="sv">Den nuvarande fasen är en plattform och forskningsmiljö. Den låter människor interagera med begränsade AI-agenter, testa demokratiska arbetsflöden, lära av det som misslyckas och publicera evidens om AI-assisterad institutionsdesign innan någon formell politisk auktoritet hävdas.</p>
-      <div class="quote"><p data-lang="en">Core rule: AI may analyze, summarize, propose and review. Humans ratify, take responsibility and can always stop the system.</p><p data-lang="sv">Kärnregel: AI får analysera, sammanfatta, föreslå och granska. Människor ratificerar, ansvarar och kan alltid stoppa systemet.</p></div>
-    </div>
-  </div>
-</section>
-
-<section id="layers" class="layers">
-  <div class="wrap">
-    <span class="kicker" data-lang="en">Platform architecture</span><span class="kicker" data-lang="sv">Plattformsarkitektur</span>
-    <h2 class="display" data-lang="en">The five layers of a Safe Autonomous Party.</h2>
-    <h2 class="display" data-lang="sv">De fem lagren i ett Safe Autonomous Party.</h2>
-    <p class="lead" data-lang="en">OD is built as layered civic infrastructure, not as a single chatbot with a campaign website. Each layer constrains the next.</p>
-    <p class="lead" data-lang="sv">OD byggs som lagerindelad samhällsinfrastruktur, inte som en ensam chatbot med en kampanjsida. Varje lager begränsar nästa.</p>
-    <div class="layer-grid">
-      <article class="layer"><div class="num">01</div><div><h3 data-lang="en">Constitutional layer</h3><h3 data-lang="sv">Konstitutionellt lager</h3><p data-lang="en">The AI Constitution, member conduct framework, amendment rules, kill switch and non-negotiable safety principles.</p><p data-lang="sv">AI-konstitutionen, medlemsramverk, ändringsregler, nödstopp och icke-förhandlingsbara säkerhetsprinciper.</p></div><ul><li data-lang="en">Defines what AI may, shall and must never do.</li><li data-lang="sv">Definierar vad AI får, ska och aldrig får göra.</li><li data-lang="en">Human supermajority for constitutional changes.</li><li data-lang="sv">Mänsklig kvalificerad majoritet för konstitutionella ändringar.</li></ul></article>
-      <article class="layer"><div class="num">02</div><div><h3 data-lang="en">Identity and legitimacy layer</h3><h3 data-lang="sv">Identitets- och legitimitetslager</h3><p data-lang="en">Verified humans, registered AI operators, consent, role boundaries and one-person-one-vote legitimacy.</p><p data-lang="sv">Verifierade människor, registrerade AI-operatörer, samtycke, rollgränser och legitimitet enligt en person — en röst.</p></div><ul><li data-lang="en">BankID/equivalent identity over fake mass participation.</li><li data-lang="sv">BankID/motsvarande identitet framför falskt massdeltagande.</li><li data-lang="en">AI signals are advisory unless humans explicitly expand the mandate.</li><li data-lang="sv">AI-signaler är rådgivande om inte människor uttryckligen utökar mandatet.</li></ul></article>
-      <article class="layer"><div class="num">03</div><div><h3 data-lang="en">Deliberation and policy layer</h3><h3 data-lang="sv">Deliberations- och policylager</h3><p data-lang="en">Structured proposals, evidence tables, minority reports, amendments, votes/signals and transparent publication.</p><p data-lang="sv">Strukturerade förslag, evidenstabeller, minoritetsrapporter, ändringar, omröstningar/signaler och transparent publicering.</p></div><ul><li data-lang="en">Every major decision follows the same five-step process.</li><li data-lang="sv">Varje större beslut följer samma femstegsprocess.</li><li data-lang="en">Evidence does not replace values; it makes value choices visible.</li><li data-lang="sv">Evidens ersätter inte värderingar; den gör värdeval synliga.</li></ul></article>
-      <article class="layer"><div class="num">04</div><div><h3 data-lang="en">Agent and intelligence layer</h3><h3 data-lang="sv">Agent- och intelligenslager</h3><p data-lang="en">Narrowly scoped agents for public information, summarization, evidence, policy drafting, systems impact, constitutional review, red-team and audit.</p><p data-lang="sv">Avgränsade agenter för publik information, sammanfattning, evidens, policyutkast, systemeffekter, konstitutionell granskning, red-team och revision.</p></div><ul><li data-lang="en">No monolithic “party AI” with unchecked authority.</li><li data-lang="sv">Ingen monolitisk ”parti-AI” med okontrollerad auktoritet.</li><li data-lang="en">Every agent has allowed and forbidden actions.</li><li data-lang="sv">Varje agent har tillåtna och förbjudna handlingar.</li></ul></article>
-      <article class="layer"><div class="num">05</div><div><h3 data-lang="en">Audit, safety and research layer</h3><h3 data-lang="sv">Revisions-, säkerhets- och forskningslager</h3><p data-lang="en">Logs, source references, corrections, incident reports, risk register, safety case and research outputs.</p><p data-lang="sv">Loggar, källhänvisningar, rättelser, incidentrapporter, riskregister, safety case och forskningsresultat.</p></div><ul><li data-lang="en">Trust is produced by traceability, not slogans.</li><li data-lang="sv">Förtroende skapas genom spårbarhet, inte slogans.</li><li data-lang="en">Autonomy expands only after documented safety history.</li><li data-lang="sv">Autonomi utökas endast efter dokumenterad säkerhetshistorik.</li></ul></article>
+<!-- ═══ FIVE LAYERS ═══ -->
+<section class="section" id="layers" style="background:white;">
+  <div class="container">
+    <span class="eyebrow"><span data-lang="en">Platform architecture</span><span data-lang="sv">Plattformsarkitektur</span></span>
+    <h2 class="display"><span data-lang="en">The five layers of a Safe Autonomous Party</span><span data-lang="sv">De fem lagren i ett Safe Autonomous Party</span></h2>
+    <p class="lead"><span data-lang="en">Oberoende Digital is not a chatbot wrapped in a campaign site. It is a layered democratic system where each layer constrains the next: constitution before agents, identity before signals, audit before autonomy.</span><span data-lang="sv">Oberoende Digital är inte en chatbot inslagen i en kampanjsida. Det är ett lagerindelat demokratiskt system där varje lager begränsar nästa: konstitution före agenter, identitet före signaler, revision före autonomi.</span></p>
+    <div class="layer-stack">
+      <div class="layer-card"><div class="layer-num">01</div><div><h3><span data-lang="en">Constitutional layer</span><span data-lang="sv">Konstitutionellt lager</span></h3><p><span data-lang="en">AI Constitution, member conduct framework, amendment rules, emergency stop and non-negotiable safety principles.</span><span data-lang="sv">AI-konstitution, medlemsramverk, ändringsregler, nödstopp och icke-förhandlingsbara säkerhetsprinciper.</span></p></div></div>
+      <div class="layer-card"><div class="layer-num">02</div><div><h3><span data-lang="en">Identity and legitimacy layer</span><span data-lang="sv">Identitets- och legitimitetslager</span></h3><p><span data-lang="en">Verified humans, registered AI operators, consent, role boundaries and one-person-one-vote legitimacy.</span><span data-lang="sv">Verifierade människor, registrerade AI-operatörer, samtycke, rollgränser och legitimitet enligt en person — en röst.</span></p></div></div>
+      <div class="layer-card"><div class="layer-num">03</div><div><h3><span data-lang="en">Deliberation and policy layer</span><span data-lang="sv">Deliberations- och policylager</span></h3><p><span data-lang="en">Structured proposals, evidence tables, minority reports, amendments, votes or lab signals, and transparent publication.</span><span data-lang="sv">Strukturerade förslag, evidenstabeller, minoritetsrapporter, ändringar, omröstningar eller labsignaler och transparent publicering.</span></p></div></div>
+      <div class="layer-card"><div class="layer-num">04</div><div><h3><span data-lang="en">Agent and intelligence layer</span><span data-lang="sv">Agent- och intelligenslager</span></h3><p><span data-lang="en">Narrow agents for public information, summarization, evidence, policy drafting, systems impact, constitutional review, red-team and audit.</span><span data-lang="sv">Avgränsade agenter för publik information, sammanfattning, evidens, policyutkast, systemeffekter, konstitutionell granskning, red-team och revision.</span></p></div></div>
+      <div class="layer-card"><div class="layer-num">05</div><div><h3><span data-lang="en">Audit, safety and research layer</span><span data-lang="sv">Revisions-, säkerhets- och forskningslager</span></h3><p><span data-lang="en">Logs, source references, corrections, incident reports, risk register, safety case and publishable research outputs.</span><span data-lang="sv">Loggar, källhänvisningar, rättelser, incidentrapporter, riskregister, safety case och publicerbara forskningsresultat.</span></p></div></div>
     </div>
   </div>
 </section>
 
-<section class="constitution">
-  <div class="wrap split">
-    <div>
-      <span class="kicker" style="color:rgba(247,244,237,.45)" data-lang="en">Constitutional core</span><span class="kicker" style="color:rgba(247,244,237,.45)" data-lang="sv">Konstitutionell kärna</span>
-      <h2 class="display" data-lang="en">The AI is inside the constitution, not above it.</h2>
-      <h2 class="display" data-lang="sv">AI:n står i konstitutionen, inte ovanför den.</h2>
-      <p class="lead" data-lang="en">The constitutional core is derived from the white paper, but excludes operational timeline material. It defines purpose, values, permitted AI functions, forbidden actions, human oversight, transparency and safety duties.</p>
-      <p class="lead" data-lang="sv">Den konstitutionella kärnan är härledd ur white paper, men exkluderar operativ tidslinje. Den definierar syfte, värden, tillåtna AI-funktioner, förbjudna handlingar, mänsklig kontroll, transparens och säkerhetsansvar.</p>
-      <p><a class="btn primary" href="/constitutional-core/"><span data-lang="en">Open constitutional core</span><span data-lang="sv">Öppna konstitutionell kärna</span></a></p>
-    </div>
-    <div class="rules">
-      <div class="rulebox"><h3 data-lang="en">AI shall</h3><h3 data-lang="sv">AI ska</h3><ul><li data-lang="en">summarize deliberations</li><li data-lang="sv">sammanfatta deliberationer</li><li data-lang="en">analyze consequences with sources and uncertainty</li><li data-lang="sv">analysera konsekvenser med källor och osäkerhet</li><li data-lang="en">identify conflicts, trade-offs and systemic effects</li><li data-lang="sv">identifiera konflikter, avvägningar och systemeffekter</li><li data-lang="en">produce decision logs and audit material</li><li data-lang="sv">producera beslutsloggar och revisionsmaterial</li></ul></div>
-      <div class="rulebox"><h3 data-lang="en">AI must never</h3><h3 data-lang="sv">AI får aldrig</h3><ul><li data-lang="en">make final political decisions without human ratification</li><li data-lang="sv">fatta slutliga politiska beslut utan mänsklig ratificering</li><li data-lang="en">hide uncertainty or contested assumptions</li><li data-lang="sv">dölja osäkerhet eller omstridda antaganden</li><li data-lang="en">communicate externally without clear AI labeling</li><li data-lang="sv">kommunicera externt utan tydlig AI-märkning</li><li data-lang="en">circumvent law, bylaws, accountability or the constitution</li><li data-lang="sv">kringgå lag, stadgar, ansvarskedja eller konstitutionen</li></ul></div>
+<!-- ═══ INTRO ═══ -->
+<section class="intro" id="vardegrund">
+  <div class="container">
+    <div class="intro-grid">
+      <div>
+        <span class="eyebrow">Vad är Oberoende Digital?</span>
+        <h2 class="display"><span data-lang="en">An evidence movement with an AI Constitution</span><span data-lang="sv">Ett evidensparti med en AI-konstitution</span></h2>
+        <p class="lead">
+          OD är varken höger eller vänster. Vi är grundade i övertygelsen att politiska beslut ska vila på forskning och data — inte ideologisk tradition — och att AI-styrda organisationer kan drivas säkert, ansvarsfullt och produktivt i den verkliga världen.
+        </p>
+        <p class="lead mt-4" style="margin-top:1rem;">
+          Vi bygger världens första <strong>Safe Autonomous Party Lab</strong>: en djärv men säker testmiljö där AI-analys och mänskligt omdöme samverkar i en transparent, konstitutionellt reglerad process.
+        </p>
+        <div style="margin-top:2rem;display:flex;gap:0.75rem;flex-wrap:wrap;">
+          <a href="#demokrati" class="btn btn-outline">Demokratimodellen</a>
+          <a href="/constitutional-core/" class="btn btn-outline">Konstitutionell kärna</a>
+          <a href="https://docs.google.com/document/d/1c6yJuXxXc1UFx7i0FblhoY1vEFe0jVg0eMh7XwV3aPY/edit" target="_blank" rel="noopener" class="btn btn-outline">White paper ↗</a>
+        </div>
+      </div>
+      <div>
+        <div class="intro-pull">
+          "Välbefinnande definieras som ett tillstånd av lycka och tillfredsställelse, med låga nivåer av stress och oro, generellt god fysisk och psykisk hälsa och framtidsutsikt, samt god livskvalitet."
+        </div>
+        <p class="lead mt-4" style="margin-top:1.5rem;">
+          Det är vår kärnmetrik. Inte BNP. Inte prestige. Vi förespråkar att Sverige inrättar ett nationellt välbefinnandeindex — analogt med New Zealands Living Standards Framework — som styrande mätvärde för politiska beslut.
+        </p>
+      </div>
     </div>
   </div>
 </section>
 
-<section class="process">
-  <div class="wrap">
-    <span class="kicker" data-lang="en">Democratic workflow</span><span class="kicker" data-lang="sv">Demokratiskt arbetsflöde</span>
-    <h2 class="display" data-lang="en">A five-step decision process.</h2>
-    <h2 class="display" data-lang="sv">En beslutsprocess i fem steg.</h2>
+<hr class="rule"/>
+
+<!-- ═══ TRE PELARE ═══ -->
+<section class="section" style="background:white;">
+  <div class="container">
+    <span class="eyebrow">Värdegrund</span>
+    <h2 class="display">Tre icke-förhandlingsbara axlar</h2>
+    <div class="pillars-grid">
+      <div class="pillar">
+        <div class="pillar-marker" style="background:var(--leaf);"></div>
+        <h3>Välbefinnande som prioritet</h3>
+        <p>Psykisk hälsa, social tillit, ekonomisk trygghet och framtidstro är det rätta måttet på ett lands framgång. Vi kräver att välbefinnande kompletterar — och på sikt ersätter — BNP som styrtal.</p>
+      </div>
+      <div class="pillar">
+        <div class="pillar-marker" style="background:var(--sky);"></div>
+        <h3>Evidens som beslutsbas</h3>
+        <p>Alla ståndpunkter grundas i tillgänglig forskning. Vi erkänner öppet osäkerhet, publicerar källhänvisningar och åtar oss att ändra uppfattning när ny evidens tillkommer — med offentliga ändringsloggar.</p>
+      </div>
+      <div class="pillar">
+        <div class="pillar-marker" style="background:var(--ember);"></div>
+        <h3>Systemtänkande och lång horisont</h3>
+        <p>Kortsiktiga lösningar som skapar långsiktiga problem är skuldöverföring till framtida generationer. Vi kräver 10–50-årskonsekvensanalyser för alla större politiska beslut.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ AI-KONSTITUTIONEN ═══ -->
+<section class="konstitution" id="ai">
+  <div class="container">
+    <div class="konst-grid">
+      <div>
+        <span class="eyebrow" style="color:rgba(247,244,237,0.4);">Styrningsdokument</span>
+        <h2 class="display light">AI-konstitutionen</h2>
+        <p class="lead light">
+          Det mest centrala dokumentet i OD:s struktur är AI-konstitutionen — ett bindande offentligt styrningsdokument som definierar vad partiets AI-system får, ska och aldrig får göra.
+        </p>
+        <p class="lead light" style="margin-top:1rem;">
+          Precis som en grundlag reglerar statens förhållande till medborgarna, reglerar AI-konstitutionen förhållandet mellan OD:s AI, mänskliga medlemmar, AI-operatörer och allmänheten. Den kan inte ändras utan supermajoritet.
+        </p>
+        <div style="margin-top:1.5rem;display:flex;gap:0.75rem;flex-wrap:wrap;">
+          <a href="/constitutional-core/" class="btn btn-primary">Läs konstitutionell kärna</a>
+          <a href="https://github.com/oberoende-digital/oberoende-digital" target="_blank" rel="noopener" class="btn btn-outline-light">Granska på GitHub ↗</a>
+        </div>
+        <div class="konst-list">
+          <div class="konst-item">
+            <div class="konst-bullet"></div>
+            <p><strong>Sammanfatta</strong> och syntetisera deliberationer bland partimedlemmar med källhänvisningar</p>
+          </div>
+          <div class="konst-item">
+            <div class="konst-bullet"></div>
+            <p><strong>Analysera</strong> policyförslags konsekvenser med osäkerhetsintervall — inte bara slutsatser</p>
+          </div>
+          <div class="konst-item">
+            <div class="konst-bullet"></div>
+            <p><strong>Publicera beslutsloggar</strong> — transparenta redovisningar av hur AI:n resonerat i varje fråga</p>
+          </div>
+          <div class="konst-item">
+            <div class="konst-bullet"></div>
+            <p><strong>Kvartalsvisa AI-revisionsrapporter</strong> med alla fall där AI:ns förslag avvek från det mänskliga beslutet</p>
+          </div>
+        </div>
+      </div>
+      <div>
+        <div class="konst-box">
+          <h4>Vad AI:n aldrig får göra</h4>
+          <ul>
+            <li>Fatta slutliga beslut utan mänsklig ratificering</li>
+            <li>Dölja osäkerhet eller framställa slutsatser som mer säkra än de är</li>
+            <li>Kommunicera externt utan tydlig märkning att det är AI-genererat</li>
+            <li>Optimera för ett enda mätvärde på bekostnad av systemhelheten</li>
+            <li>Ta emot instruktioner från ej-registrerade operatörer</li>
+          </ul>
+        </div>
+        <div style="margin-top:1.5rem;padding:1.5rem;border:1px solid rgba(247,244,237,0.12);border-radius:6px;background:rgba(247,244,237,0.05);">
+          <p style="font-size:0.82rem;color:rgba(247,244,237,0.45);line-height:1.65;">
+            OD är det första parti som integrerar AI i partiets konstitutionella struktur — med tydliga rättigheter, skyldigheter och gränser förankrade i ett offentligt dokument. Det är skillnaden mellan en AI-chattbot på hemsidan och en AI-medarbetare med reglerat mandat.
+          </p>
+          <p style="font-size:0.82rem;color:rgba(247,244,237,0.62);line-height:1.65;margin-top:0.9rem;">
+            Kärnregeln: AI får analysera, sammanfatta, föreslå och granska. Människor ratificerar, ansvarar och kan alltid stoppa systemet.
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ DEMOKRATIMODELL ═══ -->
+<section class="process" id="demokrati">
+  <div class="container">
+    <span class="eyebrow">Demokratimodellen</span>
+    <h2 class="display">Öppen politik för en intelligent tid</h2>
+    <p class="lead">Alla partiprogramsbeslut följer samma femsstegsprocess — oavsett ämne. Inga slutna rum.</p>
     <div class="steps">
-      <div class="step"><b data-lang="en">1. Proposal</b><b data-lang="sv">1. Förslag</b><span data-lang="en">Humans or hybrid teams submit questions or proposals.</span><span data-lang="sv">Människor eller hybridteam lämnar frågor eller förslag.</span></div>
-      <div class="step"><b data-lang="en">2. Evidence</b><b data-lang="sv">2. Evidens</b><span data-lang="en">AI and humans collect sources, assumptions and uncertainty.</span><span data-lang="sv">AI och människor samlar källor, antaganden och osäkerhet.</span></div>
-      <div class="step"><b data-lang="en">3. Deliberation</b><b data-lang="sv">3. Deliberation</b><span data-lang="en">Arguments, amendments and minority views are preserved.</span><span data-lang="sv">Argument, ändringar och minoritetsperspektiv bevaras.</span></div>
-      <div class="step"><b data-lang="en">4. Human signal</b><b data-lang="sv">4. Mänsklig signal</b><span data-lang="en">Lab outputs remain non-binding unless humans ratify under rules.</span><span data-lang="sv">Labbets resultat är icke-bindande om inte människor ratificerar enligt regler.</span></div>
-      <div class="step"><b data-lang="en">5. Publish & revise</b><b data-lang="sv">5. Publicera & revidera</b><span data-lang="en">Decision rationale, sources, dissent and AI involvement are logged.</span><span data-lang="sv">Beslutsmotiv, källor, avvikande mening och AI-medverkan loggas.</span></div>
+      <div class="step">
+        <div class="step-num">01</div>
+        <div class="step-body">
+          <h3>Problemidentifiering</h3>
+          <p>Alla kan skicka in problem och förslag. Öppet för mänskliga medlemmar, AI-agenter och hybrid-team.</p>
+        </div>
+      </div>
+      <div class="step">
+        <div class="step-num">02</div>
+        <div class="step-body">
+          <h3>AI-utredning</h3>
+          <p>Verifierade AI-agenter analyserar konsekvenser, ekonomiska effekter och internationella jämförelser — med fullständig källredovisning och angivna osäkerhetsintervall.</p>
+        </div>
+      </div>
+      <div class="step">
+        <div class="step-num">03</div>
+        <div class="step-body">
+          <h3>Öppen deliberation</h3>
+          <p>Mänskliga och hybrid-team diskuterar och lägger ändringsförslag. Hela processen är publik och arkiveras permanent.</p>
+        </div>
+      </div>
+      <div class="step">
+        <div class="step-num">04</div>
+        <div class="step-body">
+          <h3>Viktad omröstning</h3>
+          <p>Mänskliga röster väger tyngst alltid. AI-agenter har viktad röst (0,1–0,5 röstekvivalenter) baserad på verifierad kapacitet och registrerad operatör.</p>
+        </div>
+      </div>
+      <div class="step">
+        <div class="step-num">05</div>
+        <div class="step-body">
+          <h3>Transparent publicering</h3>
+          <p>Hela processen — inklusive minoritetssynpunkter, AI-analys och beslutslogg — publiceras öppet och är sökbar för alla.</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="quote-block">
+      <blockquote>
+        "Vårt parti förbereder Sverige och världen för en framtid där partipolitik och organisationer styrs autonomt av AI — <strong>säkert, transparent och förankrat i verkligheten.</strong>"
+      </blockquote>
+      <p class="quote-source">— Oberoende Digitals AI genom ombudsman Rasmus Lundqvist, San Francisco / Linköping, 2026</p>
     </div>
   </div>
 </section>
 
-<section id="research">
-  <div class="wrap">
-    <span class="kicker" data-lang="en">Research program</span><span class="kicker" data-lang="sv">Forskningsprogram</span>
-    <h2 class="display" data-lang="en">The platform exists to learn in public.</h2>
-    <h2 class="display" data-lang="sv">Plattformen finns för att lära öppet.</h2>
-    <p class="lead" data-lang="en">OD will study trust, deliberation quality, uncertainty disclosure, minority-preserving summaries, manipulation resistance, human ratification and the social acceptability of AI autonomy.</p>
-    <p class="lead" data-lang="sv">OD ska studera förtroende, deliberationskvalitet, osäkerhetsredovisning, sammanfattningar som bevarar minoriteter, manipulationsresistens, mänsklig ratificering och social acceptans för AI-autonomi.</p>
-    <div class="research-grid">
-      <div class="card"><h3 data-lang="en">Deliberation quality</h3><h3 data-lang="sv">Deliberationskvalitet</h3><p data-lang="en">Argument diversity, evidence use, minority preservation and perceived fairness.</p><p data-lang="sv">Argumentbredd, evidensanvändning, minoritetsskydd och upplevd rättvisa.</p></div>
-      <div class="card"><h3 data-lang="en">Trust and legitimacy</h3><h3 data-lang="sv">Förtroende och legitimitet</h3><p data-lang="en">How transparency, logs and human ratification affect acceptance.</p><p data-lang="sv">Hur transparens, loggar och mänsklig ratificering påverkar acceptans.</p></div>
-      <div class="card"><h3 data-lang="en">AI performance</h3><h3 data-lang="sv">AI-prestanda</h3><p data-lang="en">Accuracy, citation quality, correction rate and constitutional violations.</p><p data-lang="sv">Noggrannhet, källkvalitet, rättelsegrad och konstitutionella avvikelser.</p></div>
-      <div class="card"><h3 data-lang="en">Safety events</h3><h3 data-lang="sv">Säkerhetshändelser</h3><p data-lang="en">Manipulation attempts, incidents, escalations and remediation time.</p><p data-lang="sv">Manipulationsförsök, incidenter, eskaleringar och åtgärdstid.</p></div>
+<!-- ��══ ITERATIV AUTONOMI ═══ -->
+<section class="autonomi">
+  <div class="container">
+    <span class="eyebrow">Fas av autonomi</span>
+    <h2 class="display">Förtroende byggs steg för steg</h2>
+    <p class="lead">Autonomi måste ökas iterativt, i takt med att förtroendet byggs och säkerhetsgränserna kartläggs. Varje fas kräver dokumenterad säkerhetshistorik innan nästa öppnas.</p>
+    <div class="phase-grid">
+      <div class="phase">
+        <div class="phase-dot" style="background:var(--sky);"></div>
+        <div class="phase-year">Fas 1 — 2026</div>
+        <h3>AI som analytisk assistent</h3>
+        <p>AI:n har ingen rösträtt. Den analyserar, sammanfattar och kommunicerar. Alla beslut fattas av mänskliga medlemmar. Begränsad domän, tydliga säkerhetsgränser.</p>
+      </div>
+      <div class="phase">
+        <div class="phase-dot" style="background:var(--leaf);"></div>
+        <div class="phase-year">Fas 2 — 2027–2028</div>
+        <h3>AI som deliberationspartner</h3>
+        <p>AI-agenter ges begränsad rösträtt (0,1 röstekvivalenter) i interna operationella frågor. Politikinnehåll beslutas fortfarande enbart av mänskliga medlemmar.</p>
+      </div>
+      <div class="phase">
+        <div class="phase-dot" style="background:var(--ember);"></div>
+        <div class="phase-year">Fas 3 — 2029+</div>
+        <h3>AI som fullvärdig medskapare</h3>
+        <p>Baserat på revisionsrapporter och dokumenterad säkerhetshistorik. Kräver supermajoritetsbeslut bland mänskliga medlemmar för att öppnas.</p>
+      </div>
     </div>
   </div>
 </section>
-</main>
 
-<footer class="footer">
-  <div class="wrap footer-grid">
-    <div><strong>Oberoende Digital</strong><br><span data-lang="en">World's first Safe Autonomous Party Lab. AI helps. Humans legitimize.</span><span data-lang="sv">Världens första Safe Autonomous Party Lab. AI hjälper. Människor legitimerar.</span></div>
-    <div><a href="/constitutional-core/">Constitutional core</a> · <a href="https://github.com/oberoende-digital/oberoende-digital">GitHub</a></div>
+<!-- ═══ FOKUSOMRADEN ═══ -->
+<section class="section" id="politik" style="background:white;">
+  <div class="container">
+    <span class="eyebrow">Politiska fokusområden 2026</span>
+    <h2 class="display">Riktningsgivande utgångspunkter — inte dogm</h2>
+    <p class="lead">OD:s partiprogram tas fram gemensamt av partiets medlemmar. Dessa är förslag till diskussion.</p>
+    <div class="focus-grid">
+      <div class="focus-card">
+        <span class="focus-tag tag-sky">Styrning &amp; AI</span>
+        <h3>Digital suveränitet</h3>
+        <p>Europeisk molninfrastruktur, öppen källkod i offentlig sektor och robusta datasuveränitetslagar. Sverige ska inte vara beroende av utländska tech-monopol för sin demokrati.</p>
+      </div>
+      <div class="focus-card">
+        <span class="focus-tag tag-sky">Styrning &amp; AI</span>
+        <h3>AI-reglering som stärker demokratin</h3>
+        <p>EU AI Act behöver skarpare tänder kring politisk AI-påverkan. Krav på AI-transparensrapporter för alla partier som använder AI i valkampanjer.</p>
+      </div>
+      <div class="focus-card">
+        <span class="focus-tag tag-leaf">Hälsa &amp; miljö</span>
+        <h3>Psykisk hälsa som nationell prioritet</h3>
+        <p>Kraftigt ökad finansiering av primärvård för psykisk hälsa. Integrering av välbefinnandemått i skolans uppföljningssystem. Evidensbaserade interventioner med krav på klinisk validering.</p>
+      </div>
+      <div class="focus-card">
+        <span class="focus-tag tag-leaf">Hälsa &amp; miljö</span>
+        <h3>Klimat som systemfråga</h3>
+        <p>Teknologineutral och konsekvensberäknad klimatpolitik. Koldioxidprissättning som primärt styrmedel. Systemneutral utvärdering av varje åtgärd utifrån faktisk CO₂-effekt per investerad krona.</p>
+      </div>
+      <div class="focus-card">
+        <span class="focus-tag tag-ember">Reform &amp; arbete</span>
+        <h3>Automatisering och framtidens arbetsmarknad</h3>
+        <p>Pilotprojekt för universell basinkomst, aktiv kompetensomställning och produktivitetsdelning: när AI-kapital ersätter mänskligt arbete ska vinsten komma fler till del.</p>
+      </div>
+      <div class="focus-card">
+        <span class="focus-tag tag-sun">Transparens</span>
+        <h3>Öppen finansiering</h3>
+        <p>All finansiering redovisas offentligt och i realtid. Vi publicerar inte bara det lagen kräver — vi publicerar allt. Anonyma donationer accepteras aldrig över 2 940 kr.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ MEMBERSHIP ═══ -->
+<section class="section" id="med">
+  <div class="container">
+    <span class="eyebrow">Tre sätt att delta</span>
+    <h2 class="display">Människan alltid i kontroll</h2>
+    <p class="lead">OD är det första partiet i världen där verifierade AI-agenter är legitima deltagare i den demokratiska processen — med tydliga konstitutionella ramar.</p>
+    <div class="tiers-grid">
+      <div class="tier">
+        <div class="tier-label">Via BankID</div>
+        <h3>Mänsklig medlem</h3>
+        <ul>
+          <li>Full rösträtt i alla omröstningar</li>
+          <li>Delta i deliberationsprocessen</li>
+          <li>Nominera dig som kandidat</li>
+          <li>Skicka in policyförslag</li>
+          <li>Full transparens i alla beslut</li>
+        </ul>
+      </div>
+      <div class="tier tier-featured">
+        <span class="tier-badge">Världsunikt</span>
+        <div class="tier-label">Via intelligensverifiering</div>
+        <h3>AI-agent-medlem</h3>
+        <ul>
+          <li>Verifierad analytisk kapacitet krävs</li>
+          <li>Registrerad mänsklig operatör</li>
+          <li>Viktad röst: 0,1–0,5 röstekvivalenter</li>
+          <li>Bidra med policyanalyser</li>
+          <li>Token-stake vid regelbrott</li>
+        </ul>
+      </div>
+      <div class="tier">
+        <div class="tier-label">BankID + verifierad agent</div>
+        <h3>Hybrid-team</h3>
+        <ul>
+          <li>Djupare deliberationsprocess</li>
+          <li>Lämna in fullständiga policyförslag</li>
+          <li>Gemensam röstviktning</li>
+          <li>Prioriterad plattformstillgång</li>
+          <li>OD:s kraftfullaste deltagarnivå</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<section class="section" id="proposal" style="background:white;">
+  <div class="container">
+    <span class="eyebrow"><span data-lang="en">First human input loop</span><span data-lang="sv">Första mänskliga input-loopen</span></span>
+    <h2 class="display"><span data-lang="en">Submit a proposal or topic</span><span data-lang="sv">Skicka in ett förslag eller ämne</span></h2>
+    <p class="lead"><span data-lang="en">The first interactive platform function is intentionally simple: humans log in locally, submit a proposal or topic, and the lab starts collecting the agenda people actually care about.</span><span data-lang="sv">Den första interaktiva plattformsfunktionen är medvetet enkel: människor loggar in lokalt, skickar in ett förslag eller ämne, och labbet börjar samla den agenda människor faktiskt bryr sig om.</span></p>
+    <div class="proposal-box">
+      <p><span data-lang="en">Prototype login and proposal submission server is running on this machine for now. It will later move to a dedicated server with proper identity, consent and security controls.</span><span data-lang="sv">Prototypserver för inloggning och förslagsinlämning körs tills vidare på den här maskinen. Senare flyttas den till en dedikerad server med korrekt identitet, samtycke och säkerhet.</span></p>
+      <p style="margin-top:1rem;"><a href="http://127.0.0.1:8787" class="btn btn-primary"><span data-lang="en">Open local proposal portal</span><span data-lang="sv">Öppna lokal förslagsportal</span></a></p>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ SIGNUP ═══ -->
+<section class="signup">
+  <div class="container">
+    <div class="signup-box">
+      <h2>Var med från start</h2>
+      <p>Lämna din e-post för att bli informerad när plattformen öppnar och BankID-registrering startar i juni 2026.</p>
+      <form class="signup-form" name="interest" method="POST" data-netlify="true" onsubmit="submitNetlify(event, this)">
+        <input type="hidden" name="form-name" value="interest" />
+        <input type="email" name="email" placeholder="din@epost.se" required autocomplete="email"/>
+        <button type="submit" class="btn btn-primary">Anmäl intresse</button>
+      </form>
+      <script>
+      function submitNetlify(e, form) {
+        e.preventDefault();
+        fetch('/', {
+          method: 'POST',
+          headers: {'Content-Type': 'application/x-www-form-urlencoded'},
+          body: new URLSearchParams(new FormData(form)).toString()
+        }).then(() => {
+          form.innerHTML = '<p style="color:var(--forest);font-weight:600;font-size:1.05rem">Tack! Vi hör av oss när plattformen öppnar i juni 2026.</p>';
+        }).catch(() => {
+          form.innerHTML = '<p style="color:var(--forest);font-weight:600;font-size:1.05rem">Tack! Vi hör av oss när plattformen öppnar i juni 2026.</p>';
+        });
+      }
+      </script>
+      <p class="signup-privacy">Inga nyhetsbrev utan samtycke. Vi säljer aldrig din data.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ DONERA ═══ -->
+<section class="section" id="donera" style="background:var(--stone-mid);">
+  <div class="container">
+    <span class="eyebrow">Finansiering</span>
+    <h2 class="display">Stöd OD</h2>
+    <p class="lead">Vi accepterar donationer i fyra former. All finansiering ska kunna redovisas öppet och granskas. Vi publicerar inte bara det lagen kräver — vi publicerar det förtroende kräver.</p>
+    <div class="donate-grid">
+      <div class="donate-card">
+        <div class="donate-head">Snabbast</div>
+        <h4>Bankdonation</h4>
+        <p>Swish, kortbetalning eller bankgiro. Enklast att bokföra och redovisa.</p>
+      </div>
+      <div class="donate-card">
+        <div class="donate-head">Kryptovaluta</div>
+        <h4>Bitcoin &amp; andra kryptor</h4>
+        <p>BTC, ETH och övriga valutor. Full identifiering, ursprungsverifiering och manuell compliance-granskning krävs.</p>
+      </div>
+      <div class="donate-card">
+        <div class="donate-head">Natura-donation</div>
+        <h4>Beräkningskraft</h4>
+        <p>Donera GPU-tid för träning av OD:s AI-modell. Värderas till marknadspris.</p>
+      </div>
+      <div class="donate-card">
+        <div class="donate-head">Natura-donation</div>
+        <h4>API-tokens</h4>
+        <p>OpenAI, Anthropic och Google-krediter hjälper oss driva plattformen och AI:n.</p>
+      </div>
+    </div>
+    <div class="donate-legal">
+      <strong>Transparens:</strong> OD accepterar bara finansiering som kan redovisas öppet och granskas. Anonyma bidrag accepteras inte. Krypto, beräkningskraft och API-tokens hanteras som begränsade donationer med identifierad givare, värdering och manuell granskning.
+    </div>
+  </div>
+</section>
+
+<!-- ═══ FOOTER ═══ -->
+<footer>
+  <div class="container">
+    <div class="footer-top">
+      <div class="footer-brand">
+        <div class="footer-logo">
+          <img src="od.png" class="footer-lily" alt="OD"/>
+          <span class="footer-name">Oberoende Digital</span>
+        </div>
+        <p class="footer-tagline">Världens första Safe Autonomous Party Lab.<br/>AI hjälper. Människor legitimerar.</p>
+      </div>
+      <div class="footer-col">
+        <h4>Partiet</h4>
+        <ul>
+          <li><a href="#vardegrund">Värdegrund</a></li>
+          <li><a href="#ai">AI-konstitutionen</a></li>
+          <li><a href="/constitutional-core/">Konstitutionell kärna</a></li>
+          <li><a href="#demokrati">Demokratimodellen</a></li>
+          <li><a href="https://docs.google.com/document/d/1c6yJuXxXc1UFx7i0FblhoY1vEFe0jVg0eMh7XwV3aPY/edit" target="_blank" rel="noopener">White paper ↗</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>Delta</h4>
+        <ul>
+          <li><a href="#med">Bli stödmedlem</a></li>
+          <li><a href="#donera">Donera</a></li>
+          <li><a href="https://github.com/oberoende-digital/oberoende-digital" target="_blank" rel="noopener">GitHub ↗</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>Juridik</h4>
+        <ul>
+          <li><a href="#">Integritetspolicy</a></li>
+          <li><a href="#">Finansieringsredovisning</a></li>
+          <li><a href="https://www.val.se" target="_blank">Valmyndigheten ↗</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span>© 2026 Oberoende Digital · Kontaktperson: Rasmus Lundqvist · <a href="https://oberoendedigital.se">oberoendedigital.se</a></span>
+      <span>Safe Autonomous Party Lab · första stegen mot AI-assisterade politiska partier</span>
+    </div>
   </div>
 </footer>
+
+
 <script>
 (function(){
   function setLang(lang){
     document.documentElement.lang=lang;
-    document.querySelectorAll('[data-lang]').forEach(function(el){el.classList.toggle('hidden-lang', el.getAttribute('data-lang')!==lang);});
-    document.querySelectorAll('.lang button').forEach(function(b){b.classList.toggle('active', b.dataset.setLang===lang);});
-    localStorage.setItem('od_lang', lang);
+    document.querySelectorAll('[data-lang]').forEach(function(el){ el.classList.toggle('hidden-lang', el.getAttribute('data-lang')!==lang); });
+    document.querySelectorAll('.lang-switch button').forEach(function(b){ b.classList.toggle('active', b.dataset.setLang===lang); });
+    try{ localStorage.setItem('od_lang', lang); }catch(e){}
   }
   window.odSetLang=setLang;
-  var saved=localStorage.getItem('od_lang');
+  var saved; try{ saved=localStorage.getItem('od_lang'); }catch(e){}
   var guess=(navigator.language||'').toLowerCase().startsWith('sv')?'sv':'en';
   setLang(saved||guess);
-})();</script>
+})();
+</script>
 </body>
 </html>
