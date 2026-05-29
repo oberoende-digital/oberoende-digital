@@ -1,0 +1,22 @@
+{
+  "description": "Initial source manifest for an auditable Oberoende Digital RAG database covering Swedish parliamentary parties, party programmes, public policy pages and budget material. Expand with specific PDF/direct-document URLs as they are verified.",
+  "sources": [
+    {"party":"Socialdemokraterna", "category":"party_programme", "title":"Partiprogram och riktlinjer", "url":"https://www.socialdemokraterna.se/var-politik/partiprogram-och-riktlinjer"},
+    {"party":"Socialdemokraterna", "category":"budget", "title":"Ekonomi", "url":"https://www.socialdemokraterna.se/var-politik/a-till-o/ekonomi"},
+    {"party":"Moderaterna", "category":"party_programme", "title":"Vår politik", "url":"https://moderaterna.se/var-politik/"},
+    {"party":"Moderaterna", "category":"budget", "title":"Ekonomisk politik och företagande", "url":"https://moderaterna.se/var-politik/ekonomisk-politik-och-foretagande/"},
+    {"party":"Sverigedemokraterna", "category":"party_programme", "title":"Vår politik", "url":"https://sd.se/vad-vi-vill/"},
+    {"party":"Sverigedemokraterna", "category":"budget", "title":"Budget search index", "url":"https://www.sd.se/?s=budget"},
+    {"party":"Vänsterpartiet", "category":"party_programme", "title":"Vår politik", "url":"https://www.vansterpartiet.se/var-politik/"},
+    {"party":"Vänsterpartiet", "category":"budget", "title":"Ekonomisk politik", "url":"https://www.vansterpartiet.se/var-politik/ekonomi/"},
+    {"party":"Centerpartiet", "category":"party_programme", "title":"Vår politik", "url":"https://www.centerpartiet.se/var-politik"},
+    {"party":"Centerpartiet", "category":"budget", "title":"Ekonomi och skatter", "url":"https://www.centerpartiet.se/var-politik/politik-a-o/ekonomi-och-skatter"},
+    {"party":"Kristdemokraterna", "category":"party_programme", "title":"Vår politik", "url":"https://kristdemokraterna.se/var-politik"},
+    {"party":"Kristdemokraterna", "category":"budget", "title":"En budget för familjen", "url":"https://kristdemokraterna.se/var-politik/en-budget-for-familjen"},
+    {"party":"Miljöpartiet", "category":"party_programme", "title":"Vår politik", "url":"https://www.mp.se/politik/"},
+    {"party":"Miljöpartiet", "category":"budget", "title":"Ekonomi och skatter", "url":"https://www.mp.se/politik/ekonomi-och-skatter/"},
+    {"party":"Liberalerna", "category":"party_programme", "title":"Vår politik", "url":"https://www.liberalerna.se/politik"},
+    {"party":"Liberalerna", "category":"budget", "title":"Ekonomi", "url":"https://www.liberalerna.se/politik/ekonomi"},
+    {"party":"Riksdagen", "category":"budget_index", "title":"Dokument och lagar: motioner", "url":"https://www.riksdagen.se/sv/dokument-och-lagar/?doktyp=mot"}
+  ]
+}

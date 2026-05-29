@@ -727,25 +727,31 @@
 </section>
 
 <!-- ═══ SIGNUP ═══ -->
-<section class="signup">
+<section class="signup" id="signup">
   <div class="container">
     <div class="signup-box">
       <h2><span data-lang="sv">Var med från start</span><span data-lang="en">Join from the start</span></h2>
       <p><span data-lang="sv">Lämna din e-post för att bli informerad när plattformen öppnar och registreringen startar.</span><span data-lang="en">Leave your email to be informed when the platform opens and registration begins.</span></p>
-      <form class="signup-form" name="interest" method="POST" data-netlify="true" onsubmit="submitNetlify(event, this)">
-        <input type="hidden" name="form-name" value="interest" />
+      <form class="signup-form" name="interest" method="POST" action="https://formsubmit.co/dev@oberoendedigital.se">
+        <input type="hidden" name="_subject" value="New Oberoende Digital registration" />
+        <input type="hidden" name="_template" value="table" />
+        <input type="hidden" name="_captcha" value="false" />
+        <input type="hidden" name="_next" value="https://oberoendedigital.se/?registered=1#signup" />
+        <input type="text" name="_honey" tabindex="-1" autocomplete="off" style="display:none" aria-hidden="true" />
         <input type="email" name="email" data-placeholder-sv="din@epost.se" data-placeholder-en="you@email.com" placeholder="din@epost.se" required autocomplete="email"/>
         <button type="submit" class="btn btn-primary"><span data-lang="sv">Anmäl intresse</span><span data-lang="en">Register interest</span></button>
       </form>
       <script>
-      function submitNetlify(e, form) {
-        e.preventDefault();
-        var lang=document.documentElement.lang||'sv';
-        var msg=lang==='en'?'Thank you. We will contact you when the platform opens.':'Tack! Vi hör av oss när plattformen öppnar.';
-        fetch('/', { method:'POST', headers:{'Content-Type':'application/x-www-form-urlencoded'}, body:new URLSearchParams(new FormData(form)).toString() })
-          .then(function(){ form.innerHTML='<p style="color:var(--forest);font-weight:600;font-size:1.05rem">'+msg+'</p>'; })
-          .catch(function(){ form.innerHTML='<p style="color:var(--forest);font-weight:600;font-size:1.05rem">'+msg+'</p>'; });
-      }
+      (function(){
+        if (new URLSearchParams(window.location.search).get('registered') === '1') {
+          var form = document.querySelector('form[name="interest"]');
+          if (form) {
+            var lang=document.documentElement.lang||'sv';
+            var msg=lang==='en'?'Thank you. We will contact you when the platform opens.':'Tack! Vi hör av oss när plattformen öppnar.';
+            form.innerHTML='<p style="color:var(--forest);font-weight:600;font-size:1.05rem">'+msg+'</p>';
+          }
+        }
+      })();
       </script>
       <p class="signup-privacy"><span data-lang="sv">Inga nyhetsbrev utan samtycke. Vi säljer aldrig din data.</span><span data-lang="en">No newsletters without consent. We never sell your data.</span></p>
     </div>
