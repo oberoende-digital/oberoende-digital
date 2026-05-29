@@ -39,16 +39,29 @@ def request(method: str, path: str, payload: Optional[Dict[str, Any]] = None) ->
     if DRY_RUN and method not in {"GET"}:
         print(f"DRY_RUN {method} {path}: {json.dumps(payload, ensure_ascii=False)}")
         return {}
-    req = urllib.request.Request(url, data=data, headers=headers, method=method)
-    try:
-        with urllib.request.urlopen(req, timeout=30) as resp:
-            if resp.status == 204:
-                return None
-            raw = resp.read().decode("utf-8")
-            return json.loads(raw) if raw else None
-    except urllib.error.HTTPError as e:
-        body = e.read().decode("utf-8", "replace")
-        raise RuntimeError(f"Discord API {method} {path} failed: {e.code} {body}") from e
+
+    for attempt in range(5):
+        req = urllib.request.Request(url, data=data, headers=headers, method=method)
+        try:
+            with urllib.request.urlopen(req, timeout=30) as resp:
+                if resp.status == 204:
+                    return None
+                raw = resp.read().decode("utf-8")
+                return json.loads(raw) if raw else None
+        except urllib.error.HTTPError as e:
+            body = e.read().decode("utf-8", "replace")
+            if e.code == 429 and attempt < 4:
+                retry_after = 5.0
+                try:
+                    retry_after = float(json.loads(body).get("retry_after", retry_after))
+                except Exception:
+                    pass
+                print(f"rate limited; waiting {retry_after:.1f}s before retrying {method} {path}")
+                time.sleep(retry_after + 1.0)
+                continue
+            raise RuntimeError(f"Discord API {method} {path} failed: {e.code} {body}") from e
+
+    raise RuntimeError(f"Discord API {method} {path} failed after retries")
 
 
 def create_role(name: str, reason: str = "Oberoende Digital setup") -> Any:
@@ -61,10 +74,15 @@ def create_role(name: str, reason: str = "Oberoende Digital setup") -> Any:
     return request("POST", f"/guilds/{GUILD_ID}/roles", {"name": name, "mentionable": True, "reason": reason})
 
 
+def normalize_discord_channel_name(name: str) -> str:
+    return name.lower().replace(" ", "-")
+
+
 def create_channel(name: str, channel_type: int, parent_id: Optional[str] = None, topic: Optional[str] = None) -> Any:
     existing = request("GET", f"/guilds/{GUILD_ID}/channels")
+    normalized_name = normalize_discord_channel_name(name)
     for ch in existing:
-        if ch["name"] == name and ch.get("parent_id") == parent_id:
+        if ch.get("parent_id") == parent_id and ch["name"] in {name, normalized_name}:
             print(f"channel exists: {name}")
             return ch
     payload: Dict[str, Any] = {"name": name, "type": channel_type}
