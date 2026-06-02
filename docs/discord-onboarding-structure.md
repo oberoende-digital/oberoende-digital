@@ -1,6 +1,6 @@
 # Oberoende Digital Discord onboarding structure
 
-Public invite: https://discord.gg/5XRGt75U
+Public invite: https://discord.gg/4A7AcwVGy3
 
 ## Purpose
 

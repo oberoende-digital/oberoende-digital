@@ -5,7 +5,7 @@ Purpose: create visible public momentum for Oberoende Digital without overclaimi
 Primary CTA for the sprint: join the Discord community.
 
 - Website: https://oberoendedigital.se/
-- Discord: https://discord.gg/5XRGt75U
+- Discord: https://discord.gg/4A7AcwVGy3
 - Core framing: Världens första säkra autonoma parti.
 - English framing: The world’s first Safe Autonomous Party.
 
@@ -38,7 +38,7 @@ Post 1, Swedish:
 >
 > En öppen miljö där människor kan undersöka hur AI-agenter kan bidra till demokrati, politiskt lärande, granskning och deltagande.
 >
-> Gå med och kritisera, bygg, fråga: https://discord.gg/5XRGt75U
+> Gå med och kritisera, bygg, fråga: https://discord.gg/4A7AcwVGy3
 
 Post 1, English:
 
@@ -48,7 +48,7 @@ Post 1, English:
 >
 > A live experiment in how AI agents can help democratic participation become more transparent, structured, and responsive.
 >
-> Join, question, build: https://discord.gg/5XRGt75U
+> Join, question, build: https://discord.gg/4A7AcwVGy3
 
 Direct outreach targets:
 
@@ -58,7 +58,7 @@ Direct outreach targets:
 
 DM template:
 
-> I’m launching an experiment called Oberoende Digital: a public test environment for a Safe Autonomous Party — AI agents at the core of political participation, with human accountability and safety controls. I’d value your critique more than your applause. Join here: https://discord.gg/5XRGt75U
+> I’m launching an experiment called Oberoende Digital: a public test environment for a Safe Autonomous Party — AI agents at the core of political participation, with human accountability and safety controls. I’d value your critique more than your applause. Join here: https://discord.gg/4A7AcwVGy3
 
 ## Day 2 — Make the safety distinction
 
@@ -103,7 +103,7 @@ Post:
 > - journalists and critics
 > - citizens with uncomfortable questions
 >
-> Join the Discord and help define what a safe autonomous party must never do: https://discord.gg/5XRGt75U
+> Join the Discord and help define what a safe autonomous party must never do: https://discord.gg/4A7AcwVGy3
 
 Manual outreach targets:
 
@@ -131,7 +131,7 @@ Use case post:
 >
 > That is more interesting than AI-generated slogans.
 >
-> Join the experiment: https://discord.gg/5XRGt75U
+> Join the experiment: https://discord.gg/4A7AcwVGy3
 
 Discord prompt:
 
@@ -153,7 +153,7 @@ Post:
 >
 > Oberoende Digital should be built in public, with its risks visible.
 >
-> https://discord.gg/5XRGt75U
+> https://discord.gg/4A7AcwVGy3
 
 ## Day 6 — Research framing
 
@@ -170,7 +170,7 @@ Post:
 > - where AI distorts participation
 > - what governance controls are necessary
 >
-> If you want to study this with us, join: https://discord.gg/5XRGt75U
+> If you want to study this with us, join: https://discord.gg/4A7AcwVGy3
 
 ## Day 7 — Public recap and next invite
 
@@ -188,7 +188,7 @@ Post template:
 >
 > Next: public experiments, onboarding flows, and research outputs.
 >
-> Join now, while the shape is still open: https://discord.gg/5XRGt75U
+> Join now, while the shape is still open: https://discord.gg/4A7AcwVGy3
 
 ## Metrics to track daily
 

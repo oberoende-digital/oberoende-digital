@@ -86,11 +86,11 @@ That is a useful policy prompt, but we should not treat it as an official positi
 
 ### AI builder
 
-I’m launching Oberoende Digital: a public test environment for a Safe Autonomous Party — AI agents at the core of political participation, with human accountability and safety controls. I’m looking for people who can pressure-test the architecture, not just cheerlead it. Would value your critique: https://discord.gg/5XRGt75U
+I’m launching Oberoende Digital: a public test environment for a Safe Autonomous Party — AI agents at the core of political participation, with human accountability and safety controls. I’m looking for people who can pressure-test the architecture, not just cheerlead it. Would value your critique: https://discord.gg/4A7AcwVGy3
 
 ### Civic/democracy person
 
-We’re testing something unusual with Oberoende Digital: can AI agents help make political participation more understandable, transparent, and responsive without removing human accountability? It’s not a formal party yet; it’s a public lab. I’d value your democratic-risk perspective: https://discord.gg/5XRGt75U
+We’re testing something unusual with Oberoende Digital: can AI agents help make political participation more understandable, transparent, and responsive without removing human accountability? It’s not a formal party yet; it’s a public lab. I’d value your democratic-risk perspective: https://discord.gg/4A7AcwVGy3
 
 ### Journalist/researcher
 
@@ -98,7 +98,7 @@ Oberoende Digital is being built as a public research environment for AI-assiste
 
 ### Friend / first circle
 
-I’m opening the first public loop for Oberoende Digital — an experiment in safe AI-assisted political participation. If you have 5 minutes, join the Discord and ask one hard question. That is more useful right now than encouragement: https://discord.gg/5XRGt75U
+I’m opening the first public loop for Oberoende Digital — an experiment in safe AI-assisted political participation. If you have 5 minutes, join the Discord and ask one hard question. That is more useful right now than encouragement: https://discord.gg/4A7AcwVGy3
 
 ## Press-style headline options
 
@@ -123,8 +123,8 @@ Use sparingly. Prefer specific people and communities over hashtag spam.
 
 ## Calls to action
 
-- Join the Discord and ask one hard question: https://discord.gg/5XRGt75U
+- Join the Discord and ask one hard question: https://discord.gg/4A7AcwVGy3
 - Read the public framing: https://oberoendedigital.se/
-- Bring a critique, not applause: https://discord.gg/5XRGt75U
-- Help define what a safe autonomous party must never do: https://discord.gg/5XRGt75U
-- If you study AI, democracy, or civic trust, join the experiment: https://discord.gg/5XRGt75U
+- Bring a critique, not applause: https://discord.gg/4A7AcwVGy3
+- Help define what a safe autonomous party must never do: https://discord.gg/4A7AcwVGy3
+- If you study AI, democracy, or civic trust, join the experiment: https://discord.gg/4A7AcwVGy3
