@@ -108,8 +108,16 @@ class PDFSource:
     doc_id: str | None = None
 
 
+def normalize_url(url: str) -> str:
+    """Percent-encode non-ASCII path/query characters for urllib."""
+    p = urllib.parse.urlsplit(url)
+    path = urllib.parse.quote(p.path, safe="/%:@")
+    query = urllib.parse.quote(p.query, safe="=&%:+,;/?@")
+    return urllib.parse.urlunsplit((p.scheme, p.netloc, path, query, p.fragment))
+
+
 def request(url: str, timeout: int = 30) -> urllib.request.Request:
-    return urllib.request.Request(url, headers={"User-Agent": USER_AGENT})
+    return urllib.request.Request(normalize_url(url), headers={"User-Agent": USER_AGENT})
 
 
 def read_url(url: str, timeout: int = 30, max_bytes: int | None = None) -> tuple[bytes, str, str]:

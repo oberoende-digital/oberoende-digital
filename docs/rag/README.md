@@ -6,12 +6,12 @@ Status: local SQLite/FTS5 baseline with HTML sources plus a PDF archive/indexer.
 
 Current local PDF corpus after the June 2026 expansion:
 
-- 587 discovered PDF metadata rows.
-- 582 PDFs downloaded/extracted successfully.
-- 509 Riksdag budget/political-motion PDFs from current and historical parliamentary years.
-- 78 party-site PDFs, including party programmes, election manifestos, reports and policy programmes.
-- 5 downloaded Miljöpartiet historical scans require OCR before they can be indexed.
-- Local SQLite index: 599 ok sources, 5 error sources, 34,782 chunks.
+- 1,113 discovered PDF metadata rows.
+- 1,066 PDFs downloaded/extracted successfully.
+- 1,030 Riksdag budget/political-motion PDF candidates covering current and historical parliamentary years.
+- 83 party-site PDFs, including party programmes, election manifestos, reports and policy programmes.
+- 47 failures remain visible in the manifest: mostly older Riksdag PDF URLs returning 404 plus 5 scanned Miljöpartiet historical PDFs that need OCR.
+- Local SQLite index: 1,083 ok sources, 47 error sources, 58,621 chunks.
 
 Raw PDFs live on the server under `data/rag/pdf_sources/` with extracted `.txt` sidecars. They are intentionally gitignored because the archive is hundreds of MB; commit the scripts and metadata, not the raw PDF cache.
 
