@@ -1,4 +1,12 @@
+# Local/runtime RAG artifacts
+# Raw PDFs and extracted sidecar text are downloaded to the server but are too
+# large/noisy for normal GitHub commits. Keep the script + metadata in git.
+data/rag/pdf_sources/
+data/rag/*.sqlite3-shm
+data/rag/*.sqlite3-wal
 server/*.sqlite3
-server/*.sqlite3-*
-__pycache__/
+server/*.sqlite3-shm
+server/*.sqlite3-wal
+
+# macOS
 .DS_Store
