@@ -515,6 +515,32 @@
     @media (max-width:720px){ .lang-switch{margin-left:auto}.layer-card{grid-template-columns:1fr}.nav-links{display:flex;gap:.7rem}.nav-links a:not(.btn){display:none} }
     .mt-4 { margin-top: 1rem; }
     .mt-8 { margin-top: 2rem; }
+
+    /* ══════════════════════════════════
+       PRIVACY / COOKIE NOTICE
+    ══════════════════════════════════ */
+    .cookie-banner {
+      position: fixed; left: 1rem; right: 1rem; bottom: 1rem; z-index: 500;
+      max-width: 860px; margin: 0 auto; padding: 1rem 1.1rem;
+      background: rgba(19,40,69,0.98); color: var(--stone);
+      border: 1px solid rgba(247,244,237,0.16); border-radius: 8px;
+      box-shadow: 0 18px 50px rgba(0,0,0,0.28);
+      display: none; gap: 1rem; align-items: center; justify-content: space-between;
+    }
+    .cookie-banner.visible { display: flex; }
+    .cookie-banner p { font-size: 0.82rem; line-height: 1.55; color: rgba(247,244,237,0.72); margin: 0; }
+    .cookie-banner strong { color: var(--stone); }
+    .cookie-banner a { color: var(--stone); text-decoration: underline; text-underline-offset: 2px; }
+    .cookie-actions { display: flex; gap: 0.6rem; flex-wrap: wrap; flex-shrink: 0; }
+    .cookie-actions button, .cookie-actions a {
+      border-radius: 4px; padding: 0.58rem 0.85rem; font-size: 0.78rem;
+      font-weight: 700; cursor: pointer; text-decoration: none; white-space: nowrap;
+      font-family: 'Inter', sans-serif;
+    }
+    .cookie-accept { border: 1px solid var(--stone); background: var(--stone); color: var(--navy); }
+    .cookie-secondary { border: 1px solid rgba(247,244,237,0.35); background: transparent; color: var(--stone); }
+    @media (max-width: 720px) { .cookie-banner { flex-direction: column; align-items: flex-start; } .cookie-actions { width: 100%; } .cookie-actions button, .cookie-actions a { flex: 1; text-align: center; } }
+
   </style>
 </head>
 <body>
@@ -760,7 +786,7 @@
         }
       })();
       </script>
-      <p class="signup-privacy"><span data-lang="sv">Inga nyhetsbrev utan samtycke. Vi säljer aldrig din data.</span><span data-lang="en">No newsletters without consent. We never sell your data.</span></p>
+      <p class="signup-privacy"><span data-lang="sv">Inga nyhetsbrev utan samtycke. Vi säljer aldrig din data. Läs vår <a href="/privacy-gdpr.pdf" target="_blank" rel="noopener">integritets- och GDPR-policy</a>.</span><span data-lang="en">No newsletters without consent. We never sell your data. Read our <a href="/privacy-gdpr.pdf" target="_blank" rel="noopener">privacy and GDPR policy</a>.</span></p>
     </div>
   </div>
 </section>
@@ -788,24 +814,49 @@
       <div class="footer-brand"><div class="footer-logo"><img src="od.png" class="footer-lily" alt="OD"/><span class="footer-name">Oberoende Digital</span></div><p class="footer-tagline"><span data-lang="sv">Världens första säkra autonoma partilabb.<br/>AI hjälper. Människor legitimerar.</span><span data-lang="en">The world’s first Safe Autonomous Party Lab.<br/>AI assists. Humans legitimize.</span></p></div>
       <div class="footer-col"><h4><span data-lang="sv">Partiet</span><span data-lang="en">Party</span></h4><ul><li><a href="#vardegrund"><span data-lang="sv">Värdegrund</span><span data-lang="en">Values</span></a></li><li><a href="#ai"><span data-lang="sv">AI-konstitutionen</span><span data-lang="en">AI Constitution</span></a></li><li><a href="/constitutional-core/"><span data-lang="sv">Konstitutionell kärna</span><span data-lang="en">Constitutional core</span></a></li><li><a href="/research/"><span data-lang="sv">Forskningsagenda</span><span data-lang="en">Research agenda</span></a></li><li><a href="#demokrati"><span data-lang="sv">Demokratimodellen</span><span data-lang="en">Democracy model</span></a></li></ul></div>
       <div class="footer-col"><h4><span data-lang="sv">Delta</span><span data-lang="en">Participate</span></h4><ul><li><a href="#med"><span data-lang="sv">Följ arbetet</span><span data-lang="en">Follow the work</span></a></li><li><a href="#donera"><span data-lang="sv">Donera</span><span data-lang="en">Donate</span></a></li><li><a href="https://discord.gg/4A7AcwVGy3" target="_blank" rel="noopener">Discord</a></li></ul></div>
-      <div class="footer-col"><h4><span data-lang="sv">Juridik</span><span data-lang="en">Legal</span></h4><ul><li><a href="#"><span data-lang="sv">Integritetspolicy</span><span data-lang="en">Privacy policy</span></a></li><li><a href="#"><span data-lang="sv">Finansieringsredovisning</span><span data-lang="en">Financing disclosure</span></a></li><li><a href="https://www.val.se" target="_blank">Valmyndigheten ↗</a></li></ul></div>
+      <div class="footer-col"><h4><span data-lang="sv">Juridik</span><span data-lang="en">Legal</span></h4><ul><li><a href="/privacy-gdpr.pdf" target="_blank" rel="noopener"><span data-lang="sv">Integritet &amp; GDPR</span><span data-lang="en">Privacy &amp; GDPR</span></a></li><li><a href="#"><span data-lang="sv">Finansieringsredovisning</span><span data-lang="en">Financing disclosure</span></a></li><li><a href="https://www.val.se" target="_blank">Valmyndigheten ↗</a></li></ul></div>
     </div>
     <div class="footer-bottom"><span>© 2026 Oberoende Digital · <a href="https://oberoendedigital.se">oberoendedigital.se</a></span><span><span data-lang="sv">Safe Autonomous Party Lab · första stegen mot AI-assisterade politiska partier</span><span data-lang="en">Safe Autonomous Party Lab · first steps toward AI-assisted political parties</span></span></div>
   </div>
 </footer>
 
+<div class="cookie-banner" id="cookie-banner" role="dialog" aria-live="polite" aria-label="Cookie notice">
+  <p><strong><span data-lang="sv">Integritet och cookies</span><span data-lang="en">Privacy and cookies</span></strong><br/>
+    <span data-lang="sv">Vi använder nödvändig lokal lagring för språkval och för att komma ihåg detta besked. Webbplatsen använder inte annonserings- eller beteendespårningscookies i nuläget.</span>
+    <span data-lang="en">We use necessary local storage for language preference and to remember this notice. The site does not currently use advertising or behavioural tracking cookies.</span>
+  </p>
+  <div class="cookie-actions">
+    <a class="cookie-secondary" href="/privacy-gdpr.pdf" target="_blank" rel="noopener"><span data-lang="sv">Läs policy</span><span data-lang="en">Read policy</span></a>
+    <button type="button" class="cookie-accept" id="cookie-accept"><span data-lang="sv">OK, jag förstår</span><span data-lang="en">OK, I understand</span></button>
+  </div>
+</div>
+
 <script>
 (function(){
-  function setLang(lang){
+  function storageGet(key){ try { return localStorage.getItem(key); } catch(e) { return null; } }
+  function storageSet(key, value){ try { localStorage.setItem(key, value); } catch(e) {} }
+  function setLang(lang, persist){
     document.documentElement.lang=lang;
     document.querySelectorAll('[data-lang]').forEach(function(el){ el.classList.toggle('hidden-lang', el.getAttribute('data-lang')!==lang); });
     document.querySelectorAll('.lang-switch button').forEach(function(b){ b.classList.toggle('active', b.dataset.setLang===lang); });
-    try{ localStorage.setItem('od_lang', lang); }catch(e){}
+    if (persist !== false) storageSet('od_lang', lang);
   }
-  window.odSetLang=setLang;
-  var saved; try{ saved=localStorage.getItem('od_lang'); }catch(e){}
+  window.odSetLang=function(lang){ setLang(lang, true); };
+  var saved=storageGet('od_lang');
   var guess=(navigator.language||'').toLowerCase().startsWith('sv')?'sv':'en';
-  setLang(saved||guess);
+  setLang(saved||guess, false);
+
+  var banner=document.getElementById('cookie-banner');
+  var accept=document.getElementById('cookie-accept');
+  if (banner && storageGet('od_cookie_notice') !== 'acknowledged') {
+    banner.classList.add('visible');
+  }
+  if (accept) {
+    accept.addEventListener('click', function(){
+      storageSet('od_cookie_notice', 'acknowledged');
+      if (banner) banner.classList.remove('visible');
+    });
+  }
 })();
 </script>
 </body>
