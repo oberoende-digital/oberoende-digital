@@ -1,7 +1,7 @@
 # Oberoende Digital Platform Blueprint v0.1
 
-Source: Independent Digital (OD) — White Paper v2.2 (English), April 2026
-Document ID: 1c6yJuXxXc1UFx7i0FblhoY1vEFe0jVg0eMh7XwV3aPY
+Source: [redacted]
+Document ID: [redacted]
 Prepared as an operational blueprint for a pre-formal, research-oriented Safe Autonomous Party Lab.
 
 ## 1. Working Frame
