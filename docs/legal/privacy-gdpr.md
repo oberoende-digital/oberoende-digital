@@ -19,7 +19,7 @@ Oberoende Digital is a pre-formal platform build and research environment explor
 
 Data controller / contact point: Oberoende Digital
 
-Contact email: dev@oberoendedigital.se
+Contact email: admin@oberoendedigital.se
 
 Website: https://oberoendedigital.se
 
@@ -157,7 +157,7 @@ Subject to GDPR conditions and exceptions, you have the right to:
 
 In Sweden, the supervisory authority is Integritetsskyddsmyndigheten (IMY): https://www.imy.se/
 
-To exercise your rights, contact: dev@oberoendedigital.se
+To exercise your rights, contact: admin@oberoendedigital.se
 
 ## 11. AI-assisted processing
 
@@ -189,6 +189,6 @@ Oberoende Digital samlar i nuläget in så lite persondata som möjligt. Den vik
 
 Vi säljer inte persondata. Vi använder data för att kunna driva webbplatsen, svara på frågor, hantera intresseanmälningar, moderera communityt, förbättra labbet och skydda tjänsten mot missbruk.
 
-Du kan kontakta dev@oberoendedigital.se för att begära tillgång, rättelse, radering, begränsning, invändning eller återkallelse av samtycke. Du kan också lämna klagomål till Integritetsskyddsmyndigheten, IMY.
+Du kan kontakta admin@oberoendedigital.se för att begära tillgång, rättelse, radering, begränsning, invändning eller återkallelse av samtycke. Du kan också lämna klagomål till Integritetsskyddsmyndigheten, IMY.
 
 Viktig begränsning: projektet är fortfarande en för-formell plattform och forskningsmiljö. Innan formellt medlemskap, verifierad röstning, donationer eller behandling av politiska åsikter sker i större skala bör detta dokument granskas juridiskt och kompletteras med organisationsnummer, postadress, tydlig personuppgiftsansvarig, retentionsschema, personuppgiftsbiträdesavtal och eventuella konsekvensbedömningar.
