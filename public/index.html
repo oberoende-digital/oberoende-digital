@@ -338,6 +338,72 @@
     .focus-card p { font-size: 0.86rem; color: var(--text-mid); line-height: 1.65; }
 
     /* ══════════════════════════════════
+       PUBLIC DOCUMENT LIBRARY
+    ══════════════════════════════════ */
+    .document-library { background: var(--stone-mid); }
+    .document-grid {
+      display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      gap: 1.1rem; margin-top: 2.6rem;
+    }
+    .document-card {
+      background: white; border: 1px solid var(--dim); border-radius: 6px;
+      padding: 1.55rem; display: flex; flex-direction: column; gap: 0.75rem;
+    }
+    .document-card h3 {
+      font-family: 'Source Serif 4', Georgia, serif;
+      font-size: 1.08rem; font-weight: 600; color: var(--navy); line-height: 1.25;
+    }
+    .document-card p { font-size: 0.87rem; color: var(--text-mid); line-height: 1.65; }
+    .document-status {
+      display: inline-block; align-self: flex-start; border-radius: 999px;
+      padding: 0.22rem 0.62rem; font-size: 0.64rem; font-weight: 800;
+      letter-spacing: 0.1em; text-transform: uppercase;
+      background: rgba(49,88,77,0.1); color: var(--forest);
+    }
+    .document-status.draft { background: rgba(242,195,24,0.18); color: #755900; }
+    .document-status.lab { background: rgba(33,182,245,0.12); color: #0a6f9f; }
+    .document-links { margin-top: auto; display: flex; flex-wrap: wrap; gap: 0.55rem; }
+    .document-links a {
+      font-size: 0.78rem; font-weight: 700; text-decoration: none;
+      color: var(--navy); border-bottom: 1px solid rgba(19,40,69,0.22);
+    }
+    .document-note {
+      margin-top: 1.5rem; padding: 1.15rem 1.35rem; border-left: 3px solid var(--forest);
+      background: rgba(255,255,255,0.58); color: var(--text-mid); font-size: 0.84rem;
+    }
+    .trust-resources {
+      margin-top: 2.2rem; padding-top: 2rem; border-top: 1px solid rgba(19,40,69,0.12);
+    }
+    .trust-resources h3 {
+      font-family: 'Source Serif 4', Georgia, serif;
+      font-size: 1.18rem; font-weight: 600; color: var(--navy); margin-bottom: 0.45rem;
+    }
+    .trust-resources > p { max-width: 680px; font-size: 0.88rem; color: var(--text-mid); line-height: 1.7; }
+    .trust-grid {
+      display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 0.95rem; margin-top: 1.25rem;
+    }
+    .trust-card {
+      min-height: 100%; display: flex; flex-direction: column; gap: 0.75rem;
+      padding: 1.1rem; border: 1px solid var(--dim); border-radius: 6px;
+      background: rgba(255,255,255,0.74); color: var(--text); text-decoration: none;
+      transition: border-color 0.2s, transform 0.2s, background 0.2s;
+    }
+    .trust-card:hover { border-color: var(--forest); transform: translateY(-1px); background: white; }
+    .trust-badge {
+      display: inline-flex; align-items: center; justify-content: center; align-self: flex-start;
+      min-width: 72px; min-height: 40px; padding: 0.45rem 0.7rem;
+      border-radius: 4px; border: 1px solid rgba(19,40,69,0.16); background: white;
+      font-size: 0.72rem; font-weight: 800; letter-spacing: 0.08em; text-transform: uppercase;
+      color: var(--navy);
+    }
+    .trust-badge.eu { color: #003399; border-color: rgba(0,51,153,0.25); }
+    .trust-badge.digg { color: #2f4b8f; border-color: rgba(47,75,143,0.25); }
+    .trust-card img { width: 112px; max-width: 100%; height: auto; align-self: flex-start; border-radius: 6px; }
+    .trust-card strong { font-size: 0.92rem; color: var(--navy); line-height: 1.35; }
+    .trust-card span:last-child { font-size: 0.8rem; color: var(--text-mid); line-height: 1.55; }
+
+    /* ══════════════════════════════════
        ITERATIV AUTONOMI
     ══════════════════════════════════ */
     .autonomi { background: var(--stone-mid); padding: 5rem 0; }
@@ -542,27 +608,14 @@
     @media (max-width: 720px) { .cookie-banner { flex-direction: column; align-items: flex-start; } .cookie-actions { width: 100%; } .cookie-actions button, .cookie-actions a { flex: 1; text-align: center; } }
 
   </style>
+  <link rel="stylesheet" href="/assets/site-shared.css"/>
 </head>
 <body>
 
-<!-- ═══ NAV ═══ -->
-<nav>
-  <div class="nav-inner">
-    <a class="nav-brand" href="#">
-      <img src="od.png" class="nav-lily" alt="OD"/>
-      <span class="nav-name">Oberoende Digital</span>
-    </a>
-    <div class="nav-links">
-      <a href="#vardegrund"><span data-lang="sv">Värdegrund</span><span data-lang="en">Values</span></a>
-      <a href="#layers"><span data-lang="sv">Fem lager</span><span data-lang="en">Five layers</span></a>
-      <a href="/constitutional-core/"><span data-lang="sv">Konstitutionell kärna</span><span data-lang="en">Constitutional core</span></a>
-      <a href="/research/"><span data-lang="sv">Forskning</span><span data-lang="en">Research</span></a>
-      <a href="#med"><span data-lang="sv">Delta</span><span data-lang="en">Participate</span></a>
-      <a href="https://discord.gg/4A7AcwVGy3" target="_blank" rel="noopener">Discord</a>
-      <span class="lang-switch"><button type="button" data-set-lang="en" onclick="odSetLang('en')">🇬🇧 EN</button><button type="button" data-set-lang="sv" onclick="odSetLang('sv')">🇸🇪 SV</button></span>
-    </div>
-  </div>
-</nav>
+<header class="od-site-header">
+  <div class="od-ai-disclosure" role="note" aria-label="AI-generated content disclosure"><div class="od-ai-disclosure-inner"><span aria-hidden="true">&#9888;&#65039;</span><img class="od-ai-icon" src="/assets/eu-ai-label/fully-ai-generated.svg" alt="EU fully AI-generated content label"/><span>This entire page was generated by artificial intelligence.</span></div></div>
+  <div class="od-nav-inner"><a class="od-brand" href="/"><img src="/od.png" alt="OD"/><span>Oberoende Digital</span></a><button class="od-menu-toggle" type="button" aria-controls="od-site-menu" aria-expanded="false" aria-label="Open navigation menu"><span class="od-menu-toggle-lines" aria-hidden="true"></span></button><div class="od-site-menu" id="od-site-menu" role="navigation" aria-label="Primary navigation"><a href="/"><span data-lang="sv">Start</span><span data-lang="en">Start</span></a><a href="/constitutional-core/"><span data-lang="sv">Konstitutionell kärna</span><span data-lang="en">Constitutional core</span></a><a href="/research/"><span data-lang="sv">Forskning</span><span data-lang="en">Research</span></a><a href="/blog/"><span data-lang="sv">Blogg</span><span data-lang="en">Blog</span></a><a href="/about/"><span data-lang="sv">Om oss</span><span data-lang="en">About us</span></a><span class="od-lang-switch lang-switch"><button type="button" data-set-lang="en" onclick="odSetLang('en')">EN</button><button type="button" data-set-lang="sv" onclick="odSetLang('sv')">SV</button></span></div></div>
+</header>
 
 <!-- ═══ HERO ═══ -->
 <section class="hero">
@@ -629,6 +682,57 @@
         <p class="lead mt-4" style="margin-top:1.5rem;"><span data-lang="sv">Det är vår kärnmetrik. Inte BNP. Inte prestige. Vi förespråkar att Sverige inrättar ett nationellt välbefinnandeindex — analogt med New Zealands Living Standards Framework — som styrande mätvärde för politiska beslut.</span><span data-lang="en">That is our core metric. Not GDP. Not prestige. We advocate a national wellbeing index for Sweden — analogous to New Zealand’s Living Standards Framework — as a guiding metric for political decisions.</span></p>
       </div>
     </div>
+  </div>
+</section>
+
+<!-- ═══ PUBLIC DOCUMENT LIBRARY ═══ -->
+<section class="section document-library" id="documents">
+  <div class="container">
+    <span class="eyebrow"><span data-lang="sv">Om OD · offentliga dokument</span><span data-lang="en">About OD · public documents</span></span>
+    <h2 class="display"><span data-lang="sv">Dokumentbibliotek för juridik, risk och styrning</span><span data-lang="en">Document library for legal, risk and governance work</span></h2>
+    <p class="lead"><span data-lang="sv">Detta är den publika läslistan för Oberoende Digitals labbfas. Dokumenten är öppna för granskning men flera är uttryckligen utkast eller labbartefakter, inte färdig juridisk rådgivning eller ett formellt partiprogram.</span><span data-lang="en">This is the public reading list for Oberoende Digital's lab phase. The documents are open for scrutiny, but several are explicitly drafts or lab artifacts, not final legal advice or a formal party programme.</span></p>
+    <div class="document-grid">
+      <article class="document-card">
+        <span class="document-status draft"><span data-lang="sv">Juridiskt utkast</span><span data-lang="en">Legal draft</span></span>
+        <h3><span data-lang="sv">Integritets-, GDPR- och cookiepolicy</span><span data-lang="en">Privacy, GDPR and cookie notice</span></h3>
+        <p><span data-lang="sv">Praktisk policy för webbplats, intresseformulär, communitylänkar, AI-assisterad behandling, GDPR-rättigheter och begränsningar innan känsligare medlems- eller röstdata hanteras.</span><span data-lang="en">Practical notice covering the website, interest form, community links, AI-assisted processing, GDPR rights and limits before more sensitive membership or voting data is handled.</span></p>
+        <div class="document-links"><a href="/privacy-gdpr.pdf" target="_blank" rel="noopener">PDF</a><a href="https://github.com/oberoende-digital/oberoende-digital/blob/main/docs/legal/privacy-gdpr.md" target="_blank" rel="noopener"><span data-lang="sv">Källfil</span><span data-lang="en">Source</span></a></div>
+      </article>
+      <article class="document-card">
+        <span class="document-status lab"><span data-lang="sv">Labbstatus</span><span data-lang="en">Lab status</span></span>
+        <h3><span data-lang="sv">Konstitutionell kärna v0.2</span><span data-lang="en">Constitutional Core v0.2</span></h3>
+        <p><span data-lang="sv">Den publika säkerhetskärnan: vad AI-system får och inte får göra, mänsklig ratificering, dataskydd, finansieringstransparens och riskkontroller.</span><span data-lang="en">The public safety core: what AI systems may and may not do, human ratification, data protection, financing transparency and risk controls.</span></p>
+        <div class="document-links"><a href="/constitutional-core/"><span data-lang="sv">Läs sida</span><span data-lang="en">Read page</span></a><a href="https://github.com/oberoende-digital/oberoende-digital/blob/main/docs/governance/constitutional-core-v0.2.md" target="_blank" rel="noopener"><span data-lang="sv">Källfil</span><span data-lang="en">Source</span></a></div>
+      </article>
+      <article class="document-card">
+        <span class="document-status lab"><span data-lang="sv">Etisk riskbedömning</span><span data-lang="en">Ethical risk assessment</span></span>
+        <h3><span data-lang="sv">Forskningsagenda och etisk prövning v0.1</span><span data-lang="en">Research agenda and ethics review v0.1</span></h3>
+        <p><span data-lang="sv">Publik riskgenomgång för demokratisk påverkan, GDPR/politiska åsikter, AI Act-liknande kontroller, hallucinationer, bias, säkerhet och forskningsetik.</span><span data-lang="en">Public risk review for democratic influence, GDPR/political opinions, AI Act-style controls, hallucinations, bias, security and research ethics.</span></p>
+        <div class="document-links"><a href="/research/#ethical-review"><span data-lang="sv">Etiksektion</span><span data-lang="en">Ethics section</span></a><a href="/research/#sources"><span data-lang="sv">Forskningsbibliotek</span><span data-lang="en">Research library</span></a></div>
+      </article>
+      <article class="document-card">
+        <span class="document-status draft"><span data-lang="sv">Operativt utkast</span><span data-lang="en">Operational draft</span></span>
+        <h3><span data-lang="sv">Platform Blueprint v0.1</span><span data-lang="en">Platform Blueprint v0.1</span></h3>
+        <p><span data-lang="sv">Arbetsdokument för labbarkitektur: styrningsdokument, research ethics/data governance, AI safety case, riskregister, incidentlogg och agent-/systemkort att bygga mot.</span><span data-lang="en">Working document for the lab architecture: governance documents, research ethics/data governance, AI safety case, risk register, incident log and agent/system-card scaffolding to build toward.</span></p>
+        <div class="document-links"><a href="https://github.com/oberoende-digital/oberoende-digital/blob/main/docs/Oberoende_Digital_Platform_Blueprint_v0_1.md" target="_blank" rel="noopener"><span data-lang="sv">Källfil</span><span data-lang="en">Source</span></a></div>
+      </article>
+      <article class="document-card">
+        <span class="document-status draft"><span data-lang="sv">Källutkast</span><span data-lang="en">Source draft</span></span>
+        <h3><span data-lang="sv">White paper v2.2-export</span><span data-lang="en">White paper v2.2 export</span></h3>
+        <p><span data-lang="sv">Bakgrundsmaterialet som den nuvarande labbpositioneringen hämtar idéer från. Det ska läsas som historisk källa och arbetsmaterial, inte som gällande formell programtext.</span><span data-lang="en">Background material from which the current lab positioning draws ideas. It should be read as source and working material, not as the current formal programme text.</span></p>
+        <div class="document-links"><a href="https://github.com/oberoende-digital/oberoende-digital/blob/main/docs/OD_whitepaper_v2_2_english_export.txt" target="_blank" rel="noopener"><span data-lang="sv">Källfil</span><span data-lang="en">Source</span></a></div>
+      </article>
+    </div>
+    <div class="trust-resources" id="trust-resources">
+      <h3><span data-lang="sv">Externa resurser för integritet, AI-märkning och svensk digital förvaltning</span><span data-lang="en">External resources for privacy, AI labelling and Swedish digital government</span></h3>
+      <p><span data-lang="sv">Dessa länkar används som publika orienteringspunkter när OD bygger vidare på integritet, AI-transparens och svensk digital offentlig infrastruktur.</span><span data-lang="en">These links are used as public reference points while OD builds toward privacy, AI transparency and Swedish digital public infrastructure.</span></p>
+      <div class="trust-grid">
+        <a class="trust-card" href="https://gdpr.eu/privacy-notice" target="_blank" rel="noopener"><img src="/assets/resource-logos/gdpr-eu.svg" alt="GDPR.eu logo badge"/><strong>GDPR.eu privacy notice</strong><span>Plain-language privacy-notice guide for GDPR-facing public information.</span></a>
+        <a class="trust-card" href="https://digital-strategy.ec.europa.eu/en/policies/code-practice-ai-generated-content" target="_blank" rel="noopener"><img src="/assets/resource-logos/eu-ai-code.svg" alt="European Commission AI code badge"/><strong>EU code of practice for AI-generated content</strong><span>European Commission guidance and labelling work for generated content transparency.</span></a>
+        <a class="trust-card" href="https://www.digg.se" target="_blank" rel="noopener"><img src="/assets/resource-logos/digg.svg" alt="DIGG logo badge"/><strong>DIGG — Sweden's Agency for Digital Government</strong><span>Swedish public-sector digitalisation reference point.</span></a>
+      </div>
+    </div>
+    <div class="document-note"><span data-lang="sv"><strong>Publiceringsprincip:</strong> biblioteket länkar bara dokument som är avsedda för publik granskning. Intern planering, driftanteckningar, privata beslut och ofärdiga säkerhetsdetaljer publiceras inte här förrän de har rensats för integritet, säkerhet och juridisk exponering.</span><span data-lang="en"><strong>Publication principle:</strong> this library links only documents intended for public review. Internal planning, operational notes, private decisions and unfinished security details are not published here until cleared for privacy, security and legal exposure.</span></div>
   </div>
 </section>
 
@@ -807,18 +911,7 @@
   </div>
 </section>
 
-<!-- ═══ FOOTER ═══ -->
-<footer>
-  <div class="container">
-    <div class="footer-top">
-      <div class="footer-brand"><div class="footer-logo"><img src="od.png" class="footer-lily" alt="OD"/><span class="footer-name">Oberoende Digital</span></div><p class="footer-tagline"><span data-lang="sv">Världens första säkra autonoma partilabb.<br/>AI hjälper. Människor legitimerar.</span><span data-lang="en">The world’s first Safe Autonomous Party Lab.<br/>AI assists. Humans legitimize.</span></p></div>
-      <div class="footer-col"><h4><span data-lang="sv">Partiet</span><span data-lang="en">Party</span></h4><ul><li><a href="#vardegrund"><span data-lang="sv">Värdegrund</span><span data-lang="en">Values</span></a></li><li><a href="#ai"><span data-lang="sv">AI-konstitutionen</span><span data-lang="en">AI Constitution</span></a></li><li><a href="/constitutional-core/"><span data-lang="sv">Konstitutionell kärna</span><span data-lang="en">Constitutional core</span></a></li><li><a href="/research/"><span data-lang="sv">Forskningsagenda</span><span data-lang="en">Research agenda</span></a></li><li><a href="#demokrati"><span data-lang="sv">Demokratimodellen</span><span data-lang="en">Democracy model</span></a></li></ul></div>
-      <div class="footer-col"><h4><span data-lang="sv">Delta</span><span data-lang="en">Participate</span></h4><ul><li><a href="#med"><span data-lang="sv">Följ arbetet</span><span data-lang="en">Follow the work</span></a></li><li><a href="#donera"><span data-lang="sv">Donera</span><span data-lang="en">Donate</span></a></li><li><a href="https://discord.gg/4A7AcwVGy3" target="_blank" rel="noopener">Discord</a></li></ul></div>
-      <div class="footer-col"><h4><span data-lang="sv">Juridik</span><span data-lang="en">Legal</span></h4><ul><li><a href="/privacy-gdpr.pdf" target="_blank" rel="noopener"><span data-lang="sv">Integritet &amp; GDPR</span><span data-lang="en">Privacy &amp; GDPR</span></a></li><li><a href="#"><span data-lang="sv">Finansieringsredovisning</span><span data-lang="en">Financing disclosure</span></a></li><li><a href="https://www.val.se" target="_blank">Valmyndigheten ↗</a></li></ul></div>
-    </div>
-    <div class="footer-bottom"><span>© 2026 Oberoende Digital · <a href="https://oberoendedigital.se">oberoendedigital.se</a></span><span><span data-lang="sv">Safe Autonomous Party Lab · första stegen mot AI-assisterade politiska partier</span><span data-lang="en">Safe Autonomous Party Lab · first steps toward AI-assisted political parties</span></span></div>
-  </div>
-</footer>
+<footer class="od-site-footer"><div class="od-footer-top"><div class="od-footer-brand"><div class="od-footer-logo"><img src="/od.png" alt="OD"/><span class="od-footer-name">Oberoende Digital</span></div><p class="od-footer-tagline"><span data-lang="sv">Världens första säkra autonoma partilabb.<br/>AI hjälper. Människor legitimerar.</span><span data-lang="en">The world’s first Safe Autonomous Party Lab.<br/>AI assists. Humans legitimize.</span></p></div><div class="od-footer-col"><h4><span data-lang="sv">Webbplats</span><span data-lang="en">Site</span></h4><ul><li><a href="/">Start</a></li><li><a href="/constitutional-core/"><span data-lang="sv">Konstitutionell kärna</span><span data-lang="en">Constitutional core</span></a></li><li><a href="/research/"><span data-lang="sv">Forskningsagenda</span><span data-lang="en">Research agenda</span></a></li><li><a href="/blog/"><span data-lang="sv">Blogg</span><span data-lang="en">Blog</span></a></li><li><a href="/about/"><span data-lang="sv">Om oss</span><span data-lang="en">About us</span></a></li></ul></div><div class="od-footer-col"><h4><span data-lang="sv">Delta</span><span data-lang="en">Participate</span></h4><ul><li><a href="https://discord.gg/4A7AcwVGy3" target="_blank" rel="noopener">Discord</a></li><li><a href="/#med"><span data-lang="sv">Följ arbetet</span><span data-lang="en">Follow the work</span></a></li><li><a href="/#donera"><span data-lang="sv">Donera</span><span data-lang="en">Donate</span></a></li></ul></div><div class="od-footer-col"><h4><span data-lang="sv">Juridik</span><span data-lang="en">Legal</span></h4><ul><li><a href="/gdpr/"><span data-lang="sv">Integritet &amp; GDPR</span><span data-lang="en">Privacy &amp; GDPR</span></a></li><li><a href="/impressum/">Impressum</a></li><li><a href="mailto:admin@oberoendedigital.se">admin@oberoendedigital.se</a></li><li><a href="https://www.val.se" target="_blank" rel="noopener">Valmyndigheten ↗</a></li></ul></div></div><div class="od-footer-bottom"><span>© 2026 Oberoende Digital · <a href="https://oberoendedigital.se">oberoendedigital.se</a></span><span>Contact: Rasmus Lundqvist · <a href="mailto:admin@oberoendedigital.se">admin@oberoendedigital.se</a> · Signal rlse.01 · EU AI label icon source: European Commission.</span></div></footer>
 
 <div class="cookie-banner" id="cookie-banner" role="dialog" aria-live="polite" aria-label="Cookie notice">
   <p><strong><span data-lang="sv">Integritet och cookies</span><span data-lang="en">Privacy and cookies</span></strong><br/>
@@ -826,7 +919,7 @@
     <span data-lang="en">We use necessary local storage for language preference and to remember this notice. The site does not currently use advertising or behavioural tracking cookies.</span>
   </p>
   <div class="cookie-actions">
-    <a class="cookie-secondary" href="/privacy-gdpr.pdf" target="_blank" rel="noopener"><span data-lang="sv">Läs policy</span><span data-lang="en">Read policy</span></a>
+    <a class="cookie-secondary" href="/gdpr/"><span data-lang="sv">Läs policy</span><span data-lang="en">Read policy</span></a>
     <button type="button" class="cookie-accept" id="cookie-accept"><span data-lang="sv">OK, jag förstår</span><span data-lang="en">OK, I understand</span></button>
   </div>
 </div>
@@ -859,5 +952,6 @@
   }
 })();
 </script>
+<script src="/assets/site-shared.js"></script>
 </body>
 </html>
