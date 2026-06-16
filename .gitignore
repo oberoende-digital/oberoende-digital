@@ -8,5 +8,13 @@ server/*.sqlite3
 server/*.sqlite3-shm
 server/*.sqlite3-wal
 
+# Local backend runtime data
+data/backend/*.sqlite3
+data/backend/*.sqlite3-*
+
+# Python caches
+__pycache__/
+*.py[cod]
+
 # macOS
 .DS_Store
