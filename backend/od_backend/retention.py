@@ -8,6 +8,7 @@ import re
 EMAIL_RE = re.compile(r"\b[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}\b", re.IGNORECASE)
 URL_RE = re.compile(r"https?://\S+|www\.\S+", re.IGNORECASE)
 MENTION_RE = re.compile(r"<@!?\d+>|<@&\d+>|<#\d+>")
+PERSONNUMMER_RE = re.compile(r"(?<!\d)(?:\d{2})?\d{6}[-+ ]?\d{4}(?!\d)")
 SPACE_RE = re.compile(r"\s+")
 
 
@@ -31,6 +32,7 @@ def redact_text(text: str, *, max_chars: int = 160) -> str:
     clean = EMAIL_RE.sub("[email]", text or "")
     clean = URL_RE.sub("[url]", clean)
     clean = MENTION_RE.sub("[mention]", clean)
+    clean = PERSONNUMMER_RE.sub("[personnummer]", clean)
     clean = SPACE_RE.sub(" ", clean).strip()
     if len(clean) <= max_chars:
         return clean

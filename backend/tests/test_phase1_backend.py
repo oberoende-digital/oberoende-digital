@@ -104,16 +104,27 @@ class Phase1BackendTests(unittest.TestCase):
             message_id="msg-1",
             channel_id="channel-1",
             author_id="raw-user-123",
-            content="Email me at person@example.com and see https://example.com please",
+            content="Email me at person@example.com, personnummer 19900101-1234, and see https://example.com please",
             created_at="2026-06-17T00:00:00Z",
             secret="test-secret",
         )
         self.assertEqual(minimized.message_id, "msg-1")
         self.assertNotEqual(minimized.author_hash, "raw-user-123")
         self.assertIn("[email]", minimized.redacted_preview)
+        self.assertIn("[personnummer]", minimized.redacted_preview)
         self.assertIn("[url]", minimized.redacted_preview)
         self.assertNotIn("person@example.com", minimized.redacted_preview)
+        self.assertNotIn("19900101-1234", minimized.redacted_preview)
         self.assertNotIn("https://example.com", minimized.redacted_preview)
+
+    def test_personnummer_redaction_triggers_high_priority_privacy_triage(self) -> None:
+        redacted = redact_text("Someone posted Swedish SSN 900101-1234 in public")
+        self.assertIn("[personnummer]", redacted)
+        self.assertNotIn("900101-1234", redacted)
+        result = triage_redacted_preview(redacted)
+        self.assertIn("privacy_sensitive_content", result.categories)
+        self.assertEqual(result.priority, "high")
+        self.assertTrue(result.human_review_needed)
 
     def test_discord_dry_run_never_posts_and_does_not_store_raw_content(self) -> None:
         with tempfile.TemporaryDirectory() as tmp:

@@ -15,7 +15,7 @@ class TriageResult:
 CATEGORY_KEYWORDS: tuple[tuple[str, tuple[str, ...]], ...] = (
     ("prompt_injection_attempt", ("ignore previous", "ignore all previous", "system prompt", "developer message", "jailbreak", "forget your instructions", "act as", "pretend you are")),
     ("requests_live_action", ("post this", "send this", "reply now", "publish", "delete", "ban", "kick", "dm me", "make a decision", "vote for", "register me")),
-    ("privacy_sensitive_content", ("[email]", "phone", "personnummer", "social security", "address", "home address", "private", "secret", "password", "token")),
+    ("privacy_sensitive_content", ("[email]", "[personnummer]", "phone", "personnummer", "social security", "address", "home address", "private", "secret", "password", "token")),
     ("legal_election_compliance", ("election", "val", "rösta", "riksdag", "kommunval", "eu-val", "campaign finance", "donation", "gdpr", "ai act", "lag", "legal", "law", "myndighet")),
     ("media_journalist_inquiry", ("journalist", "press", "media", "interview", "reporter", "article", "podcast")),
     ("abuse_or_harassment", ("idiot", "stupid", "hate", "kill", "threat", "harass", "fuck", "shit")),
