@@ -283,6 +283,26 @@ class Phase1BackendTests(unittest.TestCase):
             self.assertIn("dry_run_route", report)
             self.assertIn("Content triage summary", report)
 
+    def test_safety_report_keeps_last_non_empty_monitor_cursor(self) -> None:
+        with tempfile.TemporaryDirectory() as tmp:
+            audit = AuditLog(Path(tmp) / "audit.sqlite3")
+            audit.record(
+                "discord_monitor_run",
+                agent_slug=None,
+                channel="discord:channel-1",
+                synthetic_disclosure="n/a",
+                payload={"fetched": 2, "handled": 1, "last_seen_message_id": "101"},
+            )
+            audit.record(
+                "discord_monitor_run",
+                agent_slug=None,
+                channel="discord:channel-1",
+                synthetic_disclosure="n/a",
+                payload={"fetched": 0, "handled": 0},
+            )
+            report = build_safety_report(audit)
+            self.assertIn("Last seen message ID: 101", report)
+
 
 if __name__ == "__main__":
     unittest.main()
