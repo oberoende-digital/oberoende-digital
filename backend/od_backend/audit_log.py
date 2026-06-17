@@ -72,3 +72,14 @@ class AuditLog:
             }
             for row in rows
         ]
+
+    def count_older_than(self, cutoff_iso: str) -> int:
+        with sqlite3.connect(self.path) as con:
+            return int(con.execute("SELECT COUNT(*) FROM audit_events WHERE created_at < ?", (cutoff_iso,)).fetchone()[0])
+
+    def delete_older_than(self, cutoff_iso: str) -> int:
+        with sqlite3.connect(self.path) as con:
+            before = int(con.execute("SELECT COUNT(*) FROM audit_events").fetchone()[0])
+            con.execute("DELETE FROM audit_events WHERE created_at < ?", (cutoff_iso,))
+            after = int(con.execute("SELECT COUNT(*) FROM audit_events").fetchone()[0])
+            return before - after

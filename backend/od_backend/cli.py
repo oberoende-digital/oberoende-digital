@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 import argparse
+from datetime import datetime, timedelta, timezone
 
 from .audit_log import AuditLog
 from .config import load_settings
@@ -8,10 +9,15 @@ from .discord_adapter import (
     assert_live_post_allowed,
     check_discord_readiness,
     dry_run_discord_event,
+    scan_channel_dry_run,
     validate_discord_credentials,
 )
 from .router import route_message
 from .safety_report import build_safety_report
+
+
+def _cutoff_iso(days: int) -> str:
+    return (datetime.now(timezone.utc) - timedelta(days=days)).replace(microsecond=0).isoformat().replace("+00:00", "Z")
 
 
 def main(argv: list[str] | None = None) -> int:
@@ -31,6 +37,15 @@ def main(argv: list[str] | None = None) -> int:
     discord_dry.add_argument("message")
     discord_dry.add_argument("--channel-id", default="manual-channel")
     discord_dry.add_argument("--author-id", default="manual-author")
+    discord_dry.add_argument("--message-id", default="manual-message")
+
+    listen = sub.add_parser("discord-listen-dry-run", help="Fetch recent messages from the allowlisted Discord channel and dry-run route them")
+    listen.add_argument("--channel-id", required=True)
+    listen.add_argument("--limit", type=int, default=10)
+
+    sweep = sub.add_parser("retention-sweep", help="Count or delete audit events older than a retention window")
+    sweep.add_argument("--days", type=int, default=30)
+    sweep.add_argument("--apply", action="store_true", help="Actually delete matching old audit events")
 
     live_post = sub.add_parser("discord-live-post", help="Gate check for future live Discord posting; currently posts nothing")
     live_post.add_argument("--channel-id", required=True)
@@ -48,6 +63,7 @@ def main(argv: list[str] | None = None) -> int:
         print(f"database_path={settings.database_path}")
         print(f"discord_mode={readiness.mode}")
         print(f"discord_reason={readiness.reason}")
+        print(f"discord_monitor_channel_id={settings.discord_monitor_channel_id or ''}")
         print(f"llm_provider={settings.llm_provider}")
         return 0
 
@@ -62,6 +78,7 @@ def main(argv: list[str] | None = None) -> int:
         readiness = check_discord_readiness(settings)
         print(f"discord_mode={readiness.mode}")
         print(f"discord_configured={str(settings.discord_configured).lower()}")
+        print(f"monitor_channel_configured={str(bool(settings.discord_monitor_channel_id)).lower()}")
         print(f"live_post_enabled={str(settings.discord_live_post_enabled).lower()}")
         if args.skip_network:
             print("network_validation=skipped")
@@ -82,10 +99,36 @@ def main(argv: list[str] | None = None) -> int:
             author_id=args.author_id,
             audit_log=audit,
             settings=settings,
+            message_id=args.message_id,
         )
         print(f"discord_dry_run_event_id={event_id}")
         print("posted=false")
         print("mode=dry-run")
+        return 0
+
+    if args.command == "discord-listen-dry-run":
+        results = scan_channel_dry_run(channel_id=args.channel_id, limit=args.limit, audit_log=audit, settings=settings)
+        handled = sum(1 for item in results if item.handled)
+        ignored = len(results) - handled
+        print(f"channel_id={args.channel_id}")
+        print(f"handled={handled}")
+        print(f"ignored={ignored}")
+        for item in results:
+            print(f"result={item.reason} audit_event_id={item.audit_event_id or ''} agent={item.agent_slug or ''}")
+        return 0 if handled or results else 2
+
+    if args.command == "retention-sweep":
+        if args.days < 1:
+            print("error=--days must be >= 1")
+            return 2
+        cutoff = _cutoff_iso(args.days)
+        count = audit.count_older_than(cutoff)
+        if args.apply:
+            deleted = audit.delete_older_than(cutoff)
+            print(f"deleted={deleted}")
+        else:
+            print(f"would_delete={count}")
+        print(f"cutoff={cutoff}")
         return 0
 
     if args.command == "discord-live-post":
@@ -94,7 +137,7 @@ def main(argv: list[str] | None = None) -> int:
         except PermissionError as exc:
             print(f"error={exc}")
             return 2
-        print("Live-post gate passed, but posting is intentionally not implemented in Phase 1.5.")
+        print("Live-post gate passed, but posting is intentionally not implemented in Phase 1.6.")
         print(f"channel_id={args.channel_id}")
         return 0
 
