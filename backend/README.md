@@ -28,3 +28,9 @@ PYTHONPATH=backend python3 -m unittest discover -s backend/tests
 - `OD_LLM_PROVIDER` defaults to `disabled`; external model calls are not implemented in this skeleton.
 - Every dry-run response includes synthetic-agent disclosure.
 - Raw public message storage is limited to explicit dry-run audit payloads until retention/anonymization jobs are defined.
+
+## Governance design docs
+
+- `docs/threat-model.md` — Phase 1 risks, assets, controls, and live-mode gates.
+- `docs/inter-node-api.md` — future node/API envelope and non-goals; design only, no live service yet.
+- `docs/governance-rules.md` — implementation rules for identity, mandate, data protection, Discord operation, and PR readiness.
