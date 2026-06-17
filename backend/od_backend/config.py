@@ -9,6 +9,7 @@ from pathlib import Path
 class Settings:
     environment: str = "local"
     database_path: Path = Path("data/backend/od_backend.sqlite3")
+    monitor_state_path: Path = Path("data/backend/discord_monitor_state.json")
     discord_bot_token: str | None = None
     discord_guild_id: str | None = None
     discord_monitor_channel_id: str | None = None
@@ -44,6 +45,7 @@ def load_settings() -> Settings:
     return Settings(
         environment=os.getenv("OD_ENV", "local"),
         database_path=Path(os.getenv("OD_BACKEND_DB", "data/backend/od_backend.sqlite3")),
+        monitor_state_path=Path(os.getenv("OD_MONITOR_STATE", "data/backend/discord_monitor_state.json")),
         discord_bot_token=os.getenv("DISCORD_BOT_TOKEN") or None,
         discord_guild_id=os.getenv("DISCORD_GUILD_ID") or None,
         discord_monitor_channel_id=os.getenv("OD_DISCORD_MONITOR_CHANNEL_ID") or None,

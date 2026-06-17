@@ -83,3 +83,22 @@ class AuditLog:
             con.execute("DELETE FROM audit_events WHERE created_at < ?", (cutoff_iso,))
             after = int(con.execute("SELECT COUNT(*) FROM audit_events").fetchone()[0])
             return before - after
+
+    def events_by_type(self, event_type: str, limit: int = 1000) -> list[dict[str, Any]]:
+        with sqlite3.connect(self.path) as con:
+            rows = con.execute(
+                "SELECT id,created_at,event_type,agent_slug,channel,synthetic_disclosure,payload_json FROM audit_events WHERE event_type = ? ORDER BY id DESC LIMIT ?",
+                (event_type, limit),
+            ).fetchall()
+        return [
+            {
+                "id": row[0],
+                "created_at": row[1],
+                "event_type": row[2],
+                "agent_slug": row[3],
+                "channel": row[4],
+                "synthetic_disclosure": row[5],
+                "payload": json.loads(row[6]),
+            }
+            for row in rows
+        ]

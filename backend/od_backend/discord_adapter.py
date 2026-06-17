@@ -8,6 +8,7 @@ import urllib.request
 
 from .audit_log import AuditLog
 from .config import Settings
+from .monitor_state import MonitorState, load_monitor_state, max_message_id, save_monitor_state
 from .retention import MinimizedDiscordMessage, minimize_discord_message
 from .router import route_message
 
@@ -59,6 +60,19 @@ class DiscordDryRunResult:
     audit_event_id: int | None = None
     route_event_id: int | None = None
     agent_slug: str | None = None
+    message_id: str | None = None
+
+
+@dataclass(frozen=True)
+class MonitorRunResult:
+    channel_id: str
+    fetched: int
+    handled: int
+    ignored: int
+    duplicate_skipped: int
+    last_seen_message_id: str | None
+    summary_event_id: int
+    results: tuple[DiscordDryRunResult, ...]
 
 
 def check_discord_readiness(settings: Settings) -> DiscordReadiness:
@@ -178,12 +192,12 @@ def dry_run_discord_event(
 def handle_discord_message_dry_run(message: dict[str, object], *, audit_log: AuditLog, settings: Settings, bot_user_id: str | None = None) -> DiscordDryRunResult:
     channel_id = str(message.get("channel_id", ""))
     if not is_channel_allowlisted(settings, channel_id):
-        return DiscordDryRunResult(False, "channel_not_allowlisted")
+        return DiscordDryRunResult(False, "channel_not_allowlisted", message_id=str(message.get("id", "")) or None)
     author = message.get("author")
     author_id = str(author.get("id", "")) if isinstance(author, dict) else ""
     is_bot = bool(author.get("bot")) if isinstance(author, dict) else False
     if is_bot or (bot_user_id and author_id == bot_user_id):
-        return DiscordDryRunResult(False, "bot_or_self_message")
+        return DiscordDryRunResult(False, "bot_or_self_message", message_id=str(message.get("id", "")) or None)
     content = str(message.get("content", ""))
     event_id = dry_run_discord_event(
         content,
@@ -195,7 +209,14 @@ def handle_discord_message_dry_run(message: dict[str, object], *, audit_log: Aud
         created_at=str(message.get("timestamp", "")) or None,
     )
     recent = audit_log.recent(1)[0]
-    return DiscordDryRunResult(True, "handled", audit_event_id=event_id, route_event_id=recent["payload"].get("route_event_id"), agent_slug=recent["agent_slug"])
+    return DiscordDryRunResult(
+        True,
+        "handled",
+        audit_event_id=event_id,
+        route_event_id=recent["payload"].get("route_event_id"),
+        agent_slug=recent["agent_slug"],
+        message_id=str(message.get("id", "")) or None,
+    )
 
 
 def fetch_recent_channel_messages(settings: Settings, *, channel_id: str, limit: int = 10) -> list[dict[str, object]]:
@@ -218,6 +239,72 @@ def scan_channel_dry_run(*, channel_id: str, limit: int, audit_log: AuditLog, se
     messages = fetch_recent_channel_messages(settings, channel_id=channel_id, limit=limit)
     results = [handle_discord_message_dry_run(message, audit_log=audit_log, settings=settings, bot_user_id=validation.bot.bot_id) for message in reversed(messages)]
     return results
+
+
+def monitor_channel_once(*, channel_id: str, limit: int, audit_log: AuditLog, settings: Settings) -> MonitorRunResult:
+    """Poll the allowlisted Discord channel once, skipping messages already seen in local state."""
+    if not is_channel_allowlisted(settings, channel_id):
+        event_id = audit_log.record(
+            "discord_monitor_run",
+            agent_slug=None,
+            channel=f"discord:{channel_id}",
+            synthetic_disclosure=settings.synthetic_disclosure,
+            payload={"fetched": 0, "handled": 0, "ignored": 0, "duplicate_skipped": 0, "reason": "channel_not_allowlisted", "posted": False},
+        )
+        return MonitorRunResult(channel_id, 0, 0, 0, 0, None, event_id, tuple())
+
+    validation = validate_discord_credentials(settings)
+    if not validation.ok or validation.bot is None:
+        event_id = audit_log.record(
+            "discord_monitor_run",
+            agent_slug=None,
+            channel=f"discord:{channel_id}",
+            synthetic_disclosure=settings.synthetic_disclosure,
+            payload={"fetched": 0, "handled": 0, "ignored": 0, "duplicate_skipped": 0, "reason": "discord_validation_failed", "posted": False},
+        )
+        return MonitorRunResult(channel_id, 0, 0, 0, 0, None, event_id, tuple())
+
+    state = load_monitor_state(settings.monitor_state_path)
+    messages = fetch_recent_channel_messages(settings, channel_id=channel_id, limit=limit)
+    messages_oldest_first = list(reversed(messages))
+    results: list[DiscordDryRunResult] = []
+    duplicate_skipped = 0
+    observed_ids: list[str] = []
+    seen = set(state.seen_message_ids)
+
+    for message in messages_oldest_first:
+        message_id = str(message.get("id", ""))
+        if message_id:
+            observed_ids.append(message_id)
+        if message_id and message_id in seen:
+            duplicate_skipped += 1
+            results.append(DiscordDryRunResult(False, "duplicate_skipped", message_id=message_id))
+            continue
+        result = handle_discord_message_dry_run(message, audit_log=audit_log, settings=settings, bot_user_id=validation.bot.bot_id)
+        results.append(result)
+        if message_id:
+            seen.add(message_id)
+
+    last_seen = max_message_id(observed_ids) or state.last_seen_message_id
+    save_monitor_state(settings.monitor_state_path, MonitorState(last_seen, frozenset(seen)))
+    handled = sum(1 for item in results if item.handled)
+    ignored = sum(1 for item in results if not item.handled and item.reason != "duplicate_skipped")
+    event_id = audit_log.record(
+        "discord_monitor_run",
+        agent_slug=None,
+        channel=f"discord:{channel_id}",
+        synthetic_disclosure=settings.synthetic_disclosure,
+        payload={
+            "fetched": len(messages),
+            "handled": handled,
+            "ignored": ignored,
+            "duplicate_skipped": duplicate_skipped,
+            "last_seen_message_id": last_seen,
+            "posted": False,
+            "reason": "once_poll_complete",
+        },
+    )
+    return MonitorRunResult(channel_id, len(messages), handled, ignored, duplicate_skipped, last_seen, event_id, tuple(results))
 
 
 def assert_live_post_allowed(settings: Settings) -> None:

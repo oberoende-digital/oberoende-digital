@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 import argparse
+import time
 from datetime import datetime, timedelta, timezone
 
 from .audit_log import AuditLog
@@ -9,6 +10,7 @@ from .discord_adapter import (
     assert_live_post_allowed,
     check_discord_readiness,
     dry_run_discord_event,
+    monitor_channel_once,
     scan_channel_dry_run,
     validate_discord_credentials,
 )
@@ -44,6 +46,13 @@ def main(argv: list[str] | None = None) -> int:
     listen.add_argument("--channel-id", required=True)
     listen.add_argument("--limit", type=int, default=10)
 
+    monitor = sub.add_parser("discord-monitor-dry-run", help="Poll the allowlisted Discord channel with duplicate protection; posts nothing")
+    monitor.add_argument("--channel-id", required=True)
+    monitor.add_argument("--limit", type=int, default=10)
+    monitor.add_argument("--once", action="store_true", help="Run a single poll and exit")
+    monitor.add_argument("--interval", type=int, default=90, help="Seconds between polls when not using --once")
+    monitor.add_argument("--max-iterations", type=int, default=0, help="Optional bounded loop count; 0 means run until interrupted")
+
     poll_once = sub.add_parser("discord-poll-once", help="Run one stateful dry-run poll tick for the allowlisted Discord channel")
     poll_once.add_argument("--channel-id", required=True)
     poll_once.add_argument("--limit", type=int, default=10)
@@ -68,6 +77,7 @@ def main(argv: list[str] | None = None) -> int:
         readiness = check_discord_readiness(settings)
         print(f"environment={settings.environment}")
         print(f"database_path={settings.database_path}")
+        print(f"monitor_state_path={settings.monitor_state_path}")
         print(f"discord_mode={readiness.mode}")
         print(f"discord_reason={readiness.reason}")
         print(f"discord_monitor_channel_id={settings.discord_monitor_channel_id or ''}")
@@ -125,6 +135,28 @@ def main(argv: list[str] | None = None) -> int:
             print(f"result={item.reason} audit_event_id={item.audit_event_id or ''} agent={item.agent_slug or ''}")
         return 0 if handled or results else 2
 
+    if args.command == "discord-monitor-dry-run":
+        if args.interval < 30:
+            print("error=--interval must be >= 30 seconds")
+            return 2
+        iterations = 1 if args.once else args.max_iterations
+        count = 0
+        while True:
+            result = monitor_channel_once(channel_id=args.channel_id, limit=args.limit, audit_log=audit, settings=settings)
+            print(f"channel_id={result.channel_id}")
+            print(f"fetched={result.fetched}")
+            print(f"handled={result.handled}")
+            print(f"ignored={result.ignored}")
+            print(f"duplicate_skipped={result.duplicate_skipped}")
+            print(f"last_seen_message_id={result.last_seen_message_id or ''}")
+            print(f"monitor_summary_event_id={result.summary_event_id}")
+            for item in result.results:
+                print(f"result={item.reason} message_id={item.message_id or ''} audit_event_id={item.audit_event_id or ''} agent={item.agent_slug or ''}")
+            count += 1
+            if args.once or (iterations and count >= iterations):
+                return 0
+            time.sleep(args.interval)
+
     if args.command == "discord-poll-once":
         poll_state = DiscordPollState(settings.database_path)
         tick = poll_channel_dry_run(
@@ -168,7 +200,7 @@ def main(argv: list[str] | None = None) -> int:
         except PermissionError as exc:
             print(f"error={exc}")
             return 2
-        print("Live-post gate passed, but posting is intentionally not implemented in Phase 1.6.")
+        print("Live-post gate passed, but posting is intentionally not implemented in Phase 1.7.")
         print(f"channel_id={args.channel_id}")
         return 0
 

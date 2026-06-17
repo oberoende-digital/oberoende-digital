@@ -13,6 +13,7 @@ from od_backend.discord_adapter import (
     check_discord_readiness,
     dry_run_discord_event,
     handle_discord_message_dry_run,
+    monitor_channel_once,
     scan_channel_dry_run,
     validate_discord_credentials,
 )
@@ -189,6 +190,53 @@ class Phase1BackendTests(unittest.TestCase):
                 results = scan_channel_dry_run(channel_id="channel-1", limit=2, audit_log=audit, settings=settings)
             self.assertEqual(sum(1 for item in results if item.handled), 1)
             self.assertEqual(audit.count(), 2)
+
+    def test_monitor_channel_once_persists_state_and_skips_duplicates(self) -> None:
+        calls = 0
+
+        def fake_get(token: str, path: str, timeout: int = 15):
+            nonlocal calls
+            if path == "/users/@me":
+                return {"id": "bot-id", "username": "ODBot"}
+            if path == "/guilds/guild-1":
+                return {"id": "guild-1", "name": "OD"}
+            if path.startswith("/channels/channel-1/messages"):
+                calls += 1
+                return [
+                    {"id": "100", "channel_id": "channel-1", "author": {"id": "u1"}, "content": "policy cost risk"},
+                    {"id": "101", "channel_id": "channel-1", "author": {"id": "bot-id"}, "content": "ignore self"},
+                ]
+            raise AssertionError(path)
+
+        with tempfile.TemporaryDirectory() as tmp:
+            audit = AuditLog(Path(tmp) / "audit.sqlite3")
+            settings = Settings(
+                database_path=Path(tmp) / "audit.sqlite3",
+                monitor_state_path=Path(tmp) / "monitor_state.json",
+                discord_bot_token="token",
+                discord_guild_id="guild-1",
+                discord_monitor_channel_id="channel-1",
+                retention_hash_secret="test-secret",
+            )
+            with patch("od_backend.discord_adapter._discord_get", fake_get):
+                first = monitor_channel_once(channel_id="channel-1", limit=2, audit_log=audit, settings=settings)
+                second = monitor_channel_once(channel_id="channel-1", limit=2, audit_log=audit, settings=settings)
+            self.assertEqual(calls, 2)
+            self.assertEqual(first.fetched, 2)
+            self.assertEqual(first.handled, 1)
+            self.assertEqual(first.ignored, 1)
+            self.assertEqual(first.duplicate_skipped, 0)
+            self.assertEqual(first.last_seen_message_id, "101")
+            self.assertEqual(second.handled, 0)
+            self.assertEqual(second.ignored, 0)
+            self.assertEqual(second.duplicate_skipped, 2)
+            self.assertEqual(second.last_seen_message_id, "101")
+            report = build_safety_report(audit)
+            self.assertIn("Monitor runs: 2", report)
+            self.assertIn("Messages handled: 1", report)
+            self.assertIn("Messages ignored: 1", report)
+            self.assertIn("Duplicate messages skipped: 2", report)
+            self.assertIn("Last seen message ID: 101", report)
 
     def test_poll_channel_bootstraps_cursor_without_processing_existing_messages(self) -> None:
         def fake_get(token: str, path: str, timeout: int = 15):
