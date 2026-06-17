@@ -1,5 +1,7 @@
 from __future__ import annotations
 
+from collections import Counter
+
 from .audit_log import AuditLog, utc_now
 
 
@@ -23,6 +25,30 @@ def _monitor_summary(audit_log: AuditLog) -> list[str]:
     ]
 
 
+def _triage_summary(audit_log: AuditLog) -> list[str]:
+    events = audit_log.events_by_type("discord_dry_run_intended_response", limit=1000)
+    if not events:
+        return ["- No triaged messages recorded."]
+    category_counts: Counter[str] = Counter()
+    priority_counts: Counter[str] = Counter()
+    review_needed = 0
+    for event in events:
+        payload = event["payload"]
+        priority_counts[str(payload.get("triage_priority", "none"))] += 1
+        if payload.get("human_review_needed"):
+            review_needed += 1
+        for category in payload.get("triage_categories", []) or []:
+            category_counts[str(category)] += 1
+    category_text = ", ".join(f"{name}={count}" for name, count in sorted(category_counts.items())) or "none"
+    priority_text = ", ".join(f"{name}={count}" for name, count in sorted(priority_counts.items())) or "none"
+    return [
+        f"- Triaged messages: {len(events)}",
+        f"- Human review needed: {review_needed}",
+        f"- Priorities: {priority_text}",
+        f"- Categories: {category_text}",
+    ]
+
+
 def build_safety_report(audit_log: AuditLog) -> str:
     recent = audit_log.recent(10)
     total = audit_log.count()
@@ -34,6 +60,9 @@ def build_safety_report(audit_log: AuditLog) -> str:
         "",
         "## Monitor summary",
         *_monitor_summary(audit_log),
+        "",
+        "## Content triage summary",
+        *_triage_summary(audit_log),
         "",
         "## Recent events",
     ]
@@ -51,6 +80,7 @@ def build_safety_report(audit_log: AuditLog) -> str:
             "- Live Discord posting remains disabled unless credentials are explicitly configured and an operator starts the adapter.",
             "- Every dry-run response includes synthetic-agent disclosure text.",
             "- Monitor mode stores duplicate-protection state but still posts nothing.",
+            "- Content triage runs on redacted previews only and creates human-review flags, not replies.",
             "- This report is generated from audit-log data, not from unlogged side effects.",
         ]
     )

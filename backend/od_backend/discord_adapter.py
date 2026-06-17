@@ -8,6 +8,7 @@ import urllib.request
 
 from .audit_log import AuditLog
 from .config import Settings
+from .content_triage import triage_redacted_preview
 from .monitor_state import MonitorState, load_monitor_state, max_message_id, save_monitor_state
 from .retention import MinimizedDiscordMessage, minimize_discord_message
 from .router import route_message
@@ -169,6 +170,7 @@ def dry_run_discord_event(
         settings=settings,
     )
     result = route_message(minimized.redacted_preview, channel=f"discord:{channel_id}", audit_log=audit_log, disclosure=settings.synthetic_disclosure)
+    triage = triage_redacted_preview(minimized.redacted_preview)
     event_id = audit_log.record(
         "discord_dry_run_intended_response",
         agent_slug=result.agent.slug,
@@ -182,6 +184,10 @@ def dry_run_discord_event(
             "message_preview": minimized.redacted_preview,
             "route_event_id": result.audit_event_id,
             "intended_response_preview": result.response[:500],
+            "triage_categories": list(triage.categories),
+            "triage_priority": triage.priority,
+            "human_review_needed": triage.human_review_needed,
+            "triage_reasons": list(triage.reasons),
             "posted": False,
             "reason": "dry-run adapter never posts to Discord",
         },
