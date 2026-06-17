@@ -11,6 +11,7 @@ server/*.sqlite3-wal
 # Local backend runtime data
 data/backend/*.sqlite3
 data/backend/*.sqlite3-*
+data/backend/*.json
 
 # Python caches
 __pycache__/
