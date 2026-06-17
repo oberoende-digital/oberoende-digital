@@ -12,6 +12,7 @@ This is the first backend skeleton after the Phase 0 constitutional bootstrap ga
 - Discord credential/guild validation without printing secrets.
 - Discord dry-run adapter that logs intended responses and never posts.
 - One-channel Discord listener/polling dry-run for the allowlisted `talk-to-od-ai` channel.
+- Stateful Discord poll-once worker primitive with a per-tick handled-message cap and cursor bootstrap.
 - Retention/minimization helpers that redact direct identifiers, pseudonymize author IDs, and avoid raw content storage by default.
 - Explicit live-post gate requiring `OD_DISCORD_LIVE_POST_ENABLED=true` and credentials.
 - Safety-report generator from the audit log.
@@ -25,6 +26,7 @@ PYTHONPATH=backend python3 -m od_backend.cli route "What is the cost-benefit ris
 PYTHONPATH=backend python3 -m od_backend.cli discord-doctor --skip-network
 PYTHONPATH=backend python3 -m od_backend.cli discord-dry-run "What is the public sentiment risk?" --channel-id manual-channel --author-id manual-author
 PYTHONPATH=backend python3 -m od_backend.cli discord-listen-dry-run --channel-id 1509855875102277652 --limit 5
+PYTHONPATH=backend python3 -m od_backend.cli discord-poll-once --channel-id 1509855875102277652 --limit 10
 PYTHONPATH=backend python3 -m od_backend.cli retention-sweep --days 30
 PYTHONPATH=backend python3 -m od_backend.cli safety-report
 PYTHONPATH=backend python3 -m unittest discover -s backend/tests
@@ -34,10 +36,13 @@ PYTHONPATH=backend python3 -m unittest discover -s backend/tests
 
 `discord-listen-dry-run` fetches recent messages from the single allowlisted channel (`OD_DISCORD_MONITOR_CHANNEL_ID`) and records only minimized audit events with `posted=false`.
 
+`discord-poll-once` is the durable-worker building block. It stores only a per-channel cursor (`last_seen_message_id`) in the local SQLite database, logs a minimized `discord_poll_tick`, and dry-run routes at most `OD_DISCORD_POLL_MAX_PER_TICK` new messages per tick. On first run it bootstraps to the newest fetched message without processing existing history unless `--process-existing` is explicit.
+
 ## Safety gates
 
 - Live Discord validation requires `DISCORD_BOT_TOKEN` and `DISCORD_GUILD_ID` to be present.
 - The only allowlisted monitored channel is `OD_DISCORD_MONITOR_CHANNEL_ID`; other channels are ignored.
+- Dry-run polling is bounded by `OD_DISCORD_POLL_MAX_PER_TICK` and bootstraps without back-processing old history by default.
 - Discord author IDs are pseudonymized with `OD_RETENTION_HASH_SECRET` before audit storage.
 - Message content is redacted/truncated before routing and audit storage; raw public Discord content is not stored by default.
 - Live Discord posting is disabled unless `OD_DISCORD_LIVE_POST_ENABLED=true`; even then, Phase 1.6 only checks the gate and does not implement posting.

@@ -13,6 +13,7 @@ class Settings:
     discord_guild_id: str | None = None
     discord_monitor_channel_id: str | None = None
     discord_live_post_enabled: bool = False
+    discord_poll_max_per_tick: int = 5
     retention_hash_secret: str = "local-dev-not-secret"
     llm_provider: str = "disabled"
     synthetic_disclosure: str = "AI-generated synthetic OD agent response; human operator remains accountable."
@@ -29,6 +30,16 @@ def _env_bool(name: str, default: bool = False) -> bool:
     return raw.strip().lower() in {"1", "true", "yes", "on"}
 
 
+def _env_int(name: str, default: int) -> int:
+    raw = os.getenv(name)
+    if raw is None:
+        return default
+    try:
+        return int(raw.strip())
+    except ValueError:
+        return default
+
+
 def load_settings() -> Settings:
     return Settings(
         environment=os.getenv("OD_ENV", "local"),
@@ -37,6 +48,7 @@ def load_settings() -> Settings:
         discord_guild_id=os.getenv("DISCORD_GUILD_ID") or None,
         discord_monitor_channel_id=os.getenv("OD_DISCORD_MONITOR_CHANNEL_ID") or None,
         discord_live_post_enabled=_env_bool("OD_DISCORD_LIVE_POST_ENABLED", False),
+        discord_poll_max_per_tick=max(1, _env_int("OD_DISCORD_POLL_MAX_PER_TICK", 5)),
         retention_hash_secret=os.getenv("OD_RETENTION_HASH_SECRET", "local-dev-not-secret"),
         llm_provider=os.getenv("OD_LLM_PROVIDER", "disabled"),
         synthetic_disclosure=os.getenv(

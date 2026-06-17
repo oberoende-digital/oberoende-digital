@@ -16,6 +16,7 @@ from od_backend.discord_adapter import (
     scan_channel_dry_run,
     validate_discord_credentials,
 )
+from od_backend.discord_poller import DiscordPollState, poll_channel_dry_run
 from od_backend.disclosure import with_synthetic_disclosure
 from od_backend.retention import minimize_discord_message, redact_text
 from od_backend.router import choose_agent, route_message
@@ -188,6 +189,72 @@ class Phase1BackendTests(unittest.TestCase):
                 results = scan_channel_dry_run(channel_id="channel-1", limit=2, audit_log=audit, settings=settings)
             self.assertEqual(sum(1 for item in results if item.handled), 1)
             self.assertEqual(audit.count(), 2)
+
+    def test_poll_channel_bootstraps_cursor_without_processing_existing_messages(self) -> None:
+        def fake_get(token: str, path: str, timeout: int = 15):
+            if path == "/users/@me":
+                return {"id": "bot-id", "username": "ODBot"}
+            if path == "/guilds/guild-1":
+                return {"id": "guild-1", "name": "OD"}
+            if path.startswith("/channels/channel-1/messages"):
+                return [
+                    {"id": "102", "channel_id": "channel-1", "author": {"id": "u2"}, "content": "newest old message"},
+                    {"id": "101", "channel_id": "channel-1", "author": {"id": "u1"}, "content": "older old message"},
+                ]
+            raise AssertionError(path)
+
+        with tempfile.TemporaryDirectory() as tmp:
+            audit = AuditLog(Path(tmp) / "audit.sqlite3")
+            state = DiscordPollState(Path(tmp) / "audit.sqlite3")
+            settings = Settings(
+                discord_bot_token="token",
+                discord_guild_id="guild-1",
+                discord_monitor_channel_id="channel-1",
+                retention_hash_secret="test-secret",
+            )
+            with patch("od_backend.discord_poller.fetch_recent_channel_messages", lambda settings, channel_id, limit: fake_get("token", f"/channels/{channel_id}/messages?limit={limit}")), patch(
+                "od_backend.discord_poller.validate_discord_credentials"
+            ) as validation:
+                validation.return_value.ok = True
+                validation.return_value.bot.bot_id = "bot-id"
+                tick = poll_channel_dry_run(channel_id="channel-1", limit=2, max_handle_per_tick=5, audit_log=audit, poll_state=state, settings=settings)
+            self.assertEqual(tick.reason, "bootstrapped_latest")
+            self.assertEqual(tick.handled, 0)
+            self.assertEqual(tick.ignored, 2)
+            self.assertEqual(state.get_last_seen("channel-1"), "102")
+            self.assertEqual(audit.count(), 1)
+
+    def test_poll_channel_processes_only_new_messages_with_rate_limit(self) -> None:
+        with tempfile.TemporaryDirectory() as tmp:
+            db = Path(tmp) / "audit.sqlite3"
+            audit = AuditLog(db)
+            state = DiscordPollState(db)
+            state.upsert_last_seen("channel-1", "100")
+            settings = Settings(
+                discord_bot_token="token",
+                discord_guild_id="guild-1",
+                discord_monitor_channel_id="channel-1",
+                synthetic_disclosure="Synthetic disclosure",
+                retention_hash_secret="test-secret",
+            )
+            messages = [
+                {"id": "103", "channel_id": "channel-1", "author": {"id": "raw-user-3"}, "content": "third new message"},
+                {"id": "102", "channel_id": "channel-1", "author": {"id": "raw-user-2"}, "content": "budget risk person@example.com"},
+                {"id": "101", "channel_id": "channel-1", "author": {"id": "raw-user-1"}, "content": "policy cost"},
+                {"id": "99", "channel_id": "channel-1", "author": {"id": "old-raw-user"}, "content": "old"},
+            ]
+            with patch("od_backend.discord_poller.fetch_recent_channel_messages", return_value=messages), patch("od_backend.discord_poller.validate_discord_credentials") as validation:
+                validation.return_value.ok = True
+                validation.return_value.bot.bot_id = "bot-id"
+                tick = poll_channel_dry_run(channel_id="channel-1", limit=4, max_handle_per_tick=2, audit_log=audit, poll_state=state, settings=settings)
+            self.assertEqual(tick.reason, "polled")
+            self.assertEqual(tick.handled, 2)
+            self.assertEqual(tick.ignored, 1)
+            self.assertEqual(state.get_last_seen("channel-1"), "103")
+            events_json = json.dumps(audit.recent(10), sort_keys=True)
+            self.assertIn("discord_poll_tick", events_json)
+            self.assertNotIn("person@example.com", events_json)
+            self.assertNotIn("raw-user-2", events_json)
 
     def test_live_post_requires_explicit_flag_and_credentials(self) -> None:
         with self.assertRaises(PermissionError):

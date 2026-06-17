@@ -12,6 +12,7 @@ from .discord_adapter import (
     scan_channel_dry_run,
     validate_discord_credentials,
 )
+from .discord_poller import DiscordPollState, poll_channel_dry_run
 from .router import route_message
 from .safety_report import build_safety_report
 
@@ -43,6 +44,12 @@ def main(argv: list[str] | None = None) -> int:
     listen.add_argument("--channel-id", required=True)
     listen.add_argument("--limit", type=int, default=10)
 
+    poll_once = sub.add_parser("discord-poll-once", help="Run one stateful dry-run poll tick for the allowlisted Discord channel")
+    poll_once.add_argument("--channel-id", required=True)
+    poll_once.add_argument("--limit", type=int, default=10)
+    poll_once.add_argument("--max-handle", type=int, default=None)
+    poll_once.add_argument("--process-existing", action="store_true", help="Process existing fetched messages instead of bootstrapping the cursor")
+
     sweep = sub.add_parser("retention-sweep", help="Count or delete audit events older than a retention window")
     sweep.add_argument("--days", type=int, default=30)
     sweep.add_argument("--apply", action="store_true", help="Actually delete matching old audit events")
@@ -64,6 +71,7 @@ def main(argv: list[str] | None = None) -> int:
         print(f"discord_mode={readiness.mode}")
         print(f"discord_reason={readiness.reason}")
         print(f"discord_monitor_channel_id={settings.discord_monitor_channel_id or ''}")
+        print(f"discord_poll_max_per_tick={settings.discord_poll_max_per_tick}")
         print(f"llm_provider={settings.llm_provider}")
         return 0
 
@@ -116,6 +124,29 @@ def main(argv: list[str] | None = None) -> int:
         for item in results:
             print(f"result={item.reason} audit_event_id={item.audit_event_id or ''} agent={item.agent_slug or ''}")
         return 0 if handled or results else 2
+
+    if args.command == "discord-poll-once":
+        poll_state = DiscordPollState(settings.database_path)
+        tick = poll_channel_dry_run(
+            channel_id=args.channel_id,
+            limit=args.limit,
+            max_handle_per_tick=args.max_handle or settings.discord_poll_max_per_tick,
+            audit_log=audit,
+            poll_state=poll_state,
+            settings=settings,
+            process_existing=args.process_existing,
+        )
+        print(f"channel_id={tick.channel_id}")
+        print(f"reason={tick.reason}")
+        print(f"fetched={tick.fetched}")
+        print(f"handled={tick.handled}")
+        print(f"ignored={tick.ignored}")
+        print(f"state_updated={str(tick.state_updated).lower()}")
+        print(f"last_seen_message_id={tick.last_seen_message_id or ''}")
+        print(f"audit_event_id={tick.audit_event_id or ''}")
+        for item in tick.results:
+            print(f"result={item.reason} audit_event_id={item.audit_event_id or ''} agent={item.agent_slug or ''}")
+        return 0 if tick.audit_event_id is not None or tick.reason in {"channel_not_allowlisted", "discord_validation_failed"} else 2
 
     if args.command == "retention-sweep":
         if args.days < 1:
