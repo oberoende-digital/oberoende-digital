@@ -3,10 +3,12 @@ from __future__ import annotations
 from dataclasses import dataclass
 import json
 import urllib.error
+import urllib.parse
 import urllib.request
 
 from .audit_log import AuditLog
 from .config import Settings
+from .retention import MinimizedDiscordMessage, minimize_discord_message
 from .router import route_message
 
 DISCORD_API_BASE = "https://discord.com/api/v10"
@@ -50,6 +52,15 @@ class DiscordValidation:
         return self.configured and not self.errors and self.bot is not None and self.guild is not None
 
 
+@dataclass(frozen=True)
+class DiscordDryRunResult:
+    handled: bool
+    reason: str
+    audit_event_id: int | None = None
+    route_event_id: int | None = None
+    agent_slug: str | None = None
+
+
 def check_discord_readiness(settings: Settings) -> DiscordReadiness:
     if settings.discord_configured:
         mode = "live-post-gated" if not settings.discord_live_post_enabled else "live-post-enabled"
@@ -61,10 +72,10 @@ def check_discord_readiness(settings: Settings) -> DiscordReadiness:
     return DiscordReadiness(False, "dry-run", "Discord credentials are absent; backend remains in dry-run/manual-test mode.")
 
 
-def _discord_get(token: str, path: str, timeout: int = 15) -> dict[str, object]:
+def _discord_get(token: str, path: str, timeout: int = 15) -> dict[str, object] | list[dict[str, object]]:
     req = urllib.request.Request(
         f"{DISCORD_API_BASE}{path}",
-        headers={"Authorization": f"Bot {token}", "User-Agent": "od-backend-phase1.5"},
+        headers={"Authorization": f"Bot {token}", "User-Agent": "od-backend-phase1.6"},
     )
     with urllib.request.urlopen(req, timeout=timeout) as response:
         return json.loads(response.read().decode("utf-8"))
@@ -86,6 +97,7 @@ def validate_discord_credentials(settings: Settings) -> DiscordValidation:
     guild: DiscordGuild | None = None
     try:
         me = _discord_get(settings.discord_bot_token, "/users/@me")
+        assert isinstance(me, dict)
         bot = DiscordIdentity(
             bot_id=str(me.get("id", "")),
             username=str(me.get("username", "unknown")),
@@ -98,6 +110,7 @@ def validate_discord_credentials(settings: Settings) -> DiscordValidation:
 
     try:
         guild_data = _discord_get(settings.discord_bot_token, f"/guilds/{settings.discord_guild_id}")
+        assert isinstance(guild_data, dict)
         guild = DiscordGuild(guild_id=str(guild_data.get("id", settings.discord_guild_id)), name=str(guild_data.get("name", "unknown guild")))
     except urllib.error.HTTPError as exc:
         errors.append(f"Discord guild check failed with HTTP {exc.code}")
@@ -107,23 +120,104 @@ def validate_discord_credentials(settings: Settings) -> DiscordValidation:
     return DiscordValidation(True, bot, guild, tuple(errors))
 
 
-def dry_run_discord_event(message: str, *, channel_id: str, author_id: str, audit_log: AuditLog, settings: Settings) -> int:
-    """Route a simulated Discord event, log a redacted preview, and never post to Discord."""
-    result = route_message(message, channel=f"discord:{channel_id}", audit_log=audit_log, disclosure=settings.synthetic_disclosure)
+def is_channel_allowlisted(settings: Settings, channel_id: str) -> bool:
+    return bool(settings.discord_monitor_channel_id and channel_id == settings.discord_monitor_channel_id)
+
+
+def _minimize_from_raw(message: str, *, channel_id: str, author_id: str, message_id: str | None, created_at: str | None, settings: Settings) -> MinimizedDiscordMessage:
+    return minimize_discord_message(
+        message_id=message_id or "manual-message",
+        channel_id=channel_id,
+        author_id=author_id,
+        content=message,
+        created_at=created_at,
+        secret=settings.retention_hash_secret,
+    )
+
+
+def dry_run_discord_event(
+    message: str,
+    *,
+    channel_id: str,
+    author_id: str,
+    audit_log: AuditLog,
+    settings: Settings,
+    message_id: str | None = None,
+    created_at: str | None = None,
+) -> int:
+    """Route a simulated Discord event, log a minimized preview, and never post to Discord."""
+    minimized = _minimize_from_raw(
+        message,
+        channel_id=channel_id,
+        author_id=author_id,
+        message_id=message_id,
+        created_at=created_at,
+        settings=settings,
+    )
+    result = route_message(minimized.redacted_preview, channel=f"discord:{channel_id}", audit_log=audit_log, disclosure=settings.synthetic_disclosure)
     event_id = audit_log.record(
         "discord_dry_run_intended_response",
         agent_slug=result.agent.slug,
         channel=f"discord:{channel_id}",
         synthetic_disclosure=settings.synthetic_disclosure,
         payload={
-            "author_id": author_id,
-            "message_preview": message[:160],
+            "message_id": minimized.message_id,
+            "channel_id": minimized.channel_id,
+            "author_hash": minimized.author_hash,
+            "created_at": minimized.created_at,
+            "message_preview": minimized.redacted_preview,
+            "route_event_id": result.audit_event_id,
             "intended_response_preview": result.response[:500],
             "posted": False,
             "reason": "dry-run adapter never posts to Discord",
         },
     )
     return event_id
+
+
+def handle_discord_message_dry_run(message: dict[str, object], *, audit_log: AuditLog, settings: Settings, bot_user_id: str | None = None) -> DiscordDryRunResult:
+    channel_id = str(message.get("channel_id", ""))
+    if not is_channel_allowlisted(settings, channel_id):
+        return DiscordDryRunResult(False, "channel_not_allowlisted")
+    author = message.get("author")
+    author_id = str(author.get("id", "")) if isinstance(author, dict) else ""
+    is_bot = bool(author.get("bot")) if isinstance(author, dict) else False
+    if is_bot or (bot_user_id and author_id == bot_user_id):
+        return DiscordDryRunResult(False, "bot_or_self_message")
+    content = str(message.get("content", ""))
+    event_id = dry_run_discord_event(
+        content,
+        channel_id=channel_id,
+        author_id=author_id or "unknown-author",
+        audit_log=audit_log,
+        settings=settings,
+        message_id=str(message.get("id", "")) or None,
+        created_at=str(message.get("timestamp", "")) or None,
+    )
+    recent = audit_log.recent(1)[0]
+    return DiscordDryRunResult(True, "handled", audit_event_id=event_id, route_event_id=recent["payload"].get("route_event_id"), agent_slug=recent["agent_slug"])
+
+
+def fetch_recent_channel_messages(settings: Settings, *, channel_id: str, limit: int = 10) -> list[dict[str, object]]:
+    if not settings.discord_bot_token:
+        raise PermissionError("DISCORD_BOT_TOKEN is required to fetch Discord channel messages.")
+    limit = min(max(limit, 1), 25)
+    path = f"/channels/{urllib.parse.quote(channel_id)}/messages?limit={limit}"
+    data = _discord_get(settings.discord_bot_token, path)
+    if not isinstance(data, list):
+        raise RuntimeError("Discord messages endpoint returned a non-list payload")
+    return data
+
+
+def scan_channel_dry_run(*, channel_id: str, limit: int, audit_log: AuditLog, settings: Settings) -> list[DiscordDryRunResult]:
+    if not is_channel_allowlisted(settings, channel_id):
+        return [DiscordDryRunResult(False, "channel_not_allowlisted")]
+    validation = validate_discord_credentials(settings)
+    if not validation.ok or validation.bot is None:
+        return [DiscordDryRunResult(False, "discord_validation_failed")]
+    messages = fetch_recent_channel_messages(settings, channel_id=channel_id, limit=limit)
+    results = [handle_discord_message_dry_run(message, audit_log=audit_log, settings=settings, bot_user_id=validation.bot.bot_id) for message in reversed(messages)]
+    return results
 
 
 def assert_live_post_allowed(settings: Settings) -> None:
