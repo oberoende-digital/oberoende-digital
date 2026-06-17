@@ -200,7 +200,7 @@ def main(argv: list[str] | None = None) -> int:
         except PermissionError as exc:
             print(f"error={exc}")
             return 2
-        print("Live-post gate passed, but posting is intentionally not implemented in Phase 1.7.")
+        print("Live-post gate passed, but posting is intentionally not implemented in Phase 1.8.")
         print(f"channel_id={args.channel_id}")
         return 0
 

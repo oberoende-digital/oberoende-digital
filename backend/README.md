@@ -14,6 +14,7 @@ This is the first backend skeleton after the Phase 0 constitutional bootstrap ga
 - One-channel Discord listener/polling dry-run for the allowlisted `talk-to-od-ai` channel.
 - Background/once dry-run monitor with duplicate protection and `last_seen_message_id` state.
 - Stateful Discord poll-once worker primitive with a per-tick handled-message cap and cursor bootstrap.
+- Redacted-preview content triage that flags human-review categories without replying.
 - Retention/minimization helpers that redact direct identifiers, pseudonymize author IDs, and avoid raw content storage by default.
 - Explicit live-post gate requiring `OD_DISCORD_LIVE_POST_ENABLED=true` and credentials.
 - Safety-report generator from the audit log.
@@ -42,6 +43,8 @@ PYTHONPATH=backend python3 -m unittest discover -s backend/tests
 
 `discord-poll-once` is the durable-worker building block. It stores only a per-channel cursor (`last_seen_message_id`) in the local SQLite database, logs a minimized `discord_poll_tick`, and dry-run routes at most `OD_DISCORD_POLL_MAX_PER_TICK` new messages per tick. On first run it bootstraps to the newest fetched message without processing existing history unless `--process-existing` is explicit.
 
+Content triage currently flags these categories for human review only: `prompt_injection_attempt`, `requests_live_action`, `privacy_sensitive_content`, `legal_election_compliance`, `media_journalist_inquiry`, `abuse_or_harassment`, `possible_policy_question`, `high_value_public_question`, and generic `human_question`.
+
 ## Safety gates
 
 - Live Discord validation requires `DISCORD_BOT_TOKEN` and `DISCORD_GUILD_ID` to be present.
@@ -50,7 +53,8 @@ PYTHONPATH=backend python3 -m unittest discover -s backend/tests
 - Discord author IDs are pseudonymized with `OD_RETENTION_HASH_SECRET` before audit storage.
 - Message content is redacted/truncated before routing and audit storage; raw public Discord content is not stored by default.
 - Duplicate monitor state stores message IDs only and is ignored as runtime data.
-- Live Discord posting is disabled unless `OD_DISCORD_LIVE_POST_ENABLED=true`; even then, Phase 1.7 only checks the gate and does not implement posting.
+- Content triage runs on redacted previews only; it creates human-review flags but never generates public replies.
+- Live Discord posting is disabled unless `OD_DISCORD_LIVE_POST_ENABLED=true`; even then, Phase 1.8 only checks the gate and does not implement posting.
 - `OD_LLM_PROVIDER` defaults to `disabled`; external model calls are not implemented in this skeleton.
 - Every dry-run response includes synthetic-agent disclosure.
 
