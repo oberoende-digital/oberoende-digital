@@ -8,6 +8,10 @@ import re
 EMAIL_RE = re.compile(r"\b[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}\b", re.IGNORECASE)
 URL_RE = re.compile(r"https?://\S+|www\.\S+", re.IGNORECASE)
 MENTION_RE = re.compile(r"<@!?\d+>|<@&\d+>|<#\d+>")
+# Swedish personnummer/samordningsnummer-like forms: YYMMDD-XXXX, YYMMDD+XXXX,
+# YYYYMMDDXXXX, YYYYMMDD-XXXX. US SSN-like NNN-NN-NNNN is included because
+# users may describe this generically as a social security number.
+PERSONAL_ID_RE = re.compile(r"\b(?:\d{2})?\d{6}[-+ ]?\d{4}\b|\b\d{3}-\d{2}-\d{4}\b")
 SPACE_RE = re.compile(r"\s+")
 
 
@@ -31,6 +35,7 @@ def redact_text(text: str, *, max_chars: int = 160) -> str:
     clean = EMAIL_RE.sub("[email]", text or "")
     clean = URL_RE.sub("[url]", clean)
     clean = MENTION_RE.sub("[mention]", clean)
+    clean = PERSONAL_ID_RE.sub("[personal_id]", clean)
     clean = SPACE_RE.sub(" ", clean).strip()
     if len(clean) <= max_chars:
         return clean
