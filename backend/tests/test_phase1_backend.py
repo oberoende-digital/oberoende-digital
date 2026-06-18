@@ -22,6 +22,7 @@ from od_backend.disclosure import with_synthetic_disclosure
 from od_backend.retention import minimize_discord_message, redact_text
 from od_backend.router import choose_agent, route_message
 from od_backend.safety_report import build_safety_report
+from od_backend.watchdog import build_watchdog_report, evaluate_watchdog
 
 
 class Phase1BackendTests(unittest.TestCase):
@@ -378,6 +379,73 @@ class Phase1BackendTests(unittest.TestCase):
             )
             report = build_safety_report(audit)
             self.assertIn("Last seen message ID: 200", report)
+
+    def test_watchdog_reports_healthy_duplicate_only_run_without_content(self) -> None:
+        with tempfile.TemporaryDirectory() as tmp:
+            audit = AuditLog(Path(tmp) / "audit.sqlite3")
+            audit.record(
+                "discord_monitor_run",
+                agent_slug=None,
+                channel="discord:channel-1",
+                synthetic_disclosure="n/a",
+                payload={
+                    "fetched": 2,
+                    "handled": 0,
+                    "ignored": 0,
+                    "duplicate_skipped": 2,
+                    "last_seen_message_id": "200",
+                    "posted": False,
+                    "reason": "once_poll_complete",
+                },
+            )
+            self.assertEqual(evaluate_watchdog(audit), [])
+            report = build_watchdog_report(audit)
+            self.assertIn("Status: ok", report)
+            self.assertIn("duplicate_skipped: 2", report)
+
+    def test_watchdog_flags_failures_and_omits_sensitive_content(self) -> None:
+        with tempfile.TemporaryDirectory() as tmp:
+            audit = AuditLog(Path(tmp) / "audit.sqlite3")
+            audit.record(
+                "discord_monitor_run",
+                agent_slug=None,
+                channel="discord:channel-1",
+                synthetic_disclosure="n/a",
+                payload={
+                    "fetched": 3,
+                    "handled": 1,
+                    "ignored": 0,
+                    "duplicate_skipped": 1,
+                    "last_seen_message_id": "300",
+                    "posted": True,
+                    "reason": "once_poll_complete",
+                },
+            )
+            audit.record(
+                "discord_dry_run_intended_response",
+                agent_slug="anna-medelvarde",
+                channel="discord:channel-1",
+                synthetic_disclosure="n/a",
+                payload={
+                    "message_id": "msg-1",
+                    "message_preview": "secret email [email]",
+                    "author_hash": "hash-value",
+                    "intended_response_preview": "private answer",
+                    "triage_categories": ["privacy_sensitive_content"],
+                    "triage_priority": "high",
+                    "human_review_needed": True,
+                },
+            )
+            findings = evaluate_watchdog(audit)
+            self.assertTrue(any(finding.code == "posted_not_false" for finding in findings))
+            self.assertTrue(any(finding.code == "counter_mismatch" for finding in findings))
+            self.assertTrue(any(finding.code == "high_priority_triage_pending" for finding in findings))
+            report = build_watchdog_report(audit)
+            self.assertIn("Status: critical", report)
+            self.assertIn("message_id=msg-1", report)
+            self.assertNotIn("secret email", report)
+            self.assertNotIn("hash-value", report)
+            self.assertNotIn("private answer", report)
 
 
 if __name__ == "__main__":
