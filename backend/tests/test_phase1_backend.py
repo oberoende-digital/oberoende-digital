@@ -281,6 +281,39 @@ class Phase1BackendTests(unittest.TestCase):
             self.assertIn("Duplicate messages skipped: 2", report)
             self.assertIn("Last seen message ID: 101", report)
 
+    def test_monitor_channel_once_does_not_regress_cursor_when_fetch_window_is_older(self) -> None:
+        def fake_get(token: str, path: str, timeout: int = 15):
+            if path == "/users/@me":
+                return {"id": "bot-id", "username": "ODBot"}
+            if path == "/guilds/guild-1":
+                return {"id": "guild-1", "name": "OD"}
+            if path.startswith("/channels/channel-1/messages"):
+                return [
+                    {"id": "100", "channel_id": "channel-1", "author": {"id": "bot-id"}, "content": "older self"},
+                    {"id": "101", "channel_id": "channel-1", "author": {"id": "bot-id"}, "content": "older self"},
+                ]
+            raise AssertionError(path)
+
+        with tempfile.TemporaryDirectory() as tmp:
+            state_path = Path(tmp) / "monitor_state.json"
+            state_path.write_text(json.dumps({"last_seen_message_id": "150", "seen_message_ids": ["200"]}))
+            audit = AuditLog(Path(tmp) / "audit.sqlite3")
+            settings = Settings(
+                database_path=Path(tmp) / "audit.sqlite3",
+                monitor_state_path=state_path,
+                discord_bot_token="token",
+                discord_guild_id="guild-1",
+                discord_monitor_channel_id="channel-1",
+                retention_hash_secret="test-secret",
+            )
+            with patch("od_backend.discord_adapter._discord_get", fake_get):
+                result = monitor_channel_once(channel_id="channel-1", limit=2, audit_log=audit, settings=settings)
+            self.assertEqual(result.last_seen_message_id, "200")
+            persisted = json.loads(state_path.read_text())
+            self.assertEqual(persisted["last_seen_message_id"], "200")
+            report = build_safety_report(audit)
+            self.assertIn("Last seen message ID: 200", report)
+
     def test_live_post_requires_explicit_flag_and_credentials(self) -> None:
         with self.assertRaises(PermissionError):
             assert_live_post_allowed(Settings(discord_bot_token="token", discord_guild_id="123"))

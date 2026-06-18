@@ -291,7 +291,10 @@ def monitor_channel_once(*, channel_id: str, limit: int, audit_log: AuditLog, se
         if message_id:
             seen.add(message_id)
 
-    last_seen = max_message_id(observed_ids) or state.last_seen_message_id
+    last_seen_candidates = observed_ids + list(state.seen_message_ids)
+    if state.last_seen_message_id:
+        last_seen_candidates.append(state.last_seen_message_id)
+    last_seen = max_message_id(last_seen_candidates)
     save_monitor_state(settings.monitor_state_path, MonitorState(last_seen, frozenset(seen)))
     handled = sum(1 for item in results if item.handled)
     ignored = sum(1 for item in results if not item.handled and item.reason != "duplicate_skipped")
