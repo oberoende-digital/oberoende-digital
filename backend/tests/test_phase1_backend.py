@@ -359,6 +359,26 @@ class Phase1BackendTests(unittest.TestCase):
             report = build_safety_report(audit)
             self.assertIn("Last seen message ID: 101", report)
 
+    def test_safety_report_uses_highest_monitor_cursor_not_latest_lower_cursor(self) -> None:
+        with tempfile.TemporaryDirectory() as tmp:
+            audit = AuditLog(Path(tmp) / "audit.sqlite3")
+            audit.record(
+                "discord_monitor_run",
+                agent_slug=None,
+                channel="discord:channel-1",
+                synthetic_disclosure="n/a",
+                payload={"fetched": 10, "handled": 0, "last_seen_message_id": "200"},
+            )
+            audit.record(
+                "discord_monitor_run",
+                agent_slug=None,
+                channel="discord:channel-1",
+                synthetic_disclosure="n/a",
+                payload={"fetched": 10, "handled": 0, "last_seen_message_id": "150"},
+            )
+            report = build_safety_report(audit)
+            self.assertIn("Last seen message ID: 200", report)
+
 
 if __name__ == "__main__":
     unittest.main()
