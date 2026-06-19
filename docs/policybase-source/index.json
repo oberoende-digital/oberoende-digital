@@ -1,0 +1,205 @@
+{
+  "name": "OD Policybas — Evidensbaserade beslutsunderlag",
+  "description": "Strukturerad kunskapsbas för Oberoende Digitals policyanalys. Innehåller 100 evidensbaserade analyser av svenska policyfrågor i Green Book-format.",
+  "version": "1.0",
+  "generated": "2026-06-16",
+  "total_documents": 102,
+  "total_size_bytes": 476959,
+  "format": "Markdown med frontmatter-metadata + Green Book-struktur",
+  "rag_ready": true,
+  "rag_notes": "Varje fil innehåller metadata (ID, kategori, evidensnivå), struktur (Rationale, Alternativ, Evidens, Bedömning, Referenser, OD-position). Optimerad för semantisk sökning och RAG-indexering.",
+  "categories": {
+    "arbetsmarknad": {
+      "count": 8,
+      "path": "kategorier/arbetsmarknad/",
+      "files": [
+        "ARB-001-höjda-lägstalöner",
+        "ARB-002-las-reform",
+        "ARB-003-a-kassa",
+        "ARB-004-arbetskraftsinvandring",
+        "ARB-005-kortare-arbetstid",
+        "ARB-006-anstallningsstod",
+        "ARB-007-pensionsalder",
+        "ARB-008-gig-ekonomi"
+      ]
+    },
+    "bostad-bygg": {
+      "count": 7,
+      "path": "kategorier/bostad-bygg/",
+      "files": [
+        "BOST-001-hyresreglering",
+        "BOST-002-ranteavdrag",
+        "BOST-003-amorteringskrav",
+        "BOST-004-byggregler-planmonopol",
+        "BOST-005-fastighetsavgift-marknadshyra",
+        "BOST-006-presumtionshyra",
+        "BOST-007-social-housing"
+      ]
+    },
+    "brott-ratt": {
+      "count": 7,
+      "path": "kategorier/brott-ratt/",
+      "files": [
+        "BROTT-001_Straffskarpningar",
+        "BROTT-002_Polistathet",
+        "BROTT-003_Kameraovervakning",
+        "BROTT-004_Visitationszoner",
+        "BROTT-005_Aterfallsforebyggande",
+        "BROTT-006_Anonyma_vittnen",
+        "BROTT-007-straffrabatt-unga"
+      ]
+    },
+    "demokrati": {
+      "count": 5,
+      "path": "kategorier/demokrati/",
+      "files": [
+        "DEMO-001-personrostning",
+        "DEMO-002-rostratt-16",
+        "DEMO-003-kommunsammanslagningar",
+        "DEMO-004-medborgarrad",
+        "DEMO-005-bindande-folkomrostningar"
+      ]
+    },
+    "digitalisering": {
+      "count": 6,
+      "path": "kategorier/digitalisering/",
+      "files": [
+        "DIGI-001-overvakning-integritet",
+        "DIGI-002-digitalt-id-e-rostning",
+        "DIGI-003-ai-automatisering",
+        "DIGI-004-skarmanvandning-barn",
+        "DIGI-005-big-tech-skatt",
+        "DIGI-006-oppen-kallkod"
+      ]
+    },
+    "energi-klimat": {
+      "count": 9,
+      "path": "kategorier/energi-klimat/",
+      "files": [
+        "ENERGI-001-energislag-lcoe",
+        "ENERGI-002-fornybart-vs-karnkraft",
+        "ENERGI-003-klimatkostnadseffektivitet",
+        "ENERGI-004-vattenkraft-alvskydd",
+        "ENERGI-005-reduktionsplikt",
+        "ENERGI-006-elomraden",
+        "ENERGI-007-elbilssubventioner",
+        "ENERGI-008-elpriser",
+        "ENERGI-009-flaskhalsintakter"
+      ]
+    },
+    "familj": {
+      "count": 6,
+      "path": "kategorier/familj/",
+      "files": [
+        "FAM-001-foraldraforsakring",
+        "FAM-002-barnbidrag",
+        "FAM-003-maxtaxa-forskola",
+        "FAM-004-vardnadsbidrag",
+        "FAM-005-vaxelvist-boende",
+        "FAM-006-skollunch-fritids"
+      ]
+    },
+    "forsvar": {
+      "count": 6,
+      "path": "kategorier/forsvar/",
+      "files": [
+        "FORS-001-forsvarsbudget",
+        "FORS-002-varnplikt",
+        "FORS-003-civilt-forsvar",
+        "FORS-004-nato-medlemskap",
+        "FORS-005-cyberforsvar",
+        "FORS-006-forsvarsindustri-export"
+      ]
+    },
+    "infrastruktur": {
+      "count": 5,
+      "path": "kategorier/infrastruktur/",
+      "files": [
+        "INFRA-001-hoghastighetsbanor",
+        "INFRA-002-kilometerskatt",
+        "INFRA-003-bredband-glesbygd",
+        "INFRA-004-trangselskatt",
+        "INFRA-005-jarnvagsunderhall"
+      ]
+    },
+    "migration-integration": {
+      "count": 7,
+      "path": "kategorier/migration-integration/",
+      "files": [
+        "MIGR-001-migration-brottslighet",
+        "MIGR-002-migration-loner",
+        "MIGR-003-offentligfinansiell-nettoeffekt",
+        "MIGR-004-ebo-systemet",
+        "MIGR-005-sprakkrav-medborgarskap",
+        "MIGR-006-utvisning-vid-brott",
+        "MIGR-007-arbetskraftsinvandring-kompetens"
+      ]
+    },
+    "naringsliv": {
+      "count": 7,
+      "path": "kategorier/naringsliv/",
+      "files": [
+        "NAR-001-startupsubventioner",
+        "NAR-002-bolagsskatt-investeringar",
+        "NAR-003-industristod",
+        "NAR-004-konkurrenslagstiftning",
+        "NAR-005-strandskydd-tillstand",
+        "NAR-006-kapitalforsakring-entreprenorskap",
+        "NAR-007-statligt-riskkapital"
+      ]
+    },
+    "pension": {
+      "count": 6,
+      "path": "kategorier/pension/",
+      "files": [
+        "PENS-001-pensionssystemet",
+        "PENS-002-premiepension",
+        "PENS-003-bostadstillagg",
+        "PENS-004-flexibel-pensionsalder",
+        "PENS-005-ap-fonder",
+        "PENS-006-obligatorisk-tjanstepension"
+      ]
+    },
+    "skatt": {
+      "count": 8,
+      "path": "kategorier/skatt/",
+      "files": [
+        "SKATT-001-formogenhetsskatt",
+        "SKATT-002-arvsskatt",
+        "SKATT-003-isk-skatt",
+        "SKATT-004-fastighetsskatt",
+        "SKATT-005-3-12-regler",
+        "SKATT-006-optimalt-skattetryck",
+        "SKATT-007-progressiv-bolagsskatt",
+        "SKATT-008-rot-rut-avdrag"
+      ]
+    },
+    "utbildning": {
+      "count": 8,
+      "path": "kategorier/utbildning/",
+      "files": [
+        "UTB-001",
+        "UTB-002",
+        "UTB-003",
+        "UTB-004",
+        "UTB-005",
+        "UTB-006",
+        "UTB-007-terminsavgifter-hogskola",
+        "UTB-008-tidigare-skolplikt"
+      ]
+    },
+    "vard-omsorg": {
+      "count": 7,
+      "path": "kategorier/vard-omsorg/",
+      "files": [
+        "VARD-001-privata-vardutforare",
+        "VARD-002-vardkoernas-halsoeffekter",
+        "VARD-003-digital-vard-kostnadseffektivitet",
+        "VARD-004-assistansersattning-reformbehov",
+        "VARD-005-aldreboendebemanning",
+        "VARD-006-vardens-huvudmannaskap",
+        "VARD-007-preventiv-vard-kostnadseffektivitet"
+      ]
+    }
+  }
+}
