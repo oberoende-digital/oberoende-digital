@@ -31,6 +31,7 @@ AI may assist, summarize, analyze, draft, critique, and audit. Democratic legiti
 - `docs/financing-transparency.md` — draft financing transparency and donation-control gates.
 - `docs/policy-development-backlog.md` — draft evidence-first policy backlog derived from the White Paper and platform gates.
 - `docs/safety-reporting.md` — draft safety-reporting and audit-evidence gates for Discord/backend operations.
+- `docs/public-correction-log.md` — draft public correction/change-log gate for website, policybase, agent-profile, safety-report, and poll updates.
 - `scripts/` — operational scripts for data, research, and community setup.
 - `server/` — experimental backend services and local prototypes.
 
