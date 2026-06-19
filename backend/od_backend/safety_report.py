@@ -13,15 +13,19 @@ def _monitor_summary(audit_log: AuditLog) -> list[str]:
     ignored = sum(int(event["payload"].get("ignored", 0)) for event in monitor_events)
     duplicate_skipped = sum(int(event["payload"].get("duplicate_skipped", 0)) for event in monitor_events)
     fetched = sum(int(event["payload"].get("fetched", 0)) for event in monitor_events)
-    latest = monitor_events[0]
-    latest_payload = latest["payload"]
+    last_seen_message_ids = [
+        str(event["payload"].get("last_seen_message_id"))
+        for event in monitor_events
+        if event["payload"].get("last_seen_message_id")
+    ]
+    last_seen_message_id = max(last_seen_message_ids, key=int) if last_seen_message_ids else None
     return [
         f"- Monitor runs: {len(monitor_events)}",
         f"- Messages fetched: {fetched}",
         f"- Messages handled: {handled}",
         f"- Messages ignored: {ignored}",
         f"- Duplicate messages skipped: {duplicate_skipped}",
-        f"- Last seen message ID: {latest_payload.get('last_seen_message_id') or 'n/a'}",
+        f"- Last seen message ID: {last_seen_message_id or 'n/a'}",
     ]
 
 
