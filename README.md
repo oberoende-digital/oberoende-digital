@@ -25,6 +25,7 @@ AI may assist, summarize, analyze, draft, critique, and audit. Democratic legiti
 - `docs/` — governance, platform, launch, and research documents.
 - `docs/governance/` — constitutional core and governance framework drafts.
 - `docs/research/` — research protocol and publication planning drafts when available.
+- `docs/platform-roadmap.md` — public platform roadmap, safety gates, and forgotten-item watchlist.
 - `docs/rag/` — source notes and metadata for the civic research/RAG work.
 - `scripts/` — operational scripts for data, research, and community setup.
 - `server/` — experimental backend services and local prototypes.
