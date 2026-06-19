@@ -184,9 +184,16 @@ def update_existing_nav_and_footer():
     for p in PUBLIC.rglob("*.html"):
         text = p.read_text(encoding="utf-8")
         new = menu_re.sub(r"\1" + NAV + r"\3", text, count=1)
-        # Add Politics & policy to simple footer site lists when absent.
-        new = new.replace('<li><a href="/research/">Research agenda</a></li><li><a href="/blog/">Blog</a></li>', '<li><a href="/politik/">Politics & policy</a></li><li><a href="/research/">Research agenda</a></li><li><a href="/blog/">Blog</a></li>')
-        new = new.replace('<li><a href="/research/">Research agenda</a></li><li><a href="/blog/">Blog</a></li>', '<li><a href="/politik/">Politics & policy</a></li><li><a href="/research/">Research agenda</a></li><li><a href="/blog/">Blog</a></li>')
+        # Add Politics & policy to simple footer site lists when absent, and
+        # normalize repeated links from earlier generator runs.
+        footer_link = '<li><a href="/politik/">Politics & policy</a></li>'
+        if footer_link not in new:
+            new = new.replace(
+                '<li><a href="/research/">Research agenda</a></li><li><a href="/blog/">Blog</a></li>',
+                footer_link + '<li><a href="/research/">Research agenda</a></li><li><a href="/blog/">Blog</a></li>',
+            )
+        while footer_link + footer_link in new:
+            new = new.replace(footer_link + footer_link, footer_link)
         if new != text:
             p.write_text(new, encoding="utf-8")
 
