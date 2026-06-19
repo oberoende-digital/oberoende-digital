@@ -16,6 +16,7 @@ from .discord_adapter import (
 )
 from .router import route_message
 from .safety_report import build_safety_report
+from .watchdog import build_watchdog_report, evaluate_watchdog
 
 
 def _cutoff_iso(days: int) -> str:
@@ -61,6 +62,10 @@ def main(argv: list[str] | None = None) -> int:
     live_post.add_argument("message")
 
     sub.add_parser("safety-report", help="Print a dry-run safety report from the audit log")
+
+    watchdog = sub.add_parser("discord-watchdog-check", help="Check dry-run Discord monitor health without posting or exposing content")
+    watchdog.add_argument("--recent-limit", type=int, default=100, help="Audit events to inspect per event type")
+    watchdog.add_argument("--fail-on-warning", action="store_true", help="Exit non-zero when warnings are present")
 
     args = parser.parse_args(argv)
     settings = load_settings()
@@ -175,6 +180,15 @@ def main(argv: list[str] | None = None) -> int:
 
     if args.command == "safety-report":
         print(build_safety_report(audit), end="")
+        return 0
+
+    if args.command == "discord-watchdog-check":
+        print(build_watchdog_report(audit, recent_limit=args.recent_limit), end="")
+        findings = evaluate_watchdog(audit, recent_limit=args.recent_limit)
+        if any(finding.severity == "critical" for finding in findings):
+            return 2
+        if args.fail_on_warning and findings:
+            return 1
         return 0
 
     raise AssertionError(args.command)
