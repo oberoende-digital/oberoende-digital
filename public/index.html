@@ -404,6 +404,54 @@
     .trust-card span:last-child { font-size: 0.8rem; color: var(--text-mid); line-height: 1.55; }
 
     /* ══════════════════════════════════
+       ETHICAL RISK ASSESSMENT
+    ══════════════════════════════════ */
+    .readiness-assessment { background: #fff; }
+    .readiness-kicker {
+      display: inline-flex; align-items: center; gap: 0.45rem;
+      padding: 0.35rem 0.7rem; border-radius: 999px;
+      background: rgba(243,154,30,0.13); color: #875000;
+      font-size: 0.7rem; font-weight: 800; letter-spacing: 0.08em; text-transform: uppercase;
+      margin-top: 1.25rem;
+    }
+    .risk-grid {
+      display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+      gap: 1rem; margin-top: 2.2rem;
+    }
+    .risk-card {
+      border: 1px solid var(--dim); border-radius: 8px; padding: 1.25rem;
+      background: var(--stone); min-height: 100%;
+    }
+    .risk-card h3 {
+      font-family: 'Source Serif 4', Georgia, serif; font-size: 1.02rem;
+      color: var(--navy); margin: 0.55rem 0 0.4rem; line-height: 1.25;
+    }
+    .risk-card p { font-size: 0.84rem; color: var(--text-mid); line-height: 1.62; }
+    .risk-level {
+      display: inline-block; border-radius: 999px; padding: 0.18rem 0.55rem;
+      font-size: 0.62rem; font-weight: 800; letter-spacing: 0.08em; text-transform: uppercase;
+    }
+    .risk-level.critical { background: rgba(95,20,20,0.12); color: #681717; }
+    .risk-level.high { background: rgba(243,154,30,0.14); color: #875000; }
+    .readiness-columns {
+      display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+      gap: 1.25rem; margin-top: 2rem;
+    }
+    .check-panel {
+      border: 1px solid var(--dim); border-radius: 8px; padding: 1.35rem;
+      background: var(--stone-mid);
+    }
+    .check-panel h3 {
+      font-family: 'Source Serif 4', Georgia, serif; color: var(--navy);
+      font-size: 1.1rem; margin-bottom: 0.9rem;
+    }
+    .status-checklist { list-style: none; display: grid; gap: 0.7rem; padding: 0; margin: 0; }
+    .status-checklist li { display: flex; gap: 0.65rem; align-items: flex-start; font-size: 0.86rem; color: var(--text-mid); line-height: 1.5; }
+    .status-checklist input { margin-top: 0.18rem; accent-color: var(--forest); flex: 0 0 auto; }
+    .status-checklist input:not(:checked) { accent-color: var(--ember); }
+    @media (max-width: 760px) { .readiness-columns { grid-template-columns: 1fr; } }
+
+    /* ══════════════════════════════════
        ITERATIV AUTONOMI
     ══════════════════════════════════ */
     .autonomi { background: var(--stone-mid); padding: 5rem 0; }
@@ -780,6 +828,50 @@
       </div>
     </div>
     <div class="document-note"><span data-lang="sv"><strong>Publiceringsprincip:</strong> biblioteket länkar bara dokument som är avsedda för publik granskning. Intern planering, driftanteckningar, privata beslut och ofärdiga säkerhetsdetaljer publiceras inte här förrän de har rensats för integritet, säkerhet och juridisk exponering.</span><span data-lang="en"><strong>Publication principle:</strong> this library links only documents intended for public review. Internal planning, operational notes, private decisions and unfinished security details are not published here until cleared for privacy, security and legal exposure.</span></div>
+  </div>
+</section>
+
+<!-- ═══ ETHICAL RISK ASSESSMENT / RELEASE STATUS ═══ -->
+<section class="section readiness-assessment" id="ethical-risk-assessment">
+  <div class="container">
+    <span class="eyebrow"><span data-lang="sv">Etisk riskbedömning · release-status</span><span data-lang="en">Ethical risk assessment · release status</span></span>
+    <h2 class="display"><span data-lang="sv">Redo för offentlig labbfas — inte för full autonom release</span><span data-lang="en">Ready for public lab phase — not for full autonomous release</span></h2>
+    <p class="lead"><span data-lang="sv">OD kan visas och testas som ett tydligt märkt, mänskligt övervakat forsknings- och deltagandelabb. Det är däremot inte redo att fungera som ett formellt parti, ett produktionssystem för medlemsomröstningar eller en autonom politisk aktör.</span><span data-lang="en">OD can be shown and tested as a clearly labelled, human-supervised research and participation lab. It is not yet ready to operate as a formal party, a production membership-voting system or an autonomous political actor.</span></p>
+    <div class="readiness-kicker"><span data-lang="sv">Aktuell bedömning: begränsad publik release med säkerhetsgrindar</span><span data-lang="en">Current assessment: limited public release with safety gates</span></div>
+
+    <div class="risk-grid">
+      <article class="risk-card"><span class="risk-level critical"><span data-lang="sv">Kritisk</span><span data-lang="en">Critical</span></span><h3><span data-lang="sv">Demokratisk manipulation och förtroendeskada</span><span data-lang="en">Democratic manipulation and trust damage</span></h3><p><span data-lang="sv">Risk: AI-genererade politiska svar kan uppfattas som auktoritativa eller representativa. Kontroll: mänsklig ratificering, AI-märkning, källkrav, öppna invändningar och tydlig labbstatus.</span><span data-lang="en">Risk: AI-generated political answers may be perceived as authoritative or representative. Control: human ratification, AI labelling, source requirements, open objections and clear lab status.</span></p></article>
+      <article class="risk-card"><span class="risk-level critical"><span data-lang="sv">Kritisk</span><span data-lang="en">Critical</span></span><h3><span data-lang="sv">GDPR, politiska åsikter och känsliga data</span><span data-lang="en">GDPR, political opinions and sensitive data</span></h3><p><span data-lang="sv">Risk: medlems-, åsikts- eller röstningsdata kan bli särskilt skyddsvärd. Kontroll: dataminimering, ingen produktionsröstning, privacy/GDPR-policy och manuell granskning innan känsligare insamling.</span><span data-lang="en">Risk: membership, opinion or voting data may require special protection. Control: data minimisation, no production voting, privacy/GDPR notice and manual review before sensitive collection.</span></p></article>
+      <article class="risk-card"><span class="risk-level high"><span data-lang="sv">Hög</span><span data-lang="en">High</span></span><h3><span data-lang="sv">Hallucinationer, bias och falsk precision</span><span data-lang="en">Hallucination, bias and false precision</span></h3><p><span data-lang="sv">Risk: AI kan ge felaktiga eller snedvridna policyunderlag. Kontroll: källhänvisning, osäkerhetsmarkering, evidensbibliotek, mänsklig review och korrigerbara publiceringar.</span><span data-lang="en">Risk: AI may produce incorrect or biased policy material. Control: source references, uncertainty markers, evidence library, human review and correctable publication.</span></p></article>
+      <article class="risk-card"><span class="risk-level high"><span data-lang="sv">Hög</span><span data-lang="en">High</span></span><h3><span data-lang="sv">Syntetiska politiker kan förväxlas med människor</span><span data-lang="en">Synthetic politicians may be confused with humans</span></h3><p><span data-lang="sv">Risk: porträtt och röster kan skapa falsk social auktoritet. Kontroll: konsekvent AI-märkning, rollbeskrivningar, mandatgränser, persona-dokument och synlig mänsklig operatörskontroll.</span><span data-lang="en">Risk: portraits and voices can create false social authority. Control: consistent AI labels, role descriptions, mandate limits, persona documents and visible human operator control.</span></p></article>
+      <article class="risk-card"><span class="risk-level high"><span data-lang="sv">Hög</span><span data-lang="en">High</span></span><h3><span data-lang="sv">Operativ säkerhet och moderation</span><span data-lang="en">Operational security and moderation</span></h3><p><span data-lang="sv">Risk: öppna kanaler kan utsättas för spam, promptinjektion, trakasserier eller juridiskt känsliga frågor. Kontroll: Discord-monitor i dry-run, redaktionell triage, pseudonymiserade loggar och ingen livepostning utan godkännande.</span><span data-lang="en">Risk: open channels can attract spam, prompt injection, harassment or legally sensitive questions. Control: Discord monitor in dry run, editorial triage, pseudonymised logs and no live posting without approval.</span></p></article>
+      <article class="risk-card"><span class="risk-level high"><span data-lang="sv">Hög</span><span data-lang="en">High</span></span><h3><span data-lang="sv">Juridik, valregler och finansiering</span><span data-lang="en">Law, election rules and financing</span></h3><p><span data-lang="sv">Risk: publiken kan missförstå labbet som ett registrerat parti eller färdig kampanjmaskin. Kontroll: tydlig icke-registrerad status, Valmyndigheten-länk, finansieringstransparens och inga anonyma bidrag.</span><span data-lang="en">Risk: the public may mistake the lab for a registered party or finished campaign machine. Control: clear non-registered status, election-authority link, financing transparency and no anonymous contributions.</span></p></article>
+    </div>
+
+    <div class="readiness-columns">
+      <div class="check-panel">
+        <h3><span data-lang="sv">Implementerat nu</span><span data-lang="en">Implemented now</span></h3>
+        <ul class="status-checklist">
+          <li><input type="checkbox" checked disabled/><span data-lang="sv">Konstitutionell kärna v0.2 och offentligt dokumentbibliotek är publicerade.</span><span data-lang="en">Constitutional Core v0.2 and public document library are published.</span></li>
+          <li><input type="checkbox" checked disabled/><span data-lang="sv">Forskningsagenda och etisk risksektion finns för publik granskning.</span><span data-lang="en">Research agenda and ethical risk section are available for public review.</span></li>
+          <li><input type="checkbox" checked disabled/><span data-lang="sv">Policybibliotek med 102 publika policy-/evidenssidor är genererat.</span><span data-lang="en">Policy library with 102 public policy/evidence pages is generated.</span></li>
+          <li><input type="checkbox" checked disabled/><span data-lang="sv">Discord-community och talk-to-od-ai-kanal har dry-run-monitorering och triage utan livepostning.</span><span data-lang="en">Discord community and talk-to-od-ai channel have dry-run monitoring and triage without live posting.</span></li>
+          <li><input type="checkbox" checked disabled/><span data-lang="sv">Syntetiska politiker är publicerade med AI-märkning, avgränsade roller och persona-/soul-dokument.</span><span data-lang="en">Synthetic politicians are published with AI labelling, bounded roles and persona/soul documents.</span></li>
+          <li><input type="checkbox" checked disabled/><span data-lang="sv">GDPR-/cookieinformation, Signal-kontakt och finansieringsrestriktioner är synliga.</span><span data-lang="en">GDPR/cookie notice, Signal contact and financing restrictions are visible.</span></li>
+        </ul>
+      </div>
+      <div class="check-panel">
+        <h3><span data-lang="sv">Release-grindar som återstår</span><span data-lang="en">Release gates still remaining</span></h3>
+        <ul class="status-checklist">
+          <li><input type="checkbox" disabled/><span data-lang="sv">Formell partistatus, juridisk granskning och ansvarig förenings-/organisationsstruktur.</span><span data-lang="en">Formal party status, legal review and accountable association/organisation structure.</span></li>
+          <li><input type="checkbox" disabled/><span data-lang="sv">Verifierad medlemsidentitet, samtycke och säker omröstnings-/mandatprocess.</span><span data-lang="en">Verified member identity, consent and secure voting/mandate process.</span></li>
+          <li><input type="checkbox" disabled/><span data-lang="sv">DPIA/data governance för politiska åsikter och känsligare deltagardata.</span><span data-lang="en">DPIA/data governance for political opinions and more sensitive participant data.</span></li>
+          <li><input type="checkbox" disabled/><span data-lang="sv">Live-svar från AI-agenter endast efter separat mänsklig release-gate.</span><span data-lang="en">Live replies from AI agents only after a separate human release gate.</span></li>
+          <li><input type="checkbox" disabled/><span data-lang="sv">Incidentprocess, moderationsteam, extern red-team och publicerbar safety case.</span><span data-lang="en">Incident process, moderation team, external red-team and publishable safety case.</span></li>
+          <li><input type="checkbox" disabled/><span data-lang="sv">Donationer/medlemskap i produktion först när bokföring, KYC vid behov och transparenslogg är färdiga.</span><span data-lang="en">Production donations/membership only once accounting, KYC where needed and transparency log are ready.</span></li>
+        </ul>
+      </div>
+    </div>
   </div>
 </section>
 
