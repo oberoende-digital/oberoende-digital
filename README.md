@@ -23,6 +23,7 @@ AI may assist, summarize, analyze, draft, critique, and audit. Democratic legiti
 - `public/` — static website published through GitHub Pages.
 - `public/assets/` — public static assets.
 - `docs/` — governance, platform, launch, and research documents.
+- `docs/accountability-matrix.md` — draft accountability matrix for member/data protection and public AI operations.
 - `docs/governance/` — constitutional core and governance framework drafts.
 - `docs/research/` — research protocol and publication planning drafts when available.
 - `docs/platform-roadmap.md` — public platform roadmap, safety gates, and forgotten-item watchlist.
