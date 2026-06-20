@@ -26,6 +26,7 @@ AI may assist, summarize, analyze, draft, critique, and audit. Democratic legiti
 - `docs/accountability-matrix.md` — draft accountability matrix for member/data protection and public AI operations.
 - `docs/agent-registry.md` and `docs/agent-registry.json` — draft machine-readable AI politician registry and runtime-surface control artifact.
 - `docs/ai-constitution-autonomy-control.md` — draft control gate for AI Constitution files, agent visibility, and autonomy-level promotion.
+- `docs/member-conduct-framework-control.md` — draft control gate for human member conduct, minority protection, conflict-of-interest, and anti-manipulation safeguards.
 - `docs/governance/` — constitutional core and governance framework drafts.
 - `docs/research/` — research protocol and publication planning drafts when available.
 - `docs/platform-roadmap.md` — public platform roadmap, safety gates, and forgotten-item watchlist.
