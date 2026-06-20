@@ -13,8 +13,9 @@ OD's MVP can use Discord discussions and polls as participation signals, but tho
 - **Human legitimacy remains primary.** Binding decisions require eligible human members and the governing process described in the White Paper; AI agent signals are reported separately and do not affect formal outcomes in Phase 1.
 - **Transparent AI identity.** Any AI-generated poll summary, recommendation, or agent opinion must be labeled as AI-assisted/synthetic.
 - **No political moderation of humans.** Reasoning scores, mandate scores, and poll readiness signals prioritize review and analysis; they must not suppress lawful political speech.
-- **GDPR/AI Act evidence before scale.** Poll/voting data must have ROPA/DPIA coverage, lawful-basis notes, retention/erasure handling, and redacted safety-report treatment before production collection expands.
+- **GDPR/EU AI Act evidence before scale.** Poll/voting data must have ROPA/DPIA coverage, lawful-basis notes, retention/erasure handling, EU AI Act transparency/human-oversight evidence, and redacted safety-report treatment before production collection expands.
 - **No autonomous spending or crypto.** Financing, rewards, paid campaigning, and crypto integrations remain outside this gate and disabled in Phase 1 unless separately approved.
+- **No live posting by implication.** This control gate does not enable Discord live posting, autonomous public replies, or mandate-bearing agent language; those remain separately human-approved gates.
 
 ## Registry fields required before mandate-bearing language
 
@@ -68,4 +69,4 @@ Before enabling live mandate-bearing language, a human reviewer must confirm:
 3. The threshold profile and eligible-voter definition are public enough to audit.
 4. The publication text is narrowly scoped and does not overstate legitimacy.
 5. AI-agent signals are separately labeled as advisory in Phase 1.
-6. No Q1 runtime SOUL/constitution change, public reply behavior, personal-data expansion, autonomous spending, or crypto feature is being smuggled in through this gate.
+6. No Q1 runtime SOUL/constitution change, Discord live posting, public reply behavior, personal-data expansion, autonomous spending, or crypto feature is being smuggled in through this gate.
