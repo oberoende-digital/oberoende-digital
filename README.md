@@ -33,6 +33,7 @@ AI may assist, summarize, analyze, draft, critique, and audit. Democratic legiti
 - `docs/safety-reporting.md` — draft safety-reporting and audit-evidence gates for Discord/backend operations.
 - `docs/public-correction-log.md` — draft public correction/change-log gate for website, policybase, agent-profile, safety-report, and poll updates.
 - `docs/voting-research-data-governance.md` — draft DPIA/data-governance gate for voting, polls, and civic research data.
+- `docs/mandate-registry-control.md` — draft control gate for advisory polls, mandate thresholds, and no-false-mandate language.
 - `scripts/` — operational scripts for data, research, and community setup.
 - `server/` — experimental backend services and local prototypes.
 
