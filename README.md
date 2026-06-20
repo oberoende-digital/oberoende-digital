@@ -25,6 +25,7 @@ AI may assist, summarize, analyze, draft, critique, and audit. Democratic legiti
 - `docs/` — governance, platform, launch, and research documents.
 - `docs/accountability-matrix.md` — draft accountability matrix for member/data protection and public AI operations.
 - `docs/agent-registry.md` and `docs/agent-registry.json` — draft machine-readable AI politician registry and runtime-surface control artifact.
+- `docs/ai-constitution-autonomy-control.md` — draft control gate for AI Constitution files, agent visibility, and autonomy-level promotion.
 - `docs/governance/` — constitutional core and governance framework drafts.
 - `docs/research/` — research protocol and publication planning drafts when available.
 - `docs/platform-roadmap.md` — public platform roadmap, safety gates, and forgotten-item watchlist.
@@ -34,6 +35,7 @@ AI may assist, summarize, analyze, draft, critique, and audit. Democratic legiti
 - `docs/safety-reporting.md` — draft safety-reporting and audit-evidence gates for Discord/backend operations.
 - `docs/public-correction-log.md` — draft public correction/change-log gate for website, policybase, agent-profile, safety-report, and poll updates.
 - `docs/voting-research-data-governance.md` — draft DPIA/data-governance gate for voting, polls, and civic research data.
+- `docs/mandate-registry-control.md` — draft control gate for advisory polls, mandate thresholds, and no-false-mandate language.
 - `scripts/` — operational scripts for data, research, and community setup.
 - `server/` — experimental backend services and local prototypes.
 
