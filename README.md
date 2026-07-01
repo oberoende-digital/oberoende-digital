@@ -34,6 +34,7 @@ AI may assist, summarize, analyze, draft, critique, and audit. Democratic legiti
 - `docs/financing-transparency.md` — draft financing transparency and donation-control gates.
 - `docs/policy-development-backlog.md` — draft evidence-first policy backlog derived from the White Paper and platform gates.
 - `docs/safety-reporting.md` — draft safety-reporting and audit-evidence gates for Discord/backend operations.
+- `docs/risk-register-incident-control.md` — draft risk-register and incident-response control gate for EU AI Act/GDPR/platform risks.
 - `docs/public-correction-log.md` — draft public correction/change-log gate for website, policybase, agent-profile, safety-report, and poll updates.
 - `docs/voting-research-data-governance.md` — draft DPIA/data-governance gate for voting, polls, and civic research data.
 - `docs/mandate-registry-control.md` — draft control gate for advisory polls, mandate thresholds, and no-false-mandate language.
