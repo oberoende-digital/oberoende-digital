@@ -53,7 +53,7 @@ Before live public behavior or personal-data workflows are enabled, OD should ma
 2. **Severity classes** — privacy/security, incorrect mandate claim, unlabeled AI output, unlawful content, platform-rule violation, Q1 runtime drift, spending/finance issue, data-loss issue, and operational outage.
 3. **Immediate containment** — emergency stop / live-post disablement, Discord permission pause, credential rotation, Q1 profile rollback, PR freeze, or public correction hold.
 4. **Human accountability** — named accountable human/body and operational owner for triage, decision, and closure.
-5. **Privacy-preserving evidence handling** — store only minimized evidence where possible; do not publish raw Discord content, raw author IDs, secrets, private personal data, or sensitive incident details.
+5. **Privacy-preserving evidence handling** — store only minimized evidence where possible; use redacted evidence in review artifacts; do not publish raw Discord content, raw author IDs, secrets, private personal data, or sensitive incident details.
 6. **Notification decision** — when to notify affected users, Rasmus/admins, Discord moderators, GitHub, data-protection contacts, or authorities.
 7. **Correction and transparency path** — public correction log or safety-report entry when safe, lawful, and useful; incident-only internal record otherwise.
 8. **Root cause and remediation** — code/docs/config fix, test addition, safety-report update, risk-register update, and rollback verification.
