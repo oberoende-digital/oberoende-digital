@@ -37,6 +37,7 @@ AI may assist, summarize, analyze, draft, critique, and audit. Democratic legiti
 - `docs/public-correction-log.md` — draft public correction/change-log gate for website, policybase, agent-profile, safety-report, and poll updates.
 - `docs/voting-research-data-governance.md` — draft DPIA/data-governance gate for voting, polls, and civic research data.
 - `docs/mandate-registry-control.md` — draft control gate for advisory polls, mandate thresholds, and no-false-mandate language.
+- `docs/model-cards-control.md` — draft control gate for AI-system documentation, model/provider records, and public-facing model-card evidence.
 - `scripts/` — operational scripts for data, research, and community setup.
 - `server/` — experimental backend services and local prototypes.
 
