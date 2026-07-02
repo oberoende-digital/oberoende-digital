@@ -22,7 +22,8 @@ This artifact does **not**:
 - collect or process additional personal data,
 - publish raw Discord content, raw author IDs, secrets, or private incident evidence,
 - grant democratic mandate or make MVP polls binding (`advisory_only` remains the default),
-- enable autonomous spending or crypto/payment flows,
+- enable autonomous spending or crypto/payment flows; crypto remains disabled in Phase 1,
+- make advisory-only MVP polls binding without a separate mandate registry gate,
 - change Q1 runtime profiles, SOUL.md files, Constitution files, roles, or political orientation.
 
 ## Minimum risk-register fields
@@ -71,7 +72,7 @@ A PR or issue that tries to move an OD workflow from draft/dry-run to runtime us
 - [ ] Public/internal agent separation is preserved; internal agents do not post directly.
 - [ ] `advisory_only` remains the MVP poll default unless a separate mandate registry gate is approved.
 - [ ] No democratic mandate claim is possible without Mandate Registry evidence and human-admin approval.
-- [ ] No autonomous spending and no crypto/payment flows are enabled in Phase 1.
+- [ ] No autonomous spending, no crypto/payment flows, and crypto disabled in Phase 1 remain enforced.
 - [ ] Safety-report/watchdog outputs omit raw private content, raw author IDs, secrets, and sensitive previews.
 - [ ] Rollback/emergency-stop behavior is tested or explicitly blocked pending implementation.
 - [ ] Changes to SOUL.md, Constitution, role, visibility, autonomy level, or political orientation remain GitHub-PR-gated.
