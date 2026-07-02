@@ -18,7 +18,7 @@ This artifact does **not**:
 
 - declare OD legally compliant with the EU AI Act or GDPR,
 - create a live production incident-response team,
-- enable live Discord posting or public automated replies,
+- enable live Discord posting or public automated replies (`no live posting` remains the default until a separate human-approved gate),
 - collect or process additional personal data,
 - publish raw Discord content, raw author IDs, secrets, or private incident evidence,
 - grant democratic mandate or make MVP polls binding (`advisory_only` remains the default),
