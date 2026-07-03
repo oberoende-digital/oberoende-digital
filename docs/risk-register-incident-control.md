@@ -68,10 +68,10 @@ A PR or issue that tries to move an OD workflow from draft/dry-run to runtime us
 - [ ] Risk register entry exists and is human-reviewed.
 - [ ] Incident process owner and escalation path are named.
 - [ ] GDPR lawful basis, minimization, retention, DSAR/erasure, and ROPA/DPIA linkage are documented where personal data is involved.
-- [ ] EU AI Act transparency and synthetic-disclosure controls are documented for public AI output.
+- [ ] EU AI Act transparency, synthetic-disclosure controls, and transparent AI identity wording are documented for public AI output.
 - [ ] Public/internal agent separation is preserved; internal agents do not post directly.
 - [ ] `advisory_only` remains the MVP poll default unless a separate mandate registry gate is approved.
-- [ ] No democratic mandate claim is possible without Mandate Registry evidence and human-admin approval.
+- [ ] No false democratic mandate claim is possible without Mandate Registry evidence and human-admin approval.
 - [ ] No autonomous spending, no crypto/payment flows, and crypto disabled in Phase 1 remain enforced.
 - [ ] Safety-report/watchdog outputs omit raw private content, raw author IDs, secrets, and sensitive previews.
 - [ ] Rollback/emergency-stop behavior is tested or explicitly blocked pending implementation.
